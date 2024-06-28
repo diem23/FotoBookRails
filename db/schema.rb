@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_27_032217) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_28_013522) do
   create_table "albums", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -58,4 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_032217) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "albums", "users"
+  add_foreign_key "photos", "albums"
+  add_foreign_key "photos", "users"
 end

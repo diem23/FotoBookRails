@@ -6,7 +6,7 @@ class CreateAlbums < ActiveRecord::Migration[7.1]
       t.boolean :isPrivate
       t.integer :numOfLikes
       t.integer :numOfPhotos
-      t.belongs_to :user
+      t.belongs_to :user, foreign_key: true
       t.timestamps
     end
   end
