@@ -5,27 +5,38 @@
 
       <div class="signup-box">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
-          <% puts resource.errors[:email].first, "testinggggggggggggggggggg" %>
-          <div class="field w-100">
-            <%= f.label :firstName %><br />
+          
+          <div class="w-100">
+            <%= f.label :firstName %>
             <%= f.text_field :firstName, autofocus: true, autocomplete: "firstName" , class: "form-control", placeholder: "First Name"%>
+            <% if resource.errors.has_key?(:firstName) %>
+              <p class="error-message mb-0"> <%= resource.errors[:firstName].first %></p>
+            <% end %>
           </div>
       
           <div class="field w-100">
-            <%= f.label :lastName %><br />
+            <%= f.label :lastName %>
             <%= f.text_field :lastName, autofocus: true, autocomplete: "lastName" , class: "form-control",placeholder: "Last Name"%>
+            <% if resource.errors.has_key?(:lastName) %>
+              <p class="error-message mb-0"> <%= resource.errors[:lastName].first %></p>
+            <% end %>
           </div>
       
           <div class="field w-100">
-            <%= f.label :email %><br />
+            <%= f.label :email %>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "email123@gmail.com" %>
+            <% if resource.errors.has_key?(:email) %>
+              <p class="error-message mb-0"> <%= resource.errors[:email].first %></p>
+            <% end %>
           </div>
       
           <div class="field w-100">
             <%= f.label :password %>
-            <br />
+            
             <%= f.password_field :password, autocomplete: "new-password" , class: "form-control", placeholder: "Password"%>
+            <% if resource.errors.has_key?(:password) %>
+              <p class="error-message mb-0"> <%= resource.errors[:password].first %></p>
+            <% end %>
           </div>
       
           <div class="field w-100">
@@ -34,7 +45,6 @@
           </div>
       
           <div class="actions w-100 d-flex justify-content-center mt-1">
-            
             <button type="submit" class="btn btn-primary px-4 py-2 ">Signup</button>
           </div> 
         <% end %>
