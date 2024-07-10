@@ -1,0 +1,108 @@
+/* @import "application.css"; */
+@import url(./reset.css);
+.feed .nav-list a:nth-child(1) li{
+    color: var(--main-color);
+}
+.center-container{
+    background-color: #fff;
+}
+.center-container .switch-mode{
+    border-radius: 3px;
+    border: var(--main-color) solid 1px;
+}
+.center-container .switch-mode a{
+    text-decoration: none;
+    font-size: var(--medium-text);
+    font-weight: var(--bold-text);
+}
+.center-container .switch-mode .album-btn{
+    color: white;
+    background-color: var(--main-color);
+}
+.center-container .switch-mode .photo-btn{
+    color: var(--main-color);
+    background-color: #fff;
+    border-radius: 3px;;
+    
+}
+.feed_album  .img-box{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 15px;
+    
+}
+.feed_album  .img-box .contain-rotate-img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.feed_album  .img-box img{
+    /* clip-path: fill-box; */
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    /* max-width: 100%;
+    height: 100%; */
+    object-fit: cover;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+
+}
+.feed_album  .img-box img:nth-child(1){
+    z-index: 1;
+    transform: rotate(10deg);
+}
+.feed_album  .img-box img:nth-child(2){
+    z-index: 2;
+    transform: rotate(4deg);
+}
+.feed_album  .img-box img:nth-child(3){
+    z-index: 3
+}
+.feed_album .item-box{
+    width: 438px;
+    
+    /* max-width: 466px; */
+    height: 255px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    border-radius: 3px;
+}
+.user-info-box .avt-icon{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--main-color);
+}
+.user-info-box p{
+    color: var(--main-color);
+    font-size: var(--small-text);
+    font-weight: var(--bold-text);
+    margin:0;
+}
+.upper-box .title{
+    margin: 0;
+    font-size: var(--xsmall-text);
+    font-weight: var(--bold-text);
+}
+.upper-box .description{
+    margin:0;
+    font-size: var(--small-text);
+    font-weight: var(--light-text);
+    line-height: 1.18em;
+}
+.react-box .counting-likes{
+    margin: 0;
+    color: var(--main-color);
+    font-size: var(--tiny-text);
+    font-weight: var(--light-text);
+}
+.react-box .heart{
+    color: var(--main-color);
+    
+}
+.bottom-box .time-box{
+    font-size: var(--tiny-text);
+    font-weight: var(--light-text);
+    color: var(--border-color);
+}
