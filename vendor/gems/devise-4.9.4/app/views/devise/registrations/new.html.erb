@@ -29,9 +29,8 @@
               <p class="error-message mb-0"> <%= resource.errors[:email].first %></p>
             <% end %>
           </div>
-      
           <div class="field w-100">
-            <%= f.label :password %>
+            <%= f.label :password%>
             
             <%= f.password_field :password, autocomplete: "new-password" , class: "form-control", placeholder: "Password"%>
             <% if resource.errors.has_key?(:password) %>

@@ -1,26 +1,26 @@
-<h2>Log in</h2>
+<%= stylesheet_link_tag "login" %>  
+<div class="container-content">
+  <div class="login-form">
+    <h2>Fotobook Login</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="login-box">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field">
+    
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" , class:"form-control", placeholder:"Enter email"%>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+        <div class="field">
+    
+          <%= f.password_field :password, autocomplete: "current-password", class:"form-control" ,placeholder:"Password"%>
+        </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+        <button type="submit" class="btn btn-primary px-4 py-2 ">Login</button>
+
+      <% end %>
+    <a href="#" class="mt-2">Forgot password?</a>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <a href="/users/sign_up">Create an account</a>
   </div>
-<% end %>
+</div>
 
-<%= render "devise/shared/links" %>

@@ -15,51 +15,51 @@
   </head>
 
   <body>
-
-    <div class="header-bar-mini d-lg-none row">
-            <div class="left-side-mini col-9 row align-items-center gx-2">
-                <div class="col-5 col-sm-4 d-flex align-items-center gap-6">
-                    <div class="dropdown show-dropdown">
-                        <button class="btn btn-secondary show-dropdown px-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-bars"></i>
+    <div class="page-container">
+        <div class="header-bar-mini d-lg-none row">
+                <div class="left-side-mini col-9 row align-items-center gx-2">
+                    <div class="col-5 col-sm-4 d-flex align-items-center gap-6">
+                        <div class="dropdown show-dropdown">
+                            <button class="btn btn-secondary show-dropdown px-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-bars"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <h1 >Fotobook</h1>
+                    </div>
+                    <div class="search-box col-6 col-sm-7">
+                        <input type="text" class="search d-none d-sm-inline-block" placeholder="Search Photo / Album">
+                        <input type="text" class="search d-sm-none" placeholder="Search">
+                    </div>
+                    
+                </div>
+                <div class="right-side-mini col-2 d-flex align-items-center justify-content-end">
+                    <div class="btn-group show-dropdown ">
+                        <button class="btn btn-secondary  show-dropdown px-2 " type="button" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avt-box "></div>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end" >
+                            <li >
+                                <button class="dropdown-item" type="button">
+                                    <div class="personal-box">
+            
+                                        <p>Minh Diem</p>
+                                    </div>
+                                </button>
+                            </li>
+                            <li  >
+                                <button class="dropdown-item" type="button" formaction="destroy_user_session_path">
+                                
+                                    <div class="logout-box">Logout</div>
+                                </button>
+                            </li>
                         </ul>
                     </div>
-                    <h1 >Fotobook</h1>
                 </div>
-                <div class="search-box col-6 col-sm-7">
-                    <input type="text" class="search d-none d-sm-inline-block" placeholder="Search Photo / Album">
-                    <input type="text" class="search d-sm-none" placeholder="Search">
-                </div>
-                
-            </div>
-            <div class="right-side-mini col-2 d-flex align-items-center justify-content-end">
-                <div class="btn-group show-dropdown ">
-                    <button class="btn btn-secondary  show-dropdown px-2 " type="button" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="avt-box "></div>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" >
-                        <li >
-                            <button class="dropdown-item" type="button">
-                                <div class="personal-box">
-        
-                                    <p>Minh Diem</p>
-                                </div>
-                            </button>
-                        </li>
-                        <li  >
-                            <button class="dropdown-item" type="button" formaction="destroy_user_session_path">
-                            
-                                <div class="logout-box">Logout</div>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
         <div class="header-bar d-none d-lg-flex row ml-0 mr-0">   
             <div class="left-side col-md-6 col-sm-6 row align-items-center ml-1">
@@ -72,11 +72,12 @@
                 </div>
             </div>
             <% if user_signed_in? %>
+                <% puts current_user.firstName %>
                 <div class="right-side col-md-6 col-sm-6 row">
                     <a href="#" class="col-md-8">
                         <div class="personal-box">
                             <div class="avt-box"></div>
-                            <p>Minh Diem</p>
+                            <p><%=current_user.firstName%></p>
                         </div>
                     </a>
                     <a href="/authenticate/login" class="col-md-3 d-flex justify-content:center" >
@@ -85,17 +86,18 @@
                     </a>
                 </div>
             <% else %>
-                 <div class="right-side  col-3 col-sm-2 ">
-                    <a href="../homepage/signedHomepage.html" class="h-100 d-flex flex-column justify-content-center align-items-center">
+                <div class="right-side  col-3 col-sm-2 ">
+                    <a href="/users/sign_in" class="h-100 d-flex flex-column justify-content-center align-items-center">
                         <div class="login-box">Login</div>
                     </a>
                 </div>
             <% end %>
 
         </div>
-      </div>
-    <div class="content-container w-100">
-    <%= yield %>
+        
+        <div class="content-container w-100">
+        <%= yield %>
+        </div>
     </div>
   </body>
 </html>

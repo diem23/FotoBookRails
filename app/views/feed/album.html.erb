@@ -9,13 +9,13 @@
     <%= stylesheet_link_tag "feed_album", "data-turbo-track": "reload" %>
   </head>
     <body>
-    <div class="row h-100">
+    <div class="row h-100 feed">
                 <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
-                    <ul class="d-inline-block " id="nav-list">
+                    <ul class="d-inline-block nav-list" >
                         <a href="#">
                             <li class="d-block mb-2">Feeds</li>
                         </a>
-                        <a href="../../discover/Photo/discoverPhoto.html">
+                        <a href="/discover/photo">
                             <li class="d-block mb-2">Discover</li>
                         </a>
                     </ul>
@@ -30,99 +30,91 @@
                             <div class="album-btn p-2">ALBUM</div>
                         </a>
                     </div>
-                    <div class="w-100 d-flex flex-wrap gap-20 mt-4 h-100 mb-4 ">
-                        
-                            <div class="row mx-0 item-box">
-                                <div class="col-7  img-box">
-                                    <div class="contain-rotate-img">
-                                        <img src="../../asset/img/photo.jpeg" alt="">
-                                        <img src="../../asset/img/photo.jpeg" alt="">
-                                        <img src="../../asset/img/photo.jpeg" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-5 h-100 p-2 d-flex flex-column justify-content-between">
-                                    <div class="upper-box d-flex flex-column gap-10 ">
-                                        <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
-                                            <div class="avt-icon">  </div>
-                                            <p class="user-name">Hieu Nguyen</p>
-                                        </div>
-                                        <p class="title"> Nam tempor posuere faucibus</p>
-                                        <p class="description">Aliquam dictum nec massa ac consequat. Etiam dignissim tincidunt tellus sed vestibulum. Sed vitae vestibulum purus. Curabitur malesuada libero in nibh pretium, sed malesuada nisi feugiat.</p>
-                                        
-                                    </div>
-                                    <div class="bottom-box d-flex flex-row justify-content-between">
-                                        <div class="react-box d-flex flex-row align-items-center gap-2">
-                                            <i class="fa-solid fa-heart fa-xs heart"></i>
-                                            <p class="counting-likes">123</p>
-                                        </div>
-                                        <div class="time-box">
-                                            4:56 pm 01/04/2018
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="w-100 feed_album d-flex flex-wrap gap-20 mt-4 h-100 mb-4 ">
+                        <% if ! user_signed_in? %>
+                            <% p "not signed", "testinggggggggggggggg" %>
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <p> Please sign in to view this content</p>
                             </div>
-                        
-                        
-                            <div class="row mx-0 item-box ">
-                                <div class="col-7  img-box">
-                                    <div class="contain-rotate-img">
-                                        <img src="../../asset/img/anime1" alt="">
-                                        <img src="../../asset/img/anime1" alt="">
-                                        <img src="../../asset/img/anime1" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-5 h-100 p-2 d-flex flex-column justify-content-between">
-                                    <div class="upper-box d-flex flex-column gap-10 ">
-                                        <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
-                                            <div class="avt-icon">  </div>
-                                            <p class="user-name">Hieu Nguyen</p>
-                                        </div>
-                                        <p class="title"> Nam tempor posuere faucibus</p>
-                                        <p class="description">Aliquam dictum nec massa ac consequat. Etiam dignissim tincidunt tellus sed vestibulum. Sed vitae vestibulum purus. Curabitur malesuada libero in nibh pretium, sed malesuada nisi feugiat.</p>
-                                        
-                                    </div>
-                                    <div class="bottom-box d-flex flex-row justify-content-between">
-                                        <div class="react-box d-flex flex-row align-items-center gap-2">
-                                            <i class="fa-solid fa-heart fa-xs heart"></i>
-                                            <p class="counting-likes">123</p>
-                                        </div>
-                                        <div class="time-box">
-                                            4:56 pm 01/04/2018
-                                        </div>
-                                    </div>
-                                </div>
+                        <% elsif @list_albums.empty? %>
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <p>There is no album</p>
                             </div>
-                        
-                        
-                            <div class="row mx-0 item-box ">
-                                <div class="col-7 img-box">
-                                    <div class="contain-rotate-img">
-                                        <img src="../../asset/img/anime.jpg" alt="">
-                                        <img src="../../asset/img/anime.jpg" alt="">
-                                        <img src="../../asset/img/anime.jpg" alt="">
+                        <% else %>
+                            <% @list_albums.each_with_index do |ele,index|%>
+                                <div class="row mx-0 item-box " data-bs-toggle="modal" data-bs-target="<%='#albumModal'+index.to_s%>">
+                                    <% @list_photos = Album.find(ele.id).photos.public_photos %>
+                                    <div class="col-7  img-box">
+                                        <div class="contain-rotate-img">
+                                            <% @list_photos.each_with_index do |photo,index| %>
+                                                    <%break if index == 3%>
+                                                    <img src="<%=photo.image%>" alt="">
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 h-100 p-2 d-flex flex-column justify-content-between">
+                                        <div class="upper-box d-flex flex-column gap-10 ">
+                                            <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
+                                                <div class="avt-icon">  </div>
+                                                <p class="user-name"><%=ele.firstName%></p>
+                                            </div>
+                                            <p class="title"> </p>
+                                            <p class="description"><%=ele.description%></p>
+                                            
+                                        </div>
+                                        <div class="bottom-box d-flex flex-row justify-content-between">
+                                            <div class="react-box d-flex flex-row align-items-center gap-2">
+                                                <i class="fa-solid fa-heart fa-xs heart"></i>
+                                                <p class="counting-likes"><%=ele.numOfLikes%></p>
+                                            </div>
+                                            <div class="time-box">
+                                                <%= ele.created_at.strftime("%H:%M #{ele.created_at.strftime('%p').downcase} %d/%m/%Y") %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-5 h-100 p-2 d-flex flex-column justify-content-between">
-                                    <div class="upper-box d-flex flex-column gap-10 ">
-                                        <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
-                                            <div class="avt-icon">  </div>
-                                            <p class="user-name">Hieu Nguyen</p>
-                                        </div>
-                                        <p class="title"> Nam tempor posuere faucibus</p>
-                                        <p class="description">Aliquam dictum nec massa ac consequat. Etiam dignissim tincidunt tellus sed vestibulum. Sed vitae vestibulum purus. Curabitur malesuada libero in nibh pretium, sed malesuada nisi feugiat.</p>
-                                        
-                                    </div>
-                                    <div class="bottom-box d-flex flex-row justify-content-between">
-                                        <div class="react-box d-flex flex-row align-items-center gap-2">
-                                            <i class="fa-solid fa-heart fa-xs heart"></i>
-                                            <p class="counting-likes">123</p>
-                                        </div>
-                                        <div class="time-box">
-                                            4:56 pm 01/04/2018
+                                <!-- Modal -->
+                                <div class="modal fade " id="<%='albumModal'+index.to_s%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%=ele.title%></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body d-flex flex-column gap-2">
+                                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                                    
+                                                    <div class="carousel-inner">
+
+                                                        <div class="carousel-item active">
+                                                            <img src="<%=@list_photos[0].image%>" class="d-block w-100" alt="...">
+                                                        </div>
+                                                     
+                                                        <% @list_photos.each_with_index do |photo,index| %>
+                                                            <% next if index == 0%>
+                                                            <div class="carousel-item">
+                                                                <img src="<%=photo.image%>" class="d-block w-100" alt="...">
+                                                            </div>
+                                                        <% end %>
+                                                    </div>
+                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                    </button>
+                                                </div>
+                                                <p><%=ele.description%></p>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <%end%>
+                        <% end %>
+                            
                     </div>
                 </div>
                 <div class="col-0 col-lg-2"></div>

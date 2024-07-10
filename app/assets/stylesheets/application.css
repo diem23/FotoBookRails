@@ -62,8 +62,10 @@
     height: 90%;
 }
 .content-container{
+    background-color: var(--login-bgc);
     position: absolute;
-    top: 60px;
+    top: var(--header-height);
+    padding-top: 60px;
     right:0;
     left: 0;
     bottom: 0;
@@ -175,15 +177,15 @@ header-bar-mini{
     font-weight: var(--bold-text);
     
 }
-#nav-list li{
+.nav-list li{
     color: var(--normal-text-color1);
     font-size: var(--medium-text);
     font-weight: var(--bold-text);
 }
-#nav-list a{
+.nav-list a{
     text-decoration:none;
 }
-#nav-list li:hover{
+.nav-list li:hover{
     color: black;
 }
 /* @media screen and (max-width: 900px){
