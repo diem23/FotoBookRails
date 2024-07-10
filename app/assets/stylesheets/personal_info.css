@@ -1,0 +1,50 @@
+:root{
+    --personal-info-header-height: 200px;
+}
+.personal_nav a{
+    display: inline-block;
+}
+.personal_nav a:nth-child(1) li{
+    padding-left: 0;
+    color: var(--main-color);
+}
+.personal_nav a:last-child li{
+    border-right: none;
+}
+.personal_nav li{
+    font-size: var(--medium-text);
+    font-weight: var(--bold-text);
+    display: inline-block;
+    padding: 0 10px;
+    border-right: 1px solid #ccc
+}
+.personal_nav li span{
+    font-size: var(--large-text);
+}
+.personal-info .center-container{
+    padding: 30px 60px;
+}
+.personal-info .user-avt-box{
+    height: var(--personal-info-header-height);
+    width: var(--personal-info-header-height);
+    border-radius: 50%;
+    overflow: hidden;
+}
+.personal-info .user-avt-box img, .personal-info .img-box img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+}
+/* .personal-info .img-box{
+    border-radius: 3px;
+    overflow: hidden;
+} */
+.personal-info .img-box img{
+    border-radius: 10px;
+}
+.personal-info .img-box p{
+    text-align: center;
+    padding-top: 5px;
+    font-size: var(--small-text);
+}

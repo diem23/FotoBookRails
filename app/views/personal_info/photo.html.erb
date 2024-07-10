@@ -10,28 +10,44 @@
                     </ul>
         </div>
     <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-8">
-                <button>following</button>
+        <div class="row w-100 ">
+            <div class="col-3 p-0">
+                <div class="user-avt-box">
+                    <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-9 d-flex flex-column gap-10">
+                <%= form_with url: "/discover/follow", method: :put, local: true do |f| %>
+                    <%= f.hidden_field :user_id, value: @target_user.id %>
+                    <%= f.button "Follow", class: "follow-btn d-flex justify-content-center" , id: "followButton" %>
+                <% end %>
                 <h2>Hansford Nguyen</h2>
-                <div>
-                    <ul>
-                        <li>108 PHOTOS</li>
-                        <li>43 ALBUMS</li>
-                        <li>22 FOLLOWINGS</li>
-                        <li>13 FOLLOWERS</li>
+                <div >
+                    <ul class="personal_nav p-0 m-0">
+                        <a><li><span>108</span> PHOTOS</li></a><a><li><span>43</span> ALBUMS</li></a><a><li><span>22</span> FOLLOWINGS</li></a><a><li><span>13</span> FOLLOWERS</li></a>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <div class="row g-2">
-            <div class="col-2 d-flex flex-column g-1">
+        <div class="row gap-40 m-0 mt-5">
+            <div class="col-2 d-flex flex-column img-box g-1">
                 <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
                 <p>Photo tile goes here</p>
             </div>
-        </div>
+            <div class="col-2 d-flex flex-column img-box g-1">
+                <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
+                <p>Photo tile goes here</p>
+            </div>
+            <div class="col-2 d-flex flex-column img-box g-1">
+                <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
+                <p>Photo tile goes here</p>
+            </div>
+            <div class="col-2 d-flex flex-column img-box g-1">
+                <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
+                <p>Photo tile goes here</p>
+            </div>
+            </div>
     </div>
     <div class="col-0 col-lg-2"></div>
     
