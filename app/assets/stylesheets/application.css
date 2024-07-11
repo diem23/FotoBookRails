@@ -27,10 +27,12 @@
     --alert-bgc:#EB5757;
     /*FONT-SIZE THEME*/
     --tiny-text: 10px;
+    --xtiny-text: 12px;
     --small-text: 13px;
     --xsmall-text: 14px;
     --medium-text: 15px;
     --large-text: 20px;
+    --big-text: 30px;
     --giant-text: 40px;
     /*FONT-WEIGHT THEME*/
     --bold-text: 700;

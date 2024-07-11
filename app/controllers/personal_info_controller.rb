@@ -13,8 +13,10 @@ class PersonalInfoController < ApplicationController
       @list_albums = @target_user.albums.where(isPrivate: false).order('albums.created_at DESC')
     end
     def following
+      @target_user= User.find(params[:id])
     end
     def follower
+      @target_user= User.find(params[:id])
     end
 
   end
