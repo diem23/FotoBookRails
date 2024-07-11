@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get "/articles", to: "articles#index"
   put "/discover/follow", to: "discover#follow", as: :follow, defaults: { format: :json }
   get "/personal_info/photo", to: "personal_info#photo"
+  get "/personal_info/album", to: "personal_info#album"
+  get "/personal_info/following", to: "personal_info#following"
+  get "/personal_info/follower", to: "personal_info#follower"
   scope module: 'users' do
     resources :photos, :albums
   end
