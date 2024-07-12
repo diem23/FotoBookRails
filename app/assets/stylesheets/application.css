@@ -202,5 +202,8 @@ header-bar-mini{
         display:flex
     }
 } */
+.unheart{
+    color: #BDBDBD !important;
+}
 
 

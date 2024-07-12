@@ -1,6 +1,8 @@
 class Album < ApplicationRecord
     has_many :photos, dependent: :destroy, before_add: :handle_before_add
     belongs_to :user
+    has_many :react_albums, dependent: :destroy
+    has_many :reacted_users, through: :react_albums, source: :user
     #VALIDATION
     validates_associated :photos
     validates :isPrivate, inclusion: { in: [true, false], message:"Must be a boolean"}
@@ -13,7 +15,6 @@ class Album < ApplicationRecord
     before_validation :handle_before_validate
 
     def handle_before_validate
-        puts("test before create call back")
         self.numOfLikes=0 if self.numOfLikes == nil
         self.numOfPhotos=0 if self.numOfPhotos == nil
         self.isPrivate=true if self.isPrivate == nil

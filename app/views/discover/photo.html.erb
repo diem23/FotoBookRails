@@ -1,7 +1,7 @@
-<div class="row h-100 discover">
+<div class="row h-100 discover photo">
                     <div class="col-0 col-lg-2 d-flex flex-row justify-content-center mt-4">
                         <ul class="d-none d-lg-inline-block nav-list" >
-                            <a href="../../feed/Photo/photo.html">
+                            <a href="/">
                                 <li class="d-block mb-2">Feeds</li>
                             </a>
                             <a href="#">
@@ -15,73 +15,51 @@
                             <a href="#">
                                 <div class="photo-btn p-2">PHOTO</div>
                             </a>
-                            <a href="../Album/discoverAlbum.html">
+                            <a href="/discover/album">
                                 <div class="album-btn p-2">ALBUM</div>
                             </a>
                         </div>
                         <div class="row w-100 h-90 " >
                             <% @list_photos.each_with_index do |ele,index|%>
-                                <div class="col-xl-6  col-12">
-                                    <div class="row item-box mt-4" data-bs-toggle="modal" data-bs-target="<%='#imageModal'+index.to_s%>">
-                                        <div class="col-6  img-box p-0">
-                                            <img src="<%= ele.image %>" alt="">
-                                        </div>
-                                        <div class="col-6 h-100 p-2 d-flex flex-column justify-content-between">
-                                            <div class="upper-box d-flex flex-column gap-10">
-                                                <div class="user-info-box d-flex justify-content-between align-items-center gap-10">
-                                                    <div class="d-flex flex-row gap-10 align-items-center ">
-                                                        <div class="avt-icon">  </div>
-                                                        <p class="user-name"><%=ele.user.firstName%></p>
-                                                    </div>
-                                                    <%= form_with url: "/discover/follow", method: :put, local: true do |f| %>
-                                                        <%= f.hidden_field :user_id, value: ele.user.id %>
-                                                        <%= f.button "Follow", class: "follow-btn d-flex justify-content-center" , id: "followButton" %>
-                                                    <% end %>
-                                                </div>
-                                                <p class="title"><%=ele.title%></p>
-                                                <p class="description"><%=ele.description%></p>
-                                                
-                                            </div>
-                                            <div class="bottom-box d-flex flex-row justify-content-between">
-                                                <div class="react-box d-flex flex-row align-items-center gap-2">
-                                                    <i class="fa-solid fa-heart fa-xs heart"></i>
-                                                    <p class="counting-likes"><%=ele.numOfLikes%></p>
-                                                </div>
-                                                <div class="time-box">
-                                                    <%= ele.created_at.strftime("%H:%M #{ele.created_at.strftime('%p').downcase} %d/%m/%Y") %>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade " id="<%='imageModal'+index.to_s%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
-                                        <div class="modal-content">
-                                            <div class="modal-header d-flex flex-row justify-content-between">
-                                                <h5 class="modal-title" id="exampleModalLabel"><%=ele.title%></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body d-flex flex-column gap-2">
-                                                <img src="<%=ele.image%>" class="img-fluid" alt="...">
-                                                <p><%=ele.description%></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <%=render 'shared/discover/photo_card', ele: ele, index: index %>
                             <% end %>
-                            
-                            
-
                         </div>
-                    
                     </div>
             </div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('followButton').addEventListener('click', function(event) {
-      event.stopPropagation();
-      // Add any additional logic you want to execute when the button is clicked
-    });
-  });
+
+    let likeBtns = document.querySelectorAll('.like-btn')
+    likeBtns.forEach((btn)=>{
+        btn.addEventListener('click',function stopPropagation(event){
+            console.log("onclick like")
+            event.stopPropagation();
+            if (btn.classList.contains("unheart")){
+                console.log("Hello")
+                btn.classList.remove("unheart")
+            }else{
+                console.log("hehe")
+                btn.classList.add("unheart")
+            }
+        })
+    })                                                 
+    let followBtns =   document.querySelectorAll('.follow-btn')  
+    followBtns.forEach((btn)=>{
+        btn.addEventListener('click',function stopPropagation(event){
+            event.stopPropagation();
+            if (btn.innerHTML == "Follow"){
+                btn.innerHTML = "Following"
+                btn.classList.add("unfollow-btn")
+            }else{
+                btn.innerHTML = "Follow"
+                btn.classList.remove("unfollow-btn")
+            }
+        })
+    })                                               
+    
+    function showModal(modalId){
+        var myModal = new bootstrap.Modal(document.getElementById(modalId), {
+            keyboard: false
+        })
+        myModal.show()
+    }
 </script>

@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   get "/personal_info/album", to: "personal_info#album"
   get "/personal_info/following", to: "personal_info#following"
   get "/personal_info/follower", to: "personal_info#follower"
+  # post "/react_photo", to: "react_photos#create"
+  # delete "/react_photo", to: "react_photos#destroy"
+  # post "/react_album", to: "react_albums#create"
+  # delete "/react_album", to: "react_albums#destroy"
+  put "/react_photos", to: "react_photos#handle_like", as: :react_photo, defaults: { format: :json }
+  put "/react_albums", to: "react_albums#handle_like", as: :react_album, defaults: { format: :json }
   scope module: 'users' do
     resources :photos, :albums
   end

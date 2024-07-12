@@ -2,6 +2,8 @@ class Photo < ApplicationRecord
     #ASSOCIATION
     belongs_to :user
     belongs_to :album, optional: true
+    has_many :react_photos, dependent: :destroy
+    has_many :reacting_users, through: :react_photos, source: :user
     #VALIDATION
     validates :title, length: {maximum: 140}
     validates :description, length: {maximum: 300}

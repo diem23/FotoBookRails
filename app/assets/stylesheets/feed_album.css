@@ -15,11 +15,18 @@
     font-size: var(--medium-text);
     font-weight: var(--bold-text);
 }
-.center-container .switch-mode .album-btn{
+.feed.album .switch-mode .album-btn, 
+.feed.photo .switch-mode .photo-btn,
+.discover.album .switch-mode .album-btn,
+.discover.photo .switch-mode .photo-btn
+{
     color: white;
     background-color: var(--main-color);
 }
-.center-container .switch-mode .photo-btn{
+.feed.album .switch-mode .photo-btn,
+.discover.album .switch-mode .photo-btn,
+.feed.photo .switch-mode .album-btn,
+.discover.photo .switch-mode .album-btn{
     color: var(--main-color);
     background-color: #fff;
     border-radius: 3px;;

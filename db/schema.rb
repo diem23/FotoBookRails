@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_07_072022) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_11_132734) do
   create_table "albums", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -46,6 +46,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_07_072022) do
     t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
+  create_table "react_albums", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "album_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_react_albums_on_album_id"
+    t.index ["user_id"], name: "index_react_albums_on_user_id"
+  end
+
+  create_table "react_photos", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "photo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photo_id"], name: "index_react_photos_on_photo_id"
+    t.index ["user_id"], name: "index_react_photos_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "profileImg"
     t.string "firstName"
@@ -74,4 +92,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_07_072022) do
   add_foreign_key "albums", "users"
   add_foreign_key "photos", "albums"
   add_foreign_key "photos", "users"
+  add_foreign_key "react_albums", "albums"
+  add_foreign_key "react_albums", "users"
+  add_foreign_key "react_photos", "photos"
+  add_foreign_key "react_photos", "users"
 end

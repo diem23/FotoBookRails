@@ -1,0 +1,68 @@
+<div class="row h-100 discover album">
+    <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
+        <ul class="d-inline-block nav-list" >
+            <a href="#">
+                <li class="d-block mb-2">Feeds</li>
+            </a>
+            <a href="/discover/photo">
+                <li class="d-block mb-2">Discover</li>
+            </a>
+        </ul>
+    </div>
+    <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
+        
+        <div class="switch-mode d-flex mt-4">
+            <a href="/discover/photo">
+                <div class="photo-btn p-2">PHOTO</div>
+            </a>
+            <a href="#">
+                <div class="album-btn p-2">ALBUM</div>
+            </a>
+        </div>
+        <div class="w-100 feed_album d-flex flex-wrap gap-20 mt-4 h-100 mb-4 ">
+            <% if ! user_signed_in? %>
+                <% p "not signed", "testinggggggggggggggg" %>
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <p> Please sign in to view this content</p>
+                </div>
+            <% elsif @list_albums.empty? %>
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <p>There is no album</p>
+                </div>
+            <% else %>
+                <% @list_albums.each_with_index do |ele,index|%>
+                    <%= render 'shared/discover/album_card', ele: ele, index: index %>
+                <%end%>
+            <% end %>
+                
+        </div>
+    </div>
+    <div class="col-0 col-lg-2"></div>
+</div> 
+<script>
+    
+    console.log("hehe")                                                       
+    let followBtns =   document.querySelectorAll('.follow-btn')  
+    followBtns.forEach((btn)=>{
+        btn.addEventListener('click',function stopPropagation(event){
+            event.stopPropagation();
+            if (btn.innerHTML == "Follow"){
+                btn.innerHTML = "Following"
+                btn.classList.add("unfollow-btn")
+            }else{
+                btn.innerHTML = "Follow"
+                btn.classList.remove("unfollow-btn")
+            }
+        })
+    })                                               
+    
+    function showModal(modalId){
+        var myModal = new bootstrap.Modal(document.getElementById(modalId), {
+            keyboard: false
+        })
+        myModal.show()
+    }
+    
+
+    
+</script>

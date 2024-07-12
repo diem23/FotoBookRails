@@ -1,4 +1,6 @@
+
 class Users::PhotosController < ApplicationController
+
   def index
   end
 
@@ -19,4 +21,6 @@ class Users::PhotosController < ApplicationController
 
   def destroy
   end
+
+
 end

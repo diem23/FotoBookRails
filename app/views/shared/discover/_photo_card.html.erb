@@ -1,0 +1,46 @@
+<%puts "==================" %>
+<%puts local_assigns %>
+<%ele=local_assigns[:ele] %>
+<%index=local_assigns[:index] %>
+<div class="col-xl-6  col-12">
+    <div class="row item-box mt-4" onclick="showModal('<%='imageModal'+index.to_s%>')" data-bs-target="<%='#imageModal'+index.to_s%>">
+        <div class="col-6  img-box p-0">
+            <img src="<%= ele.image %>" alt="">
+        </div>
+        <div class="col-6 h-100 p-2 d-flex flex-column justify-content-between">
+            <div class="upper-box d-flex flex-column gap-10">
+                <div class="user-info-box d-flex justify-content-between align-items-center gap-10">
+                    <div class="d-flex flex-row gap-10 align-items-center ">
+                        <div class="avt-icon">  </div>
+                        <p class="user-name"><%=ele.user.firstName%></p>
+                    </div>
+                    <%=render 'shared/follow_button', id: ele.user.id%>
+                </div>
+                <p class="title"><%=ele.title%></p>
+                <p class="description"><%=ele.description%></p>
+                
+            </div>
+            <div class="bottom-box d-flex flex-row justify-content-between">
+                <%= render 'shared/like_button', ele: ele , list_to_check: @list_reacted_photos%>
+                <div class="time-box">
+                    <%= ele.created_at.strftime("%H:%M #{ele.created_at.strftime('%p').downcase} %d/%m/%Y") %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade " id="<%='imageModal'+index.to_s%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+        <div class="modal-content">
+            <div class="modal-header d-flex flex-row justify-content-between">
+                <h5 class="modal-title" id="exampleModalLabel"><%=ele.title%></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column gap-2">
+                <img src="<%=ele.image%>" class="img-fluid" alt="...">
+                <p><%=ele.description%></p>
+            </div>
+        </div>
+    </div>
+</div>
