@@ -21,7 +21,7 @@
                         </div>
                         <div class="row w-100 h-90 " >
                             <% @list_photos.each_with_index do |ele,index|%>
-                                <%=render 'shared/discover/photo_card', ele: ele, index: index %>
+                                <%=render 'shared/photo_card', ele: ele, index: index , have_follow: true%>
                             <% end %>
                         </div>
                     </div>

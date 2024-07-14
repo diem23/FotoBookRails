@@ -2,7 +2,7 @@ require 'debouncer/debounceable'
 class DiscoverController < ApplicationController
     extend Debouncer::Debounceable
     def photo
-        @list_following = current_user.following.pluck(:id)
+        @list_following = current_user.following.pluck(:id) 
         puts @list_following, "list_followingggggggggggggggggggggg"
         @list_reacted_photos = current_user.reacted_photos.pluck(:id)
         puts @list_reacted_photos
