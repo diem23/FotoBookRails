@@ -25,14 +25,15 @@
                                     <%= f.label :isPrivate, "Sharing mode" , class: "form-label"%>
                                     <br/>
                                     <div class="sharing-mode-box">
-                                        <%= f.select :isPrivate,  [["Public", false], ["Private", true]] , {},{class: 'sharing-mode'}%>
+                                        <%= f.select :isPrivate,  [["Public", "0"], ["Private", "1"]] , {},{class: 'sharing-mode'}%>
                                         <i class="fa-solid fa-angle-down down-arrow"></i>
                                     </div>
                                     
                                 </div>
                                 <div class="upload-photo-box mt-3">
-                                    <%= f.file_field :image, class: "form-control browse-btn" %>
+                                    <%= f.file_field :image, class: "form-control browse-btn", id: "photoInput" %>
                                     <i class="fa-solid fa-plus add-btn"></i>
+                                    <img id="previewImage" src="#" alt="" style="display: none;"/>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -51,3 +52,22 @@
                 </div>
                 <div class="col-0 col-lg-2"></div>
             </div> 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var photoInput = document.getElementById('photoInput');
+  var previewImage = document.getElementById('previewImage');
+
+  photoInput.addEventListener('change', function(event) {
+    console.log("change")
+    var file = event.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        previewImage.src = e.target.result;
+        previewImage.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+});
+</script>

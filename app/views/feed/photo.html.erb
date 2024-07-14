@@ -37,13 +37,15 @@
                     <div class="col-12 d-flex justify-content-center align-items-center">
                         <p> Please sign in to view this content</p>
                     </div>
-                <% elsif @list_photos.empty? %>
+                <% elsif @list_following.empty? %>
                     <div class="col-12 d-flex justify-content-center align-items-center">
                         <p>There is no photo</p>
                     </div>
                 <% else %>  
                     <% @list_photos.each_with_index do |ele,index|%>
+                        
                         <%= render 'shared/photo_card', ele: ele, index: index, have_follow: false %>
+                        
                     <% end %>
                 <% end %>
                 

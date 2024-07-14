@@ -5,7 +5,13 @@
 <div class="col-xl-6  col-12">
     <div class="row item-box mt-4" onclick="showModal('<%='imageModal'+index.to_s%>')" data-bs-target="<%='#imageModal'+index.to_s%>">
         <div class="col-6  img-box p-0">
-            <img src="<%= ele.image %>" alt="">
+            <% if %w( http https).include?URI.parse(ele.image).scheme %>
+                <img src="<%=ele.image%>" alt="">
+            <% else %>
+                <% uploader = PhotoUploader.new(Photo.new(id: ele.id), :image) %>
+                <% uploader.retrieve_from_store!(ele.image) %>
+                <img src="<%= uploader%>" alt="">
+            <% end %>
         </div>
         <div class="col-6 h-100 p-2 d-flex flex-column justify-content-between">
             <div class="upper-box d-flex flex-column gap-10">
