@@ -9,7 +9,7 @@
     <%= stylesheet_link_tag "feed_album", "data-turbo-track": "reload" %>
   </head>
     <body>
-    <div class="row h-100 feed">
+    <div class="row h-100 feed album">
                 <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list" >
                         <a href="#">
@@ -42,76 +42,7 @@
                             </div>
                         <% else %>
                             <% @list_albums.each_with_index do |ele,index|%>
-                                <div class="row mx-0 item-box " data-bs-toggle="modal" data-bs-target="<%='#albumModal'+index.to_s%>">
-                                    <% @list_photos = Album.find(ele.id).photos.public_photos %>
-                                    <div class="col-7  img-box">
-                                        <div class="contain-rotate-img">
-                                            <% @list_photos.each_with_index do |photo,index| %>
-                                                    <%break if index == 3%>
-                                                    <img src="<%=photo.image%>" alt="">
-                                            <% end %>
-                                        </div>
-                                    </div>
-                                    <div class="col-5 h-100 p-2 d-flex flex-column justify-content-between">
-                                        <div class="upper-box d-flex flex-column gap-10 ">
-                                            <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
-                                                <div class="avt-icon">  </div>
-                                                <p class="user-name"><%=ele.firstName%></p>
-                                            </div>
-                                            <p class="title"> </p>
-                                            <p class="description"><%=ele.description%></p>
-                                            
-                                        </div>
-                                        <div class="bottom-box d-flex flex-row justify-content-between">
-                                            <div class="react-box d-flex flex-row align-items-center gap-2">
-                                                <i class="fa-solid fa-heart fa-xs heart"></i>
-                                                <p class="counting-likes"><%=ele.numOfLikes%></p>
-                                            </div>
-                                            <div class="time-box">
-                                                <%= ele.created_at.strftime("%H:%M #{ele.created_at.strftime('%p').downcase} %d/%m/%Y") %>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade " id="<%='albumModal'+index.to_s%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><%=ele.title%></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body d-flex flex-column gap-2">
-                                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                                    
-                                                    <div class="carousel-inner">
-
-                                                        <div class="carousel-item active">
-                                                            <img src="<%=@list_photos[0].image%>" class="d-block w-100" alt="...">
-                                                        </div>
-                                                     
-                                                        <% @list_photos.each_with_index do |photo,index| %>
-                                                            <% next if index == 0%>
-                                                            <div class="carousel-item">
-                                                                <img src="<%=photo.image%>" class="d-block w-100" alt="...">
-                                                            </div>
-                                                        <% end %>
-                                                    </div>
-                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Previous</span>
-                                                    </button>
-                                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Next</span>
-                                                    </button>
-                                                </div>
-                                                <p><%=ele.description%></p>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                                <%= render 'shared/album_card', ele: ele, index: index, have_follow: false %>
                             <%end%>
                         <% end %>
                             
@@ -120,3 +51,39 @@
                 <div class="col-0 col-lg-2"></div>
             </div> 
 </html>
+<script>
+let likeBtns = document.querySelectorAll('.like-btn')
+likeBtns.forEach((btn)=>{
+    btn.addEventListener('click',function stopPropagation(event){
+        console.log("onclick like")
+        event.stopPropagation();
+        if (btn.classList.contains("unheart")){
+            console.log("Hello")
+            btn.classList.remove("unheart")
+        }else{
+            console.log("hehe")
+            btn.classList.add("unheart")
+        }
+    })
+})                                                 
+let followBtns =   document.querySelectorAll('.follow-btn')  
+followBtns.forEach((btn)=>{
+    btn.addEventListener('click',function stopPropagation(event){
+        event.stopPropagation();
+        if (btn.innerHTML == "Follow"){
+            btn.innerHTML = "Following"
+            btn.classList.add("unfollow-btn")
+        }else{
+            btn.innerHTML = "Follow"
+            btn.classList.remove("unfollow-btn")
+        }
+    })
+})                                               
+
+function showModal(modalId){
+    var myModal = new bootstrap.Modal(document.getElementById(modalId), {
+        keyboard: false
+    })
+    myModal.show()
+}
+</script>

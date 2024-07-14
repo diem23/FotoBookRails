@@ -1,0 +1,38 @@
+.new-photo .header{
+    border-bottom: 3px solid var(--border-color);
+    font-weight: var(--bold-text);
+    font-size: var(--large-text);
+}
+
+.new-photo .sharing-mode{
+    width: 40%;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 6px 12px;
+    font-weight: var(--bold-text);
+    margin-right: -25px;
+}
+.new-photo .save-btn{
+    background-color: var(--btn-color);
+}
+.new-photo .upload-photo-box{
+    display:flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border: 3px dashed var(--border-color);
+    background-color: var(--login-bgc);
+}
+.new-photo .add-btn{
+    font-size: 70px;
+    color: var(--border-color)
+
+}
+.new-photo .browse-btn{
+    position: absolute;
+    width:100%;
+    height: 100%;
+    opacity: 0;
+}

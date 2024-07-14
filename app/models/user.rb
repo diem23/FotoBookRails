@@ -12,7 +12,10 @@ class User < ApplicationRecord
     has_many :passive_relate, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
     has_many :following, through: "active_relate", source: "followed"
     has_many :follower, through: "passive_relate", source: "follower"
-    
+    has_many :react_albums, dependent: :destroy
+    has_many :reacted_albums, through: :react_albums, source: :album
+    has_many :react_photos, dependent: :destroy
+    has_many :reacted_photos, through: :react_photos, source: :photo
     #VALIDATION
     #validates :email, format: {with: /^[A_Za_z]+[A_Za_z0_9]*@[A_Za_z]+(.[A_Za_z]+)+$/}
     validates :email, format: {with: /\A[A-Za-z]+[A-Za-z0-9]*@[A-Za-z]+(.[A-Za-z]+)+\z/}, length: {maximum: 255}
@@ -26,7 +29,6 @@ class User < ApplicationRecord
 
     #IMPLEMENT CALLBACK FUNCTIONS
     def handle_before_validation
-        puts ("this is callback function")
         self.isActive = true
         self.isAdmin = false
     end

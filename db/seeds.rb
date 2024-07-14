@@ -7,3 +7,26 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+5.times do |i|
+    User.create!(firstName: "user#{i}", lastName: "user#{i}", email: "user#{i}@gmail.com", password: "Diem@23", profileImg: "https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-dep.jpg")
+end
+User.all.each do |user|
+    5.times do |i|
+        user.photos.create!(title: "Photo#{i}",description: "This is photo of user #{user.firstName}", isPrivate: rand(2)==1, image: 'https://anhanime.com/wp-content/uploads/2024/02/Anh-Giyu-Tomioka-6.jpg')
+        user.albums.create!(title: "Album#{i}",description: "This is album of user #{user.firstName}", isPrivate: rand(2)==1)
+    end
+end
+Album.all.each do |album|
+    5.times do |i|
+        album.photos.create!(title: "Photo#{i}",description: "This is photo of album #{album.title} of #{album.user.firstName}", isPrivate: rand(2)==1, image: 'https://anhanime.com/wp-content/uploads/2024/02/Anh-Giyu-Tomioka-6.jpg')
+    end
+end
+list_user_id=User.pluck(:id)
+10.times do |i|
+    Follow.create!(follower_id: list_user_id[rand(list_user_id.length)], followed_id: list_user_id[rand(list_user_id.length)])
+    2.times do |j|
+        ReactAlbum.create!(user_id: list_user_id[rand(list_user_id.length)], album_id: Album.pluck(:id).sample)
+        ReactPhoto.create!(user_id: list_user_id[rand(list_user_id.length)], photo_id: Photo.pluck(:id).sample)
+    end
+end
+

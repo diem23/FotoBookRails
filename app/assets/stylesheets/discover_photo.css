@@ -128,14 +128,23 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
   }
- .follow-btn:hover {
-color: #fff;
--webkit-text-fill-color: #fff;
--webkit-background-clip: border-box;
-background-clip: border-box;
+.unfollow-btn {
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
 }
-
-.follow-btn:hover::before {
--webkit-mask: none;
+.unfollow-btn::before {
+    -webkit-mask: none;
 }
+  /* .follow-btn:hover {
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    }
+    
+    .follow-btn:hover::before {
+    -webkit-mask: none;
+    } */
 

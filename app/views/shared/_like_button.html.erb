@@ -1,0 +1,14 @@
+<% ele = local_assigns[:ele] %>
+<% list_to_check = local_assigns[:list_to_check] %>
+<div class="react-box d-flex flex-row align-items-center gap-2">
+    <% if list_to_check.include?(ele.id) %>
+        <%= button_to react_photo_path, method: :put, params: { photo_id: ele.id }, class: 'button-class', form: { class: 'form-class' } do %>
+            <i class="like-btn fa-solid fa-heart fa-xs heart unheart"></i>
+        <% end %>
+    <% else %>
+        <%= button_to react_photo_path, method: :put, params: { photo_id: ele.id }, class: 'button-class', form: { class: 'form-class' } do %>
+            <i class="like-btn fa-solid fa-heart fa-xs heart"></i>
+        <% end %> 
+    <% end %>  
+    <p class="counting-likes"><%=ele.numOfLikes%></p>
+</div>
