@@ -1,4 +1,6 @@
+require 'carrierwave/orm/activerecord'
 class Photo < ApplicationRecord
+    mount_uploader :image, PhotoUploader
     #ASSOCIATION
     belongs_to :user
     belongs_to :album, optional: true

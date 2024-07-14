@@ -49,7 +49,7 @@ gem 'responders', '~> 3.1', '>= 3.1.1'
 gem 'warden', '~> 1.2', '>= 1.2.9'
 gem 'bcrypt', '~> 3.1', '>= 3.1.20'
 gem 'omniauth-facebook'
-
+gem 'carrierwave', '~> 3.0'
 # Debounce
 gem 'debouncer'
 group :development, :test do
