@@ -1,13 +1,15 @@
 <% ele = local_assigns[:ele] %>
+<% p ele.id,"ele_id" %>
 <% index = local_assigns[:index] %>
 <% have_follow = local_assigns[:have_follow] %>
 <div class="row mx-0 item-box " onclick="showModal('<%='albumModal'+index.to_s%>')" data-bs-target="<%='#albumModal'+index.to_s%>">
     <% @list_photos = Album.find(ele.id).photos.public_photos %>
+    <% p @list_photos,"list_of_photossssssssssss" %>
     <div class="col-7  img-box">
         <div class="contain-rotate-img">
             <% @list_photos.each_with_index do |photo,index| %>
                     <%break if index == 3%>
-                    <img src="<%=photo.image.url%>" alt="">
+                    <img src="<%=photo.image%>" alt="">
             <% end %>
         </div>
     </div>

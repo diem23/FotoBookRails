@@ -10,6 +10,7 @@ class Photo < ApplicationRecord
     validates :title, length: {maximum: 140}
     validates :description, length: {maximum: 300}
     validates :isPrivate, inclusion: {in: [true, false]}
+    validates :image, presence: true
     validates :numOfLikes, numericality: { only_integer: true , message: "Must be an integer"}
     #SCOPES
     scope :public_photos, -> { where(isPrivate: false) }
