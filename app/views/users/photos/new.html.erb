@@ -33,7 +33,12 @@
                                 <div class="upload-photo-box mt-3">
                                     <%= f.file_field :image, class: "form-control browse-btn", id: "photoInput" %>
                                     <i class="fa-solid fa-plus add-btn"></i>
-                                    <img id="previewImage" src="#" alt="" style="display: none;"/>
+                                    <div id="previewImage" style= "display: none">
+                                        <img  src="#" alt="" />
+                                        
+                                            <i class="fa-solid fa-xmark close-img-btn"></i>
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -53,21 +58,30 @@
                 <div class="col-0 col-lg-2"></div>
             </div> 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  var photoInput = document.getElementById('photoInput');
-  var previewImage = document.getElementById('previewImage');
 
-  photoInput.addEventListener('change', function(event) {
-    console.log("change")
-    var file = event.target.files[0];
-    if (file) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        previewImage.src = e.target.result;
-        previewImage.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
+
+    var photoInput = document.getElementById('photoInput');
+    var previewImage = document.getElementById('previewImage');
+    var closeBtn = document.querySelector('.close-img-btn');
+    function clearFileInput() {
+        photoInput.value = ''; // This clears the selected file
+        previewImage.style.display = 'none';
     }
-  });
-});
+    closeBtn.addEventListener('click', function(event) {
+        clearFileInput();
+        event.stopPropagation();
+    });
+    
+    photoInput.addEventListener('change', function(event) {
+        console.log("change")
+        var file = event.target.files[0];
+        if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            previewImage.querySelector('img').src = e.target.result;
+            previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        }
+    });
 </script>
