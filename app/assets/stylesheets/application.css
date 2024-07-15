@@ -58,6 +58,10 @@
 .gap-6{
     gap: 6px
 }
+.ml-10{
+    margin-left: 10px;
+
+}
 .page-container{
     background-color: var(--login-bgc);
 }

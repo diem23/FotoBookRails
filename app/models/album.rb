@@ -1,5 +1,6 @@
 class Album < ApplicationRecord
     has_many :photos, dependent: :destroy, before_add: :handle_before_add
+    accepts_nested_attributes_for :photos,allow_destroy: true
     belongs_to :user
     has_many :react_albums, dependent: :destroy
     has_many :reacted_users, through: :react_albums, source: :user
@@ -13,12 +14,15 @@ class Album < ApplicationRecord
     scope :private_albums, -> { where(isPrivate: true) }
     #CALLBACK
     before_validation :handle_before_validate
-
+    
+    private
     def handle_before_validate
         self.numOfLikes=0 if self.numOfLikes == nil
         self.numOfPhotos=0 if self.numOfPhotos == nil
         self.isPrivate=true if self.isPrivate == nil
     end
+    
+
     def handle_before_add(photo)
         photo.user_id = self.user_id
     end
