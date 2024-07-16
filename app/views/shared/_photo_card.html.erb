@@ -2,10 +2,11 @@
 <%ele=local_assigns[:ele] %>
 <%index=local_assigns[:index] %>
 <%have_follow=local_assigns[:have_follow] %>
+<%from_page = local_assigns[:from_page] %>
 <div class="col-xl-6  col-12">
     <div class="row item-box mt-4" onclick="showModal('<%='imageModal'+index.to_s%>')" data-bs-target="<%='#imageModal'+index.to_s%>">
         <div class="col-6  img-box p-0">
-            <% if %w( http https).include?URI.parse(ele.image).scheme %>
+            <% if (from_page=="discover") or (%w( http https).include?URI.parse(ele.image).scheme) %>
                 <img src="<%=ele.image%>" alt="">
             <% else %>
                 <% uploader = PhotoUploader.new(Photo.new(id: ele.id), :image) %>

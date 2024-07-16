@@ -18,9 +18,6 @@ class Users::AlbumsController < ApplicationController
     p album_params
     # Rails.logger.debug "Album Params: #{album_params.inspect}"
     @album =  current_user.albums.new(album_params)
-    puts @album.title
-    puts @album.description
-    puts @album.isPrivate
     @album.photos.each do |photo|
       photo.user_id = @album.user_id
       photo.isPrivate = @album.isPrivate
