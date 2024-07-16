@@ -44,7 +44,7 @@
                 <% else %>  
                     <% @list_photos.each_with_index do |ele,index|%>
                         
-                        <%= render 'shared/photo_card', ele: ele, index: index, have_follow: false %>
+                        <%= render 'shared/photo_card', ele: ele, index: index, have_follow: false , from_page: "feed"%>
                         
                     <% end %>
                 <% end %>
