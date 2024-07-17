@@ -58,6 +58,8 @@ gem 'jquery-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+
+  gem 'pry-nav' 
   gem "debug", platforms: %i[ mri windows ]
 end
 
@@ -83,3 +85,11 @@ end
 
 
 
+
+gem "faker", "~> 3.4"
+gem "will_paginate", "~> 4.0"
+
+
+gem "actionpack", "~> 7.1"
+gem "activejob", "~> 7.1"
+gem "railties", "~> 7.1"

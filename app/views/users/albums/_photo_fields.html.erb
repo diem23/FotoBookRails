@@ -1,9 +1,26 @@
 
 <div class="nested-fields upload-photo-box mt-4 ">
-    <%= f.file_field :image, class: "form-control photoInput browse-btn" %>
+    <% if f.object %>
+        <img
+            src="<%= f.object.image_url %>"
+            class=""
+            style="
+                width: 100%;
+                height: 100%;
+                border-radius: 0.5rem;
+                object-fit: cover;
+                cursor: pointer;
+                z-index: 1;
+            "
+        >
+    <% end %>
     <span class="preview-text-box"> Click here to choose specific photo</span>
-    <div class="previewImageBox" style= "display: none">
-        <img  src="#" alt="" />
-        <i class="fa-solid fa-xmark close-img-btn"></i>
+    <div class="previewImageBox" >
+        <%= f.file_field :image, class: "form-control photoInput browse-btn" %>
+        
+        <%= link_to_remove_association f, class: "close-img-btn" do %>
+            <i class="fa-solid fa-xmark "></i>
+        <% end %>
+
     </div>
 </div>

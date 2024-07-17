@@ -18,17 +18,21 @@
             <div class="upper-box d-flex flex-column gap-10">
                 <% if have_follow %>
                     <div class="user-info-box d-flex justify-content-between align-items-center gap-10">
-                        <div class="d-flex flex-row gap-10 align-items-center ">
-                            <div class="avt-icon">  </div>
-                            <p class="user-name"><%=ele.user.firstName%></p>
+                        <div class="specific-user-btn">
+                            <%= button_to personal_info_photo_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                                <div class="avt-icon">  </div>
+                                <p class="user-name"><%=ele.user.firstName%></p>
+                            <% end %>
                         </div>
                         <%=render 'shared/follow_button', id: ele.user.id%>
                     </div>
                 <% else %>
                     <div class="user-info-box d-flex justify-content-between align-items-center">
-                        <div class="d-flex flex-row align-items-center justify-content-start gap-10">
-                            <div class="avt-icon">  </div>
-                            <p class="user-name"><%= ele.firstName%></p>
+                        <div class="specific-user-btn">
+                            <%= button_to personal_info_photo_path(ele.user_id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                                <div class="avt-icon">  </div>
+                                <p class="user-name"><%= ele.firstName%></p>
+                            <% end %>
                         </div>
                     </div>
                 <% end %>
@@ -60,3 +64,4 @@
         </div>
     </div>
 </div>
+

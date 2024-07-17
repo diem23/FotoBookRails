@@ -1,0 +1,17 @@
+<% ele = local_assigns[:ele] %>
+<% index = local_assigns[:index] %>
+<% @list_photos = ele.photos.public_photos.limit(3) %>
+<div class="col-2 d-flex flex-column img-box g-1">
+    <div class="contain-rotate-img d-flex justify-content-center align-item-center">
+        <% @list_photos.each do |photo| %>
+            <img src="<%=photo.image%>" alt="">
+        <% end %>
+        <div class="overlay">
+            <div class="overlay-content">
+                <span><%=ele.numOfPhotos%></span>
+                <p>PHOTOS</p>
+            </div>
+        </div>
+    </div>
+    <p class="mt-2">Album title goes here</p>
+</div>

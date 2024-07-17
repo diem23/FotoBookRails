@@ -1,0 +1,10 @@
+<% ele = local_assigns[:ele] %>
+<% index = local_assigns[:index] %>
+<div class="col-2 d-flex flex-column img-box g-1">
+    <img src="<%=ele.image%>" alt="">
+    <% if ele.title %>
+        <p class="mt-2"><%=ele.title%></p>
+    <% else %>
+        <p class="mt-2">no title</p>
+    <% end %>
+</div>

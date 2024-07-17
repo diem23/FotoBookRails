@@ -58,11 +58,12 @@
     border-radius: 10px;
 }
 .personal-info .img-box > p{
+
     text-align: center;
     padding-top: 5px;
     font-size: var(--small-text);
 }
-.personal-info.album .img-box{
+.personal-info .img-box{
     height: 250px;
     width: 215px
 } 

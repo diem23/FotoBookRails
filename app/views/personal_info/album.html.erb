@@ -17,34 +17,20 @@
                 </div>
             </div>
             <div class="col-9 d-flex flex-column gap-10">
-                <%= form_with url: "/discover/follow", method: :put, local: true do |f| %>
-                    <%= f.hidden_field :user_id, value: @target_user.id %>
-                    <%= f.button "Follow", class: "follow-btn d-flex justify-content-center" , id: "followButton" %>
-                <% end %>
-                <h2>Hansford Nguyen</h2>
+                <%= render 'shared/follow_button', id: @target_user.id %>
+                <h2><%=@target_user.firstName + " " + @target_user.lastName%></h2>
                 <div >
                     <ul class="personal_nav p-0 m-0">
-                        <a href="/personal_info/photo?id=<%=@target_user.id%>"><li><span>108</span> PHOTOS</li></a><a href=""><li><span>43</span> ALBUMS</li></a><a href="/personal_info/following?id=<%=@target_user.id%>"><li><span>22</span> FOLLOWINGS</li></a><a href="/personal_info/follower?id=<%=@target_user.id%>"><li><span>13</span> FOLLOWERS</li></a>
+                        <a href="/personal_info/photo/<%=@target_user.id%>"><li><span>108</span> PHOTOS</li></a><a href=""><li><span>43</span> ALBUMS</li></a><a href="/personal_info/following?id=<%=@target_user.id%>"><li><span>22</span> FOLLOWINGS</li></a><a href="/personal_info/follower?id=<%=@target_user.id%>"><li><span>13</span> FOLLOWERS</li></a>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="row w-100 gap-40 m-0 mt-5 ">
-            <div class="col-2 d-flex flex-column img-box g-1">
-                    <div class="contain-rotate-img d-flex justify-content-center align-item-center">
-                        <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                        <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                        <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                        <div class="overlay">
-                            <div class="overlay-content">
-                                <span>13</span>
-                                <p>PHOTOS</p>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="mt-2">Album title goes here</p>
-            </div>
+            <% @list_albums.each_with_index do |ele,index|%>
+                <%= render 'album_card', ele: ele, index: index %>
+            <% end %>
             
         </div>
     </div>
