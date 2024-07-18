@@ -1,4 +1,4 @@
-.new-photo .header, .new-album .header{
+.header{
     border-bottom: 3px solid var(--border-color);
     font-weight: var(--bold-text);
     font-size: var(--large-text);

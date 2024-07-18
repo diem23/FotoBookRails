@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   get "/articles", to: "articles#index"
   put "/discover/follow", to: "discover#follow", as: :follow, defaults: { format: :json }
   get "/personal_info/photo/:id", to: "personal_info#photo", as: :personal_info_photo
-  get "/personal_info/album", to: "personal_info#album"
-  get "/personal_info/following", to: "personal_info#following"
-  get "/personal_info/follower", to: "personal_info#follower"
+  get "/personal_info/album/:id", to: "personal_info#album", as: :personal_info_album
+  get "/personal_info/following/:id", to: "personal_info#following", as: :personal_info_following
+  get "/personal_info/follower/:id", to: "personal_info#follower", as: :personal_info_follower
   # post "/react_photo", to: "react_photos#create"
   # delete "/react_photo", to: "react_photos#destroy"
   # post "/react_album", to: "react_albums#create"

@@ -64,9 +64,40 @@
     font-size: var(--small-text);
 }
 .personal-info .img-box{
+    position: relative;
     height: 250px;
     width: 215px
 } 
+.personal-info .private-box{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: white;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    border-radius: 50%;
+}
+.personal-info .add-btn{
+    background-color: var(--btn-color);
+    color: white;
+    font-size: var(--medium-text);
+    font-weight: var(--bold-text);
+}
+.personal-info.album .edit-btn{
+    z-index: 4
+}
+.personal-info .edit-btn{
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    position: absolute;
+    bottom: 50px;
+    right: 6px;
+    color: white;
+    padding: 5px 10px;
+    font-size: var(--small-text)
+
+}
 .personal-info.album .contain-rotate-img .overlay{
     height: 100%;
     width: 100%;

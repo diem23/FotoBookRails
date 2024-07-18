@@ -1,0 +1,17 @@
+
+[1mFrom:[0m /home/nguyen-minh-diem/FotoBook/app/controllers/personal_info_controller.rb:24 PersonalInfoController#album:
+
+    [1;34m14[0m: [32mdef[0m [1;34malbum[0m
+    [1;34m15[0m:   @target_user= [1;34;4mUser[0m.find(params[[33m:id[0m])
+    [1;34m16[0m:   puts params[[33m:id[0m]
+    [1;34m17[0m:   puts @target_user
+    [1;34m18[0m:   @viewing_current_user =  @target_user == current_user
+    [1;34m19[0m:   [32mif[0m @viewing_current_user
+    [1;34m20[0m:     @list_albums =  @target_user.albums.order([31m[1;31m'[0m[31malbums.created_at DESC[1;31m'[0m[31m[0m)
+    [1;34m21[0m:   [32melse[0m
+    [1;34m22[0m:     @list_albums =  @target_user.albums.public_albums.order([31m[1;31m'[0m[31malbums.created_at DESC[1;31m'[0m[31m[0m)
+    [1;34m23[0m:   [32mend[0m
+ => [1;34m24[0m:   binding.pry
+    [1;34m25[0m:   @list_following = current_user.following.pluck([33m:id[0m)
+    [1;34m26[0m: [32mend[0m
+

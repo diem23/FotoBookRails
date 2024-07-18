@@ -21,7 +21,16 @@
                 <h2><%=@target_user.firstName + " " + @target_user.lastName%></h2>
                 <div >
                     <ul class="personal_nav p-0 m-0">
-                        <a href="/personal_info/photo/<%=@target_user.id%>"><li><span>108</span> PHOTOS</li></a><a href="/personal_info/album?id=<%=@target_user.id%>"><li><span>43</span> ALBUMS</li></a><a href="/personal_info/following?id=<%=@target_user.id%>"><li><span>22</span> FOLLOWINGS</li></a><a><li><span>13</span> FOLLOWERS</li></a>
+                        <%= link_to personal_info_photo_path(@target_user.id) do %>
+                            <li><span><%=@target_user.photos.size%></span> PHOTOS</li>
+                        <% end %>
+                        <%= link_to personal_info_album_path(@target_user.id) do %>
+                            <li><span><%=@target_user.albums.size%></span> ALBUMS</li>
+                        <% end %>
+                        <%= link_to personal_info_following_path(@target_user.id) do %>
+                            <li><span><%=@target_user.following.size%></span> FOLLOWINGS</li>
+                        <% end %>
+                        <a><li><span><%=@target_user.follower.size%></span> FOLLOWERS</li></a>
                     </ul>
                 </div>
             </div>
