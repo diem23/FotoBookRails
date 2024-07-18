@@ -26,11 +26,13 @@ class PersonalInfoController < ApplicationController
     end
     def following
       @target_user= User.find(params[:id])
+      @viewing_current_user =  @target_user == current_user
       @list_following = current_user.following.pluck(:id)
       @list_following_target = @target_user.following
     end
     def follower
       @target_user= User.find(params[:id])
+      @viewing_current_user =  @target_user == current_user
       @list_following = current_user.following.pluck(:id)
       @list_follower_target = @target_user.follower
     end

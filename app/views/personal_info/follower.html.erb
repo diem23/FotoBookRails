@@ -17,7 +17,16 @@
                 </div>
             </div>
             <div class="col-9 d-flex flex-column gap-10">
-                <%= render 'shared/follow_button', id: @target_user.id %>
+           
+                <% if @viewing_current_user %>
+                    <div>
+                        <%= link_to edit_user_registration_path, class:"edit-profile-btn" do %>
+                            <button>Edit Profile</button>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <%= render 'shared/follow_button', id: @target_user.id %>
+                <% end %>
                 <h2><%=@target_user.firstName + " " + @target_user.lastName%></h2>
                 <div >
                     <ul class="personal_nav p-0 m-0">
