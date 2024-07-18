@@ -9,66 +9,124 @@
           </a>
       </ul>
   </div>
-  <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
+  <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center "> 
       <div class="header w-100 d-flex flex-row justify-content-start">
-          <p>Edit User</p>
+          <p>Edit User Profile</p>
       </div>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class:"w-100" }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
-        <div class="row m-0">
-          <div class="col-5 d-flex flex-row justify-content-end"
+        <div class="row ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+          </div>
+          <div class="col-7 d-flex flex-column align-items-start ">
+            <div class="avt-edit-box mt-3"> 
+                
+                <div class="change-avt-btn"> 
+                  <span>Change</span>
+                  <%= f.file_field :profileImg, class: "form-control browse-btn", id: "photoInput" %>
+                </div>
+                <img  src="<%= f.object.profileImg %>"/>
+      
+            </div>
+            
+            <p class="update-title update-title-box"> Basic information </p>
+          </div>
+        </div>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
             <%= f.label :firstName , "First Name" %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-7 d-flex flex-row justify-content-start ">
             <%= f.text_field :firstName, autofocus: true, class: "form-control  " %>
           </div>
         </div>
-        <div class="row m-0">
-          <div class="col-5 d-flex flex-row justify-content-end">
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
             <%= f.label :lastName, "Last Name" %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-7 d-flex flex-row justify-content-start ">
             <%= f.text_field :lastName , class: "form-control  " %>
           </div>
         </div>
-        <div class="row m-0">
-          <div class="col-5 d-flex flex-row justify-content-end">
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
             <%= f.label :email, "Email" %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-7 d-flex flex-row justify-content-start ">
             <%= f.email_field :email,  autocomplete: "email", class: "form-control  " %>
-          </div/
+          </div>
+        </div>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+          </div>
+          <div class="col-7 d-flex flex-row justify-content-start">
+            <%= f.submit "Save", class: "btn save-btn mt-2", style: "color: white" %>
+          </div>
         </div>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
 
-        <div class="field">
-          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-          <%= f.password_field :password, autocomplete: "new-password" , class: "form-control"%>
-          <% if @minimum_password_length %>
-            <br />
-            <em><%= @minimum_password_length %> characters minimum</em>
-          <% end %>
+        <div class="row update-title-box">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+          </div>
+          <div class="col-7 d-flex flex-row justify-content-start">
+            <p class="update-title m-0">Password</p>
+          </div>
+        </div>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+            <%= f.label :current_password, "Current Password" %> <br />
+          </div>
+          <div class="col-7 d-flex flex-row justify-content-start">
+           <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+          </div>
         </div>
 
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control"%>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+            <%= f.label :password %><br />
+          </div>
+          <div class="col-7 d-flex flex-row justify-content-start">
+           <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+          </div>
         </div>
 
-        <div class="field">
-          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-          <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+            <%= f.label :password_confirmation %><br />
+          </div>
+          <div class="col-7 d-flex flex-row justify-content-start">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control"%>
+          </div>
         </div>
 
-        <div class="actions">
-          <%= f.submit "Update" %>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+          </div>
+          <div class="col-7 d-flex flex-row justify-content-start">
+            <%= f.submit "Save", class: "btn save-btn mt-2", style: "color: white" %>
+          </div>
         </div>
       <% end %>
   </div>
   <div class="col-0 col-lg-2"></div>
 </div>
+<script>
+  let photoInput = document.getElementById('photoInput');
+  let avtImg = document.querySelectorAll('.avt-edit-box img');
+  photoInput.addEventListener('change', function(event) {
+    console.log("change")
+    var file = event.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+          avtImg[0].src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
 
 
