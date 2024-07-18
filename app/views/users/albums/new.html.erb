@@ -76,8 +76,8 @@
                 if (file) {
                     var reader = new FileReader();
                     reader.onload = function(e) {
-                        previewImage.querySelector('img').src = e.target.result;
-                        previewImage.style.display = 'block';
+                        photoBox.querySelector('img').src = e.target.result;
+                        photoBox.style.display = 'block';
                     };
                     reader.readAsDataURL(file);
                 }

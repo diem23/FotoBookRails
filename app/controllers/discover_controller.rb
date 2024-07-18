@@ -21,12 +21,19 @@ class DiscoverController < ApplicationController
         @list_following = current_user.following.pluck(:id)
         if @list_following.include?(params[:user_id].to_i)
             puts "unfollow"
-            Follow.find_by(follower_id: current_user.id, followed_id: params[:user_id]).destroy
+            @follow = Follow.find_by(follower_id: current_user.id, followed_id: params[:user_id])
+            @follow.destroy
         else
             puts "follow"
-            current_user.active_relate.create(followed_id: params[:user_id])
+            @follow=current_user.active_relate.new(followed_id: params[:user_id])
+            @follow.save
         end
+
     end 
+    private
+    def follow_params
+        params.require(:follow).permit(:followed_id)
+    end
     debounce :follow, 10
   end
   
