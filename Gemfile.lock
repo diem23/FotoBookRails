@@ -106,6 +106,7 @@ GEM
       marcel (~> 1.0.0)
       ssrf_filter (~> 1.0)
     cocoon (1.2.15)
+    coderay (1.1.3)
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -116,6 +117,8 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.1)
     erubi (1.13.0)
+    faker (3.4.1)
+      i18n (>= 1.8.11, < 2)
     faraday (2.9.2)
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
@@ -161,6 +164,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    method_source (1.1.0)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.23.1)
@@ -211,6 +215,11 @@ GEM
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-nav (1.0.0)
+      pry (>= 0.9.10, < 0.15)
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
@@ -221,6 +230,8 @@ GEM
     rack-protection (4.0.0)
       base64 (>= 0.1.0)
       rack (>= 3.0.0, < 4)
+    rack-proxy (0.7.7)
+      rack
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -276,6 +287,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    semantic_range (3.0.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -308,11 +320,17 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webpacker (5.4.4)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     webrick (1.8.1)
     websocket (1.2.10)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (4.0.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.15)
@@ -327,6 +345,8 @@ PLATFORMS
   x86_64-linux-gnu
 
 DEPENDENCIES
+  actionpack (~> 7.1)
+  activejob (~> 7.1)
   bcrypt (~> 3.1, >= 3.1.20)
   bootsnap
   capybara
@@ -335,14 +355,17 @@ DEPENDENCIES
   debouncer
   debug
   devise (= 4.9.4)!
+  faker (~> 3.4)
   importmap-rails
   jbuilder
   jquery-rails
   mysql2 (~> 0.5.6)
   omniauth-facebook
   orm_adapter (~> 0.5.0)
+  pry-nav
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.4)
+  railties (~> 7.1)
   responders (~> 3.1, >= 3.1.1)
   selenium-webdriver
   sprockets-rails
@@ -351,6 +374,8 @@ DEPENDENCIES
   tzinfo-data
   warden (~> 1.2, >= 1.2.9)
   web-console
+  webpacker (~> 5.4)
+  will_paginate (~> 4.0)
 
 BUNDLED WITH
    2.5.11

@@ -1,10 +1,10 @@
-.new-photo .header{
+.header{
     border-bottom: 3px solid var(--border-color);
     font-weight: var(--bold-text);
     font-size: var(--large-text);
 }
 
-.new-photo .sharing-mode{
+ .sharing-mode{
     width: 40%;
     border: 1px solid var(--border-color);
     border-radius: 5px;
@@ -12,13 +12,19 @@
     font-weight: var(--bold-text);
     margin-right: -25px;
 }
-.new-photo .save-btn{
+ .save-btn{
     background-color: var(--btn-color);
 }
-.upload-photo-box:nth-child(1){
+.new-photo .upload-photo-box:nth-child(1){
     display: none !important;
 }
-.new-photo .upload-photo-box, .create-new-slot{
+.photos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+ .upload-photo-box, .create-new-slot{
     display:flex;
     text-decoration: none;
     position: relative;
@@ -29,12 +35,12 @@
     border: 3px dashed var(--border-color);
     background-color: var(--login-bgc);
 }
-.new-photo .add-btn{
+ .add-btn{
     font-size: 70px;
     color: var(--border-color)
 
 }
-.new-photo .browse-btn{
+ .browse-btn{
     position: absolute;
     width:100%;
     height: 100%;
@@ -46,6 +52,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 2;
     
 }
 #previewImage img, .previewImageBox img{
@@ -66,5 +73,7 @@
 }
 .preview-text-box{
     text-align: center;
-    color: var(--border-color)
+    color: var(--border-color);
+    position:absolute;
+    z-index: 0;
 }

@@ -7,3 +7,18 @@
         <%= f.button "Follow", class: "follow-btn d-flex justify-content-center" , id: "followButton" %>
     <% end %>
 <% end %>
+<script>
+let followBtns =   document.querySelectorAll('.follow-btn')  
+    followBtns.forEach((btn)=>{
+        btn.addEventListener('click',function stopPropagation(event){
+            event.stopPropagation();
+            if (btn.innerHTML == "Follow"){
+                btn.innerHTML = "Following"
+                btn.classList.add("unfollow-btn")
+            }else{
+                btn.innerHTML = "Follow"
+                btn.classList.remove("unfollow-btn")
+            }
+        })
+    })  
+</script>

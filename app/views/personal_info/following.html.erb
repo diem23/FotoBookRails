@@ -17,40 +17,31 @@
                 </div>
             </div>
             <div class="col-9 d-flex flex-column gap-10">
-                <%= form_with url: "/discover/follow", method: :put, local: true do |f| %>
-                    <%= f.hidden_field :user_id, value: @target_user.id %>
-                    <%= f.button "Follow", class: "follow-btn d-flex justify-content-center" , id: "followButton" %>
-                <% end %>
-                <h2>Hansford Nguyen</h2>
+                <%= render 'shared/follow_button', id: @target_user.id %>
+                <h2><%=@target_user.firstName + " " + @target_user.lastName%></h2>
                 <div >
                     <ul class="personal_nav p-0 m-0">
-                        <a href="/personal_info/photo?id=<%=@target_user.id%>"><li><span>108</span> PHOTOS</li></a><a href="/personal_info/album?id=<%=@target_user.id%>"><li><span>43</span> ALBUMS</li></a><a><li><span>22</span> FOLLOWINGS</li></a><a href="/personal_info/follower?id=<%=@target_user.id%>"><li><span>13</span> FOLLOWERS</li></a>
+                        <%= link_to personal_info_photo_path(@target_user.id) do %>
+                            <li><span><%=@target_user.photos.size%></span> PHOTOS</li>
+                        <% end %>
+                        <%= link_to personal_info_album_path(@target_user.id) do %>
+                            <li><span><%=@target_user.albums.size%></span> ALBUMS</li>
+                        <% end %>
+                        
+                        <a><li><span><%=@target_user.following.size%></span> FOLLOWINGS</li></a>
+                        
+                        <%= link_to personal_info_follower_path(@target_user.id) do %>
+                            <li><span><%=@target_user.follower.size%></span> FOLLOWERS</li>
+                        <% end %>    
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="row w-100 gap-40 m-0 mt-5 ">
-                <div class="col-3 d-flex flex-column align-items-center user-box g-1">
-                    <div class="avt-box">
-                        <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                    </div>
-                    <p class="mt-1">Hieu Nguyen</p>
-                    <div class="user-info d-flex flex-row gap-40">
-                        <div class="num_of_photos d-flex flex-column align-items-center">
-                            <p class="m-0 number">13</p>
-                            <p class="m-0 cate">PHOTOS</p>
-                        </div>
-                        <div class="num_of_albums d-flex flex-column align-items-center">
-                            <p class="m-0 number">13</p>
-                            <p class="m-0 cate">ALBUMS</p>
-                        </div>
-                    </div>
-                    <%= form_with url: "/discover/follow", method: :put, local: true do |f| %>
-                        <%= f.hidden_field :user_id, value: @target_user.id %>
-                        <%= f.button "unfollow", class: "follow-btn d-flex justify-content-center mt-2" , id: "followButton" %>
-                    <% end %>
-                </div>
+            <% @list_following_target.each_with_index do |ele,index|%>
+                <%= render 'other_user_card', ele: ele, index: index %>
+            <% end %>
                         
         </div>
     </div>

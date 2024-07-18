@@ -17,37 +17,41 @@
                 </div>
             </div>
             <div class="col-9 d-flex flex-column gap-10">
-                <%= form_with url: "/discover/follow", method: :put, local: true do |f| %>
-                    <%= f.hidden_field :user_id, value: @target_user.id %>
-                    <%= f.button "Follow", class: "follow-btn d-flex justify-content-center" , id: "followButton" %>
+                <% if @viewing_current_user %>
+                    <%= render 'shared/follow_button', id: @target_user.id %>
+                <% else %>
+                    <%= render 'shared/follow_button', id: @target_user.id %>
                 <% end %>
-                <h2>Hansford Nguyen</h2>
+                <h2><%=@target_user.firstName + " " + @target_user.lastName%></h2>
                 <div >
                     <ul class="personal_nav p-0 m-0">
-                        <a><li><span>108</span> PHOTOS</li></a><a href="/personal_info/album?id=<%=@target_user.id%>"><li><span>43</span> ALBUMS</li></a><a href="/personal_info/following?id=<%=@target_user.id%>"><li><span>22</span> FOLLOWINGS</li></a><a href="/personal_info/follower?id=<%=@target_user.id%>"><li><span>13</span> FOLLOWERS</li></a>
+                        <a><li><span><%=@target_user.photos.size%></span> PHOTOS</li></a>
+                        <%= link_to personal_info_album_path(@target_user.id) do %>
+                            <li><span><%=@target_user.albums.size%></span> ALBUMS</li>
+                        <% end %>
+                        <%= link_to personal_info_following_path(@target_user.id) do %>
+                            <li><span><%=@target_user.following.size%></span> FOLLOWINGS</li>
+                        <% end %>
+                        <%= link_to personal_info_follower_path(@target_user.id) do %>
+                            <li><span><%=@target_user.follower.size%></span> FOLLOWERS</li>
+                        <% end %>
+            
                     </ul>
                 </div>
             </div>
         </div>
-
+        <% if @viewing_current_user %>
+            <div class="d-flex flex-row justify-content-end w-100 gap-40 m-0 mt-5">
+                    <%= link_to new_photo_path do %>
+                        <button class="btn  add-btn">Add Photo</button>
+                    <% end %>
+            </div>
+        <% end %>                    
         <div class="row gap-40 m-0 mt-5">
-            <div class="col-2 d-flex flex-column img-box g-1">
-                <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                <p>Photo tile goes here</p>
-            </div>
-            <div class="col-2 d-flex flex-column img-box g-1">
-                <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                <p>Photo tile goes here</p>
-            </div>
-            <div class="col-2 d-flex flex-column img-box g-1">
-                <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                <p>Photo tile goes here</p>
-            </div>
-            <div class="col-2 d-flex flex-column img-box g-1">
-                <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
-                <p>Photo tile goes here</p>
-            </div>
-            </div>
+            <% @list_photos.each_with_index do |ele,index|%>
+                <%= render 'photo_card', ele: ele, index: index %>
+            <% end %>
+        </div>
     </div>
     <div class="col-0 col-lg-2"></div>
     

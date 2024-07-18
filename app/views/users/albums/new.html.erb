@@ -69,10 +69,7 @@
                 photoInput.value = ''; // This clears the selected file
                 previewImage.style.display = 'none';
             }
-            closeBtn.addEventListener('click', function(event) {
-                clearFileInput();
-                event.stopPropagation();
-            });
+            
             
             photoInput.addEventListener('change', function(event) {
                 var file = event.target.files[0];

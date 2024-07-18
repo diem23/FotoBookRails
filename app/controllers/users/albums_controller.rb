@@ -5,12 +5,27 @@ class Users::AlbumsController < ApplicationController
   end
 
   def show
+    puts "inside showwwwwwwwwwwwwwwwwwwwwwwww"
   end
 
   def edit
+    @album = Album.find(params[:id])
   end
 
   def update
+    puts "inside update"
+    puts album_params
+
+    @album = Album.find(params[:id])
+    if @album.update(album_params)
+      puts "album saved"
+      redirect_to "/", notice: 'Album was successfully created.'
+    else 
+      puts "album not saved"
+      render :edit
+    end
+    @album.valid?
+    
   end
 
   def create
@@ -44,6 +59,12 @@ class Users::AlbumsController < ApplicationController
   end
 
   def destroy
+    @album = Album.find(params[:id])
+    if @album.destroy
+      redirect_to root_path, notice: 'Album was successfully destroyed.'
+    else  
+      render :edit
+    end
   end
 
   def update_num_of_likes
@@ -61,7 +82,7 @@ class Users::AlbumsController < ApplicationController
   #STRONG PARAMS
   private
   def album_params
-      params.require(:album).permit(:title,:user_id, :description, :isPrivate, :numOfPhotos, :numOfLikes, photos_attributes: [ :image,:user_id, :_destroy])
+      params.require(:album).permit(:title,:user_id, :description, :isPrivate, :numOfPhotos, :numOfLikes, photos_attributes: [:id, :image,:user_id, :_destroy])
   end
 
 end

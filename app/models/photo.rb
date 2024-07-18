@@ -18,7 +18,7 @@ class Photo < ApplicationRecord
     #CALLBACK EVENTS
     before_validation :handle_before_validation
     before_destroy :handle_before_destroy
-    before_save :handle_before_save
+    before_create :handle_before_create
     def handle_before_validation
         self.numOfLikes=0 if self.numOfLikes == nil
         self.isPrivate=true if isPrivate == nil
@@ -26,7 +26,7 @@ class Photo < ApplicationRecord
     def handle_before_destroy
         self.album.update(numOfPhotos: self.album.numOfPhotos - 1) if self.album_id != nil
     end
-    def handle_before_save
+    def handle_before_create
         self.album.update(numOfPhotos: self.album.numOfPhotos + 1) if self.album_id != nil
     end
     
