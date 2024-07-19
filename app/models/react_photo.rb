@@ -7,9 +7,17 @@ class ReactPhoto < ApplicationRecord
   before_save :handle_before_save
 
   def handle_before_destroy
-    self.photo.update(numOfLikes: self.photo.numOfLikes - 1) if self.photo_id != nil
+    puts "handle_before_destroy react_photo"
+    self.photo.update(numOfLikes: self.photo.numOfLikes - 1)
+    
+    puts self.photo_id, "photo_id"
+    puts self.photo.numOfLikes, "numOfLikes"
   end
   def handle_before_save
-    self.photo.update(numOfLikes: self.photo.numOfLikes + 1) if self.photo_id != nil
+    puts "handle_before_save react_photo"
+    self.photo.update(numOfLikes: self.photo.numOfLikes + 1)
+    
+    puts self.photo_id, "photo_id"
+    puts self.photo.numOfLikes, "numOfLikes"
   end
 end

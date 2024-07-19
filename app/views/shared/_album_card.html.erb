@@ -3,13 +3,16 @@
 <% index = local_assigns[:index] %>
 <% have_follow = local_assigns[:have_follow] %>
 <div class="row mx-0 item-box " onclick="showModal('<%='albumModal'+index.to_s%>')" data-bs-target="<%='#albumModal'+index.to_s%>">
-    <% @list_photos = Album.find(ele.id).photos.public_photos %>
-    <% p @list_photos,"list_of_photossssssssssss" %>
+    <% @list_photos = ele.photos %>
     <div class="col-7  img-box">
         <div class="contain-rotate-img">
-            <% @list_photos.each_with_index do |photo,index| %>
-                    <%break if index == 3%>
-                    <img src="<%=photo.image%>" alt="">
+            <% if @list_photos.empty? %>
+                <img src="" alt="">
+            <% else %>
+                <% @list_photos.each_with_index do |photo,index| %>
+                        <%break if index == 3%>
+                        <img src="<%=photo.image%>" alt="">
+                <% end %>
             <% end %>
         </div>
     </div>
@@ -60,16 +63,21 @@
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     
                     <div class="carousel-inner">
-
-                        <div class="carousel-item active">
-                            <img src="<%=@list_photos[0].image%>" class="d-block w-100" alt="...">
-                        </div>
-                        
-                        <% @list_photos.each_with_index do |photo,index| %>
-                            <% next if index == 0%>
-                            <div class="carousel-item">
-                                <img src="<%=photo.image%>" class="d-block w-100" alt="...">
+                        <% if @list_photos.empty? %>
+                            <div class="carousel-item active">
+                                <img src="" class="d-block w-100" alt="...">
                             </div>
+                        <% else %>
+                            <div class="carousel-item active">
+                                <img src="<%=@list_photos[0].image%>" class="d-block w-100" alt="...">
+                            </div>
+                            
+                            <% @list_photos.each_with_index do |photo,index| %>
+                                <% next if index == 0%>
+                                <div class="carousel-item">
+                                    <img src="<%=photo.image%>" class="d-block w-100" alt="...">
+                                </div>
+                            <% end %>
                         <% end %>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

@@ -209,5 +209,17 @@ header-bar-mini{
 .unheart{
     color: #BDBDBD !important;
 }
+#toastPlacement{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.my-toast{
+    padding: 10px 20px;
+    padding-right:50px;
+    color: white;
+    font-weight: var(--bold-text);
+    
+    
+}
 
 

@@ -1,4 +1,15 @@
 <div class="row h-100 edit-album">
+<% if flash[:notice] %>                           
+    <div aria-live="polite" aria-atomic="true" class="col-12 bg-dark position-relative bd-example-toasts">
+        <div class="toast-container position-absolute top-0 end-0" id="toastPlacement" style="<%=(flash[:type]=='success')?'background-color:green':'background-color:red'%>">
+            <div class="show" >
+                <div class="my-toast">
+                    <%= flash[:notice] %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %> 
                 <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list" >
                         <a href="#">
@@ -20,6 +31,9 @@
                                 <div>
                                     <%= f.label :title , class: "form-label"%>
                                     <%= f.text_field :title, class: "form-control", placeholder: "Album title" %>
+                                    <% if @album.errors.has_key?(:title) %>
+                                        <p class="error-message mb-0"> <%= @album.errors[:title].first %></p>
+                                    <% end %>
                                 </div>
                                 <div>
                                     <%= f.label :isPrivate, "Sharing mode" , class: "form-label"%>
@@ -34,6 +48,12 @@
                                     <%= f.fields_for :photos do |photo| %>
                                         <%= render 'photo_fields', f: photo %>
                                     <% end %>
+                                    <% if @album.errors.has_key?(:photos) %>
+                                        <p class="error-message mb-0"> <%= @album.errors[:photos].first %></p>
+                                    <% end %>
+                                    <% if @album.errors.has_key?(:photos_attributes) %>
+                                        <p class="error-message mb-0"> <%= @album.errors[:photos_attributes].first %></p>
+                                    <% end %>
                                 </div>
         
                                 <%=link_to_add_association raw('<i class="fa-solid fa-plus add-btn"></i>'), f, :photos, data: {association_insertion_node: '.photos', association_insertion_method: :append}, id: "upload-photo",class: "create-new-slot" %>
@@ -44,6 +64,9 @@
                             <div class="col-6">
                                 <%= f.label :description, class: "form-label" %>
                                 <%= f.text_area :description, class: "form-control desc-box" , placeholder: "Album Description"%>
+                                <% if @album.errors.has_key?(:description) %>
+                                    <p class="error-message mb-0"> <%= @album.errors[:description].first %></p>
+                                <% end %>
                             </div>
                         </div>
                         
@@ -64,6 +87,14 @@
                 <div class="col-0 col-lg-2"></div>
             </div> 
 <script>
+function disappearToast(){
+    setTimeout(function(){
+        $('#toastPlacement').fadeOut();
+    }, 3000);
+}
+<% if flash[:notice] %>
+    disappearToast();
+<% end %>
     function addEventForPreviewImg(){
         let listPhotoBox= document.querySelectorAll('.upload-photo-box');    
         listPhotoBox.forEach((photoBox)=>{

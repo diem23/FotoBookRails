@@ -27,9 +27,9 @@
                     </div>
             </div>
 <script>
-    console.log('Hello from follow button');
+    console.log('Hello from follow button');  
     function followAPI(id){
-        $.ajax({
+            $.ajax({
             url: "/discover/follow",
             type: "PUT",
             data: {user_id: id},
@@ -37,26 +37,41 @@
             error: function(data) {}
         })
     }
-    const debounceFollow= function (func, timeout = 3000){
-        var timer;
+    function likePhotoAPI(id){
+        $.ajax({
+            url: "/react_photos",
+            type: "PUT",
+            data: {photo_id: id},
+            success: function(data) {},
+            error: function(data) {}
+        })
+    }
+    const debounceReact = function (func, timeout = 3000){
         return (...args) => {
             console.log(this.timer)
             clearTimeout(this.timer);
             this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
         };
-    }                            
+    }
+    const debounceFollow= function (func, timeout = 3000){
+        return (...args) => {
+            console.log(this.timer)
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+    }                       
     let likeBtns = document.querySelectorAll('.like-btn')
     likeBtns.forEach((btn)=>{
         btn.addEventListener('click',function stopPropagation(event){
-            console.log("onclick like")
             event.stopPropagation();
-            if (btn.classList.contains("unheart")){
+            if (btn.querySelector('i').classList.contains("unheart")){
                 
-                btn.classList.remove("unheart")
+                btn.querySelector('i').classList.remove("unheart")
             }else{
                 
-                btn.classList.add("unheart")
+                btn.querySelector('i').classList.add("unheart")
             }
+            debounceReact(likePhotoAPI)(btn.querySelector('p').innerHTML)
         })
     })                                                 
     let followBtns =   document.querySelectorAll('.follow-btn')  

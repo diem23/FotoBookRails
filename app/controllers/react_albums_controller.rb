@@ -5,7 +5,7 @@ class ReactAlbumsController < ApplicationController
     def destroy
       ReactAlbum.find_by(user_id: current_user.id, album_id: params[:album_id]).destroy
     end
-    def handleLike
+    def handle_like
       @list_reacted_albums = current_user.reacted_albums.pluck(:id)
       if @list_reacted_albums.include?(params[:album_id].to_i)
         ReactAlbum.find_by(user_id: current_user.id, album_id: params[:album_id]).destroy
@@ -13,3 +13,4 @@ class ReactAlbumsController < ApplicationController
         ReactAlbum.create(user_id: current_user.id, album_id: params[:album_id])
       end
   end
+end

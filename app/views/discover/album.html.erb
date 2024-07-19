@@ -39,32 +39,67 @@
     </div>
     <div class="col-0 col-lg-2"></div>
 </div> 
-<script>                                                     
+<script>   
+function followAPI(id){
+        $.ajax({
+        url: "/discover/follow",
+        type: "PUT",
+        data: {user_id: id},
+        success: function(data) {},
+        error: function(data) {}
+    })
+}
+function likeAlbumAPI(id){
+    $.ajax({
+        url: "/react_albums",
+        type: "PUT",
+        data: {album_id: id},
+        success: function(data) {},
+        error: function(data) {}
+    })
+}
+const debounceReact = function (func, timeout = 3000){
+    return (...args) => {
+        console.log(this.timer)
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+}
+const debounceFollow= function (func, timeout = 3000){
+    return (...args) => {
+        console.log(this.timer)
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+}                                                        
 let likeBtns = document.querySelectorAll('.like-btn')
 likeBtns.forEach((btn)=>{
     btn.addEventListener('click',function stopPropagation(event){
         console.log("onclick like")
         event.stopPropagation();
-        if (btn.classList.contains("unheart")){
-            console.log("Hello")
-            btn.classList.remove("unheart")
+        if (btn.querySelector('i').classList.contains("unheart")){
+                
+            btn.querySelector('i').classList.remove("unheart")
         }else{
-            console.log("hehe")
-            btn.classList.add("unheart")
+            
+            btn.querySelector('i').classList.add("unheart")
         }
+        debounceReact(likeAlbumAPI)(btn.querySelector('p').innerHTML)
     })
 })                                                 
 let followBtns =   document.querySelectorAll('.follow-btn')  
 followBtns.forEach((btn)=>{
     btn.addEventListener('click',function stopPropagation(event){
         event.stopPropagation();
-        if (btn.innerHTML == "Follow"){
-            btn.innerHTML = "Following"
+        if (btn.querySelector('span').innerHTML == "Follow"){
+            btn.querySelector('span').innerHTML = "Following"
             btn.classList.add("unfollow-btn")
         }else{
-            btn.innerHTML = "Follow"
+            btn.querySelector('span').innerHTML = "Follow"
             btn.classList.remove("unfollow-btn")
         }
+        
+        debounceFollow(followAPI)(btn.querySelector('p').innerHTML)
     })
 })                                               
 

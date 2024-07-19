@@ -24,10 +24,10 @@ class Users::AlbumsController < ApplicationController
     
     if @album.update(album_params)
       puts "album saved"
-      redirect_to "/", notice: 'Album was successfully created.'
+      redirect_to "/", notice: 'Album was successfully created.', type: 'success'
     else 
       puts "album not saved"
-      render :edit
+      render :edit, notice: 'Album was not created.', type: 'error'
     end
     puts @album.errors.details
     @album.valid?
@@ -54,11 +54,11 @@ class Users::AlbumsController < ApplicationController
     if @album.save
       # If the album is successfully saved, you can redirect or render as needed
       puts "album saved"
-      redirect_to "/", notice: 'Album was successfully created.'
+      redirect_to "/", notice: 'Album was successfully created.', type: 'success'
     else
       puts "album not saved"
       # If the album wasn't saved due to validation errors or other issues, render the 'new' template again
-      render :new
+      render :new, notice: 'Album was not created.', type: 'error'
 
   end
   end
@@ -73,7 +73,7 @@ class Users::AlbumsController < ApplicationController
     if @album.destroy
       redirect_to root_path, notice: 'Album was successfully destroyed.'
     else  
-      render :edit
+      render :edit, notice: 'Album was not destroyed.'
     end
   end
 

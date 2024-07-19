@@ -14,7 +14,7 @@ class DiscoverController < ApplicationController
       @list_following = current_user.following.pluck(:id)
       puts @list_following, "list_followingggggggggggggggggggggg"
       @list_reacted_albums = current_user.reacted_albums.pluck(:id)
-      @list_albums = Album.public_albums.includes(:user)
+      @list_albums = Album.public_albums.includes(:photos).where(isPrivate: false).includes(:user)
     end
 
     def follow

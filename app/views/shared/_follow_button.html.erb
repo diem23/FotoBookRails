@@ -14,19 +14,4 @@
     </button>
 <% end %>
 
-<script>
-    function followAPI (id){
-        $.ajax({
-            url: "/discover/follow",
-            type: "PUT",
-            data: 
-                {user_id: id}
-                ,
-            success: function(data) {},
-            error: function(data) {}
-        })
-    }
-       
-    
-    console.log(followAPI)       
-</script>
+
