@@ -1,6 +1,6 @@
 class Album < ApplicationRecord
     has_many :photos, dependent: :destroy, before_add: :handle_before_add
-    accepts_nested_attributes_for :photos,allow_destroy: true, reject_if: proc { |attributes| attributes['image'].blank? }
+    accepts_nested_attributes_for :photos,allow_destroy: true
     belongs_to :user
     has_many :react_albums, dependent: :destroy
     has_many :reacted_users, through: :react_albums, source: :user

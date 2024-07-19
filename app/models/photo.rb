@@ -7,8 +7,8 @@ class Photo < ApplicationRecord
     has_many :react_photos, dependent: :destroy
     has_many :reacting_users, through: :react_photos, source: :user
     #VALIDATION
-    validates :title, length: {maximum: 140}
-    validates :description, length: {maximum: 300}
+    validates :title, length: {maximum: 140, message: "Must be 140 characters or less"}
+    validates :description, length: {maximum: 300, message: "Must be 300 characters or less"}
     validates :isPrivate, inclusion: {in: [true, false]}
     validates :image, presence: true
     validates :numOfLikes, numericality: { only_integer: true , message: "Must be an integer"}

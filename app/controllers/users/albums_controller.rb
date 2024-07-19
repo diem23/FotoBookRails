@@ -15,15 +15,21 @@ class Users::AlbumsController < ApplicationController
   def update
     puts "inside update"
     puts album_params
-
+    
     @album = Album.find(params[:id])
+    @album.photos.each do |photo|
+      puts "image link: ",photo.image
+      puts "owner: ",photo.user_id
+    end
+    
     if @album.update(album_params)
       puts "album saved"
-      redirect_to "/", notice: 'Album was successfully created.'
+      redirect_to "/", notice: 'Album was successfully created.', type: 'success'
     else 
       puts "album not saved"
-      render :edit
+      render :edit, notice: 'Album was not created.', type: 'error'
     end
+    puts @album.errors.details
     @album.valid?
     
   end
@@ -31,8 +37,12 @@ class Users::AlbumsController < ApplicationController
   def create
     p "inside create albummmmmm"
     p album_params
+    @new_album_params = album_params.dup
+    puts "new album params: ",@new_album_params
+    @new_album_params[:photos_attributes].delete("0")
+    
     # Rails.logger.debug "Album Params: #{album_params.inspect}"
-    @album =  current_user.albums.new(album_params)
+    @album =  current_user.albums.new(@new_album_params)
     @album.photos.each do |photo|
       photo.user_id = @album.user_id
       photo.isPrivate = @album.isPrivate
@@ -44,11 +54,11 @@ class Users::AlbumsController < ApplicationController
     if @album.save
       # If the album is successfully saved, you can redirect or render as needed
       puts "album saved"
-      redirect_to "/", notice: 'Album was successfully created.'
+      redirect_to "/", notice: 'Album was successfully created.', type: 'success'
     else
       puts "album not saved"
       # If the album wasn't saved due to validation errors or other issues, render the 'new' template again
-      render :new
+      render :new, notice: 'Album was not created.', type: 'error'
 
   end
   end
@@ -63,7 +73,7 @@ class Users::AlbumsController < ApplicationController
     if @album.destroy
       redirect_to root_path, notice: 'Album was successfully destroyed.'
     else  
-      render :edit
+      render :edit, notice: 'Album was not destroyed.'
     end
   end
 
@@ -78,7 +88,6 @@ class Users::AlbumsController < ApplicationController
       @album.save
     end
   end
-  debounce :update_num_of_likes, 10
   #STRONG PARAMS
   private
   def album_params

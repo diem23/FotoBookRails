@@ -15,8 +15,10 @@ class Users::PhotosController < ApplicationController
     puts params
     puts photo_params
     if @photo.update(photo_params)
-      redirect_to "/", notice: 'Photo was successfully created.'
+      flash[:notice] = 'Photo was successfully updated.'
+      redirect_to "/"
     else 
+      flash[:notice] = 'Photo was not updated.'
       render :edit
     end
     
@@ -25,7 +27,11 @@ class Users::PhotosController < ApplicationController
   def create
     puts params
     @new_photo = Photo.new(title: params[:title], description: params[:description], isPrivate: params[:isPrivate]=="1", user_id: current_user.id, image: params[:image])
-    @new_photo.save!
+    if @new_photo.save
+      redirect_to "/", notice: 'Photo was successfully created.'
+    else
+      render :new, notice: 'Photo was not created.'
+    end
   end
 
   def new
@@ -33,11 +39,13 @@ class Users::PhotosController < ApplicationController
   end
 
   def destroy
-    
     @photo = Photo.find(params[:id])
     @user_id = @photo.user_id
-    @photo.destroy
-    redirect_to personal_info_photo_path(@user_id), notice: 'Photo was successfully deleted.'
+    if @photo.destroy
+      redirect_to personal_info_photo_path(@user_id), notice: 'Photo was successfully deleted.'
+    else
+      render :edit, notice: 'Photo was not deleted.'
+    end
   end
 
 

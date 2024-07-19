@@ -1,4 +1,16 @@
 <div class="row h-100 new-photo">
+
+<% if flash[:notice] %>                           
+    <div aria-live="polite" aria-atomic="true" class="col-12 bg-dark position-relative bd-example-toasts">
+        <div class="toast-container position-absolute top-0 end-0" id="toastPlacement" style="<%=(flash[:type]=='success')?'background-color:green':'background-color:red'%>">
+            <div class="show" >
+                <div class="my-toast">
+                    <%= flash[:notice] %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>    
                 <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list" >
                         <a href="#">
@@ -15,11 +27,15 @@
                     </div>
                     
                     <%= form_with(model: @photo, class: "w-100 mt-4" ) do |f| %>
+                        
                         <div class="row w-100">
                             <div class= "col-6 d-flex flex-column gap-20">
                                 <div>
                                     <%= f.label :title , class: "form-label"%>
                                     <%= f.text_field :title, class: "form-control", placeholder: "Photo title" %>
+                                    <% if @photo.errors.has_key?(:title) %>
+                                        <p class="error-message mb-0"> <%= @photo.errors[:title].first %></p>
+                                    <% end %>
                                 </div>
                                 <div>
                                     <%= f.label :isPrivate, "Sharing mode" , class: "form-label"%>
@@ -42,6 +58,9 @@
                             <div class="col-6">
                                 <%= f.label :description, class: "form-label" %>
                                 <%= f.text_area :description, class: "form-control h-50" , placeholder: "Photo Description"%>
+                                <% if @photo.errors.has_key?(:description) %>
+                                    <p class="error-message mb-0"> <%= @photo.errors[:description].first %></p>
+                                <% end %>
                             </div>
                         </div>
                         
@@ -54,9 +73,18 @@
                     
                 </div>
                 <div class="col-0 col-lg-2"></div>
-            </div> 
-<script>
+</div> 
 
+<script>
+    function disappearToast(){
+        setTimeout(function(){
+            $('#toastPlacement').fadeOut();
+        }, 3000);
+    }
+    <% if flash[:notice] %>
+        disappearToast();
+    <% end %>
+                   
 
     var photoInput = document.getElementById('photoInput');
     var previewImage = document.getElementById('previewImage');

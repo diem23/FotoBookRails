@@ -14,7 +14,7 @@
     width: 436px;
     height: 421px;
 }
-.signup-box .error-message{
+.error-message{
     color: red;
     font-size: var(--small-text);
     font-weight: var(--light-text);
