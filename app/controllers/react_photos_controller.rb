@@ -1,4 +1,5 @@
 class ReactPhotosController < ApplicationController
+    before_action :authenticate_user!
     def create
         ReactPhoto.create(user_id: current_user.id, photo_id: params[:photo_id])
     end

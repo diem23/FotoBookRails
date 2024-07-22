@@ -18,11 +18,11 @@ class User < ApplicationRecord
     has_many :reacted_photos, through: :react_photos, source: :photo
     #VALIDATION
     #validates :email, format: {with: /^[A_Za_z]+[A_Za_z0_9]*@[A_Za_z]+(.[A_Za_z]+)+$/}
-    validates :email, format: {with: /\A[A-Za-z]+[A-Za-z0-9]*@[A-Za-z]+(.[A-Za-z]+)+\z/}, length: {maximum: 255}
-    validates :password,format: {with: /\A(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{,64}\z/, message: "must contain one digit, one lowercase letter, one uppercase letter, one special character, maximum 64 characters"}
+    validates :email, format: {with: /\A[A-Za-z]+[A-Za-z0-9]*@[A-Za-z]+(.[A-Za-z]+)+\z/, message: "Your email format is invalid."}, length: {maximum: 255, message: "Must be 255 characters or less."}
+    #validates :password,format: {with: /\A(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{,64}\z/, message: "must contain one digit, one lowercase letter, one uppercase letter, one special character, maximum 64 characters"}
     validates :firstName, :lastName, presence: true, length: {maximum: 25}
     validates :isActive, :isAdmin, inclusion: {in: [true, false]}
-    validates_associated :photos, :albums
+    #validates_associated :photos, :albums
     
     #CALLBACK EVENTS
     before_validation :handle_before_validation

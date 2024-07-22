@@ -1,4 +1,5 @@
 class PersonalInfoController < ApplicationController
+    before_action :authenticate_user!
     def photo
       @target_user= User.find(params[:id])
       @viewing_current_user =  @target_user == current_user

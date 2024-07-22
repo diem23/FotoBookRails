@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_11_132734) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_041605) do
   create_table "albums", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -69,7 +69,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_132734) do
     t.string "firstName"
     t.string "lastName"
     t.string "email"
-    t.string "password"
     t.boolean "isActive"
     t.boolean "isAdmin"
     t.datetime "created_at", null: false

@@ -1,4 +1,4 @@
-<div class="row h-100 discover photo">
+<div class="row discover photo">
                     <div class="col-0 col-lg-2 d-flex flex-row justify-content-center mt-4">
                         <ul class="d-none d-lg-inline-block nav-list" >
                             <a href="/">
@@ -20,8 +20,14 @@
                             </a>
                         </div>
                         <div class="row w-100 h-90 " >
-                            <% @list_photos.each_with_index do |ele,index|%>
-                                <%=render 'shared/photo_card', ele: ele, index: index , have_follow: true, from_page: "discover"%>
+                            <% if @list_photos.empty? %>
+                                <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
+                                    <p>There is no photo</p>
+                                </div>
+                            <% else %>
+                                <% @list_photos.each_with_index do |ele,index|%>
+                                    <%=render 'shared/photo_card', ele: ele, index: index , have_follow: true, from_page: "discover"%>
+                                <% end %>
                             <% end %>
                         </div>
                     </div>
@@ -32,9 +38,17 @@
             $.ajax({
             url: "/discover/follow",
             type: "PUT",
+            dataType: "html",
             data: {user_id: id},
-            success: function(data) {},
-            error: function(data) {}
+            success: function(data) {
+                console.log('follow success')
+                console.log(data)
+            },
+            error: function(data) {
+                console.log('follow error')
+                console.log(data.status)
+                
+            }
         })
     }
     function likePhotoAPI(id){
@@ -92,7 +106,11 @@
             
         })
     })                                               
-    
+    let userInfoBtn = document.querySelectorAll('.specific-user-btn')
+    userInfoBtn.forEach((btn)=>{ console.log(btn);
+    btn.addEventListener('click', function (event){
+    event.stopPropagation();
+    })})
     function showModal(modalId){
         var myModal = new bootstrap.Modal(document.getElementById(modalId), {
             keyboard: false

@@ -137,6 +137,7 @@
 }
 .user-box{
     padding: 15px 20px;
+    width: 90%;
 }
 .user-box .avt-box{
     width: 100px;
@@ -149,9 +150,12 @@
     height: 100%;
     object-fit: cover;
 }
-.user-box > p{
+.user-box p{
     font-size: var(--medium-text);
     font-weight: var(--bold-text);
+}
+.user-box p:hover{
+    color: var(--main-color);
 }
 .user-box .user-info .cate{
     font-size: var(--xtiny-text);
