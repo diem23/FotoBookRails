@@ -1,7 +1,7 @@
-<div class="row h-100 personal-info following">
+<div class="row personal-info following">
         <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list album-nav" >
-                        <a href="#">
+                        <a href="/">
                             <li class="d-block mb-2">Feeds</li>
                         </a>
                         <a href="/discover/photo">
@@ -47,8 +47,14 @@
         </div>
 
         <div class="row w-100 gap-40 m-0 mt-5 ">
-            <% @list_following_target.each_with_index do |ele,index|%>
-                <%= render 'other_user_card', ele: ele, index: index %>
+            <% if @list_following_target.empty? %>
+                <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
+                    <p>Follow someone to make your feed colorful with albums and photos</p>
+                </div>
+            <% else %>
+                <% @list_following_target.each_with_index do |ele,index|%>
+                    <%= render 'other_user_card', ele: ele, index: index %>
+                <% end %>
             <% end %>
                         
         </div>

@@ -2,12 +2,15 @@
 <% index = local_assigns[:index] %>
 <% @num_of_photos = ele.photos.size %>
 <% @num_of_albums = ele.albums.size %>
-<div class="col-3 d-flex flex-column align-items-center user-box g-1">
-    <div class="avt-box">
+<div class="col-3 d-flex flex-column align-items-center  g-1 ">
+   <div class="d-flex flex-column align-items-center user-box">
+        <div class="avt-box">
         <img src="<%=ele.profileImg%>" alt="">
-    </div>
-    <p class="mt-1"><%=ele.firstName + " " + ele.lastName%></p>
-    <div class="user-info d-flex flex-row gap-40 mb-2">
+        </div>
+        <%= button_to personal_info_photo_path(ele.id), method: :get do %>
+        <p class="m-0 mt-1 "><%=ele.firstName + " " + ele.lastName%></p>
+        <% end %>
+        <div class="user-info d-flex flex-row gap-40 mb-2">
         <div class="num_of_photos d-flex flex-column align-items-center">
             <p class="m-0 number"><%=@num_of_photos%></p>
             <p class="m-0 cate">PHOTOS</p>
@@ -16,6 +19,7 @@
             <p class="m-0 number"><%=@num_of_albums%></p>
             <p class="m-0 cate">ALBUMS</p>
         </div>
+        </div>
+        <%= render 'shared/follow_button', id: ele.id %>
     </div>
-    <%= render 'shared/follow_button', id: ele.id %>
 </div>

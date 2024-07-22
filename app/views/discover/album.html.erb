@@ -1,4 +1,4 @@
-<div class="row h-100 discover album">
+<div class="row discover album">
     <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
         <ul class="d-inline-block nav-list" >
             <a href="/">
@@ -20,13 +20,8 @@
             </a>
         </div>
         <div class="w-100 feed_album d-flex flex-wrap gap-20 mt-4 h-100 mb-4 ">
-            <% if ! user_signed_in? %>
-                <% p "not signed", "testinggggggggggggggg" %>
-                <div class="col-12 d-flex justify-content-center align-items-center">
-                    <p> Please sign in to view this content</p>
-                </div>
-            <% elsif @list_albums.empty? %>
-                <div class="col-12 d-flex justify-content-center align-items-center">
+            <% if @list_albums.empty? %>
+                <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
                     <p>There is no album</p>
                 </div>
             <% else %>
@@ -102,7 +97,11 @@ followBtns.forEach((btn)=>{
         debounceFollow(followAPI)(btn.querySelector('p').innerHTML)
     })
 })                                               
-
+let userInfoBtn = document.querySelectorAll('.specific-user-btn')
+userInfoBtn.forEach((btn)=>{ console.log(btn);
+btn.addEventListener('click', function (event){
+  event.stopPropagation();
+})})
 function showModal(modalId){
     var myModal = new bootstrap.Modal(document.getElementById(modalId), {
         keyboard: false

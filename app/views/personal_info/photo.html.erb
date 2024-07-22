@@ -1,7 +1,7 @@
-<div class="row h-100 personal-info photo">
+<div class="row personal-info photo">
         <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list album-nav" >
-                        <a href="#">
+                        <a href="/">
                             <li class="d-block mb-2">Feeds</li>
                         </a>
                         <a href="/discover/photo">
@@ -51,9 +51,15 @@
                     <% end %>
             </div>
         <% end %>                    
-        <div class="row gap-40 m-0 mt-5">
-            <% @list_photos.each_with_index do |ele,index|%>
-                <%= render 'photo_card', ele: ele, index: index %>
+        <div class="row gap-10 m-0 mt-5">
+            <% if @list_photos.empty? %>
+                <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
+                    <p>You do not have any photo yet. Click "Add" button to create yours</p>
+                </div>
+            <% else %>
+                <% @list_photos.each_with_index do |ele,index|%>
+                    <%= render 'photo_card', ele: ele, index: index %>
+                <% end %>
             <% end %>
         </div>
     </div>

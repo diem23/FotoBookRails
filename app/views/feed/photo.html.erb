@@ -9,7 +9,7 @@
     
   </head>
     <body>
-    <div class="row h-100 feed photo">
+    <div class="row feed photo">
         <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
             <ul class="d-inline-block nav-list album-nav" >
                 <a href="#">
@@ -32,14 +32,14 @@
                     <div class="album-btn p-2">ALBUM</div>
                 </a>
             </div>
-            <div class="row w-100 h-90 feed_photo " >
+            <div class="row w-100 h-90 feed_photo mt-4 mb-4" >
                 <% if ! user_signed_in? %>
-                    <div class="col-12 d-flex justify-content-center align-items-center">
+                    <div class="col-12 d-flex justify-content-center align-items-center ">
                         <p> Please sign in to view this content</p>
                     </div>
                 <% elsif @list_following.empty? %>
                     <div class="col-12 d-flex justify-content-center align-items-center">
-                        <p>There is no photo</p>
+                        <p>Please follow some friends to have content in this page</p>
                     </div>
                 <% else %> 
                     <% @list_photos.each_with_index do |ele,index|%>

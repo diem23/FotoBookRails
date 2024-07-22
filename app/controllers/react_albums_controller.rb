@@ -1,4 +1,5 @@
 class ReactAlbumsController < ApplicationController
+    before_action :authenticate_user!
     def create
       ReactAlbum.create(user_id: current_user.id, album_id: params[:album_id])
     end

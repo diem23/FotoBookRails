@@ -26,7 +26,9 @@
                             <p class="user-name"><%=ele.user.firstName%></p>
                         <% end %>
                     </div>
-                    <%=render 'shared/follow_button', id: ele.user.id%>
+                    <% if user_signed_in? %>
+                        <%=render 'shared/follow_button', id: ele.user.id%>
+                    <% end %>
                 </div>
             <% else %>
                 
@@ -44,7 +46,11 @@
             
         </div>
         <div class="bottom-box d-flex flex-row justify-content-between">
-            <%= render 'shared/like_button', ele: ele, list_to_check: @list_reacted_albums%>
+            <% if user_signed_in? %>
+                <%= render 'shared/like_button', ele: ele, list_to_check: @list_reacted_albums%>
+            <% else %>
+                <div></div>
+            <% end %>
             <div class="time-box">
                 <%= ele.created_at.strftime("%H:%M #{ele.created_at.strftime('%p').downcase} %d/%m/%Y") %>
             </div>
