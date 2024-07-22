@@ -13,7 +13,8 @@ class UsersController < ApplicationController
             redirect_to "/", notice: 'User was successfully updated.', type: 'success'
             
         else 
-            render :edit, notice: 'User was not updated.', type: 'error'
+            binding.pry
+            redirect_to edit_user_path(@user), notice: 'User was not updated.', type: 'error'
         end
     end
     private
