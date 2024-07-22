@@ -79,7 +79,9 @@
                     <a href="#" class="col-md-8">
                     <div class="personal-box">
                         <%= button_to personal_info_photo_path(current_user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
-                                <div class="avt-box"></div>
+                                <div class="avt-box">
+                                    <img class=" img-fluid" src="<%=current_user.profileImg%>" alt="">
+                                </div>
                                 <p><%=current_user.firstName%></p>
                                 <% end %>
                             </div>

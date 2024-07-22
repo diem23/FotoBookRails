@@ -13,7 +13,7 @@
         <div class="row w-100 ">
             <div class="col-3 p-0">
                 <div class="user-avt-box">
-                    <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
+                    <img src="<%=@target_user.profileImg%>" alt="">
                 </div>
             </div>
             <div class="col-9 d-flex flex-column gap-10">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="row w-100 gap-40 m-0 mt-5 ">
+        <div class="row w-100  m-0 mt-5 ">
             <% if @list_following_target.empty? %>
                 <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
                     <p>Follow someone to make your feed colorful with albums and photos</p>

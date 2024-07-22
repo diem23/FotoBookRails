@@ -6,10 +6,8 @@ class Devise::RegistrationsController < DeviseController
   prepend_before_action :set_minimum_password_length, only: [:new, :edit]
   def update_name
     @user = User.find(params[:id])
-    #@user.update(user_params)
-    @user.firstName = user_params[:firstName]
-    @user.lastName = user_params[:lastName]
-    @user.email = user_params[:email]
+    @user.update(user_params)
+    binding.pry
   
     if @user.update(user_params)
         redirect_to "/", notice: 'User was successfully updated.', type: 'success'
@@ -158,6 +156,11 @@ class Devise::RegistrationsController < DeviseController
 
   def sign_up_params
     devise_parameter_sanitizer.sanitize(:sign_up)
+  end
+
+  #my custom method
+  def user_params
+    devise_parameter_sanitizer.sanitize(:user)
   end
 
   def account_update_params

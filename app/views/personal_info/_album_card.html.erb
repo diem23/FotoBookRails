@@ -8,7 +8,12 @@
 <div class="col-2 d-flex flex-column img-box g-1">
     <div class="contain-rotate-img d-flex justify-content-center align-item-center">
         <% @list_photos.each do |photo| %>
-            <img src="<%=photo.image%>" alt="">
+            <% if (%w( http https).include?URI.parse(photo.image.identifier).scheme) %>
+                <img src="<%=photo.image.identifier%>" alt="">
+            <% else %>
+                <img src="<%=photo.image%>" alt="">
+            <% end %>
+            
         <% end %>
         <div class="overlay">
             <div class="overlay-content">

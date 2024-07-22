@@ -1,9 +1,11 @@
+require 'carrierwave/orm/activerecord'
 class User < ApplicationRecord
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
     devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: %i[facebook]                     
-    ## authenticate by devise
+    ## uploader with carrierwave into profileImg
+    mount_uploader :profileImg, ProfileImgUploader
     
     #ASSOCIATION
     has_many :albums, dependent: :destroy
