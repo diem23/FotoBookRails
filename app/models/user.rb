@@ -4,7 +4,7 @@ class User < ApplicationRecord
     devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :omniauthable, omniauth_providers: %i[facebook]                     
     ## authenticate by devise
-    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+    
     #ASSOCIATION
     has_many :albums, dependent: :destroy
     has_many :photos, dependent: :destroy
@@ -22,6 +22,7 @@ class User < ApplicationRecord
     #validates :password,format: {with: /\A(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{,64}\z/, message: "must contain one digit, one lowercase letter, one uppercase letter, one special character, maximum 64 characters"}
     validates :firstName, :lastName, presence: true, length: {maximum: 25}
     validates :isActive, :isAdmin, inclusion: {in: [true, false]}
+    validates_confirmation_of :password
     #validates_associated :photos, :albums
     
     #CALLBACK EVENTS

@@ -13,12 +13,11 @@
       <div class="header w-100 d-flex flex-row justify-content-start">
           <p>Edit User Profile</p>
       </div>
-      <%= form_with(model: @user, url: update_user_path(@user)) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_with(model: @user, html: { method: :patch, class:"w-100" }, url: update_user_path(@user)) do |f| %>
         <div class="row ">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
           </div>
-          <div class="col-7 d-flex flex-column align-items-start ">
+          <div class="col-5 d-flex flex-column align-items-start ">
             <div class="avt-edit-box mt-3"> 
                 
                 <div class="change-avt-btn"> 
@@ -36,43 +35,67 @@
           <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
             <%= f.label :firstName , "First Name" %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start ">
+          <div class="col-5 d-flex flex-row justify-content-start ">
             <%= f.text_field :firstName, autofocus: true, class: "form-control  " %>
           </div>
         </div>
+        <% if @user.errors.has_key?(:firstName) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+              <p><%= @user.errors[:firstName].first%></p>
+            </div>
+          </div>
+        <% end %>
         <div class="row m-0 mt-2 ">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
             <%= f.label :lastName, "Last Name" %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start ">
+          <div class="col-5 d-flex flex-row justify-content-start ">
             <%= f.text_field :lastName , class: "form-control  " %>
           </div>
         </div>
+        <% if @user.errors.has_key?(:lastName) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+              <p><%= @user.errors[:lastName].first%></p>
+            </div>
+          </div>
+        <% end %>
         <div class="row m-0 mt-2 ">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
             <%= f.label :email, "Email" %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start ">
+          <div class="col-5 d-flex flex-row justify-content-start ">
             <%= f.email_field :email,  autocomplete: "email", class: "form-control  " %>
           </div>
         </div>
+        <% if @user.errors.has_key?(:email) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+              <p><%= @user.errors[:email].first%></p>
+            </div>
+          </div>
+        <% end %>
         <div class="row m-0 mt-2 ">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-5 d-flex flex-row justify-content-start">
             <%= f.submit "Save", class: "btn save-btn mt-2", style: "color: white" %>
           </div>
         </div>
       <% end %>
-      <%= form_for(resource, as: resource_name, url: user_password_path(resource_name), html: { method: :patch, class:"w-100" }) do |f| %>
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
+      <%= form_for(@user, url: registration_path(@user), html: { method: :put, class:"w-100" }) do |f| %>
+        <%= f.hidden_field :id%>
         <div class="row update-title-box">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-5 d-flex flex-row justify-content-start">
             <p class="update-title m-0">Password</p>
           </div>
         </div>
@@ -80,36 +103,65 @@
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
             <%= f.label :current_password, "Current Password" %> <br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-5 d-flex flex-row justify-content-start">
            <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
           </div>
         </div>
+        <% if @user.errors.has_key?(:current_password) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+              
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+            <p><%= @user.errors[:current_password].first %></p>
+            </div>
+          </div>
+        <% end %>
 
         <div class="row m-0 mt-2 ">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
             <%= f.label :password %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-5 d-flex flex-row justify-content-start">
            <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
           </div>
         </div>
-
+        <% if @user.errors.has_key?(:password) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+              
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+            <p><%= @user.errors[:password].first %></p>
+            </div>
+          </div>
+        <% end %>
         <div class="row m-0 mt-2 ">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
             <%= f.label :password_confirmation %><br />
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
-            <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control"%>
+          <div class="col-5 d-flex flex-row justify-content-start">
+            <%= f.password_field :password_confirmation , class: "form-control"%>
           </div>
         </div>
-
+        <% if @user.errors.has_key?(:password_confirmation) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+              
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+            <p><%= @user.errors[:password_confirmation].first %></p>
+            </div>
+          </div>
+        <% end %>
         <div class="row m-0 mt-2 ">
           <div class="col-5 d-flex flex-row justify-content-end align-items-center">
           </div>
-          <div class="col-7 d-flex flex-row justify-content-start">
+          <div class="col-5 d-flex flex-row justify-content-start">
             <%= f.submit "Save", class: "btn save-btn mt-2", style: "color: white" %>
           </div>
         </div>
+        
       <% end %>
   </div>
   <div class="col-0 col-lg-2"></div>

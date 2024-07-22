@@ -4,7 +4,21 @@ class Devise::RegistrationsController < DeviseController
   prepend_before_action :require_no_authentication, only: [:new, :create, :cancel]
   prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy]
   prepend_before_action :set_minimum_password_length, only: [:new, :edit]
-
+  def update_name
+    @user = User.find(params[:id])
+    #@user.update(user_params)
+    @user.firstName = user_params[:firstName]
+    @user.lastName = user_params[:lastName]
+    @user.email = user_params[:email]
+  
+    if @user.update(user_params)
+        redirect_to "/", notice: 'User was successfully updated.', type: 'success'
+        
+    else 
+        binding.pry
+        redirect_to edit_user_path(@user), notice: 'User was not updated.', type: 'error'
+    end
+  end
   # GET /resource/sign_up
   def new
     build_resource
@@ -47,12 +61,17 @@ class Devise::RegistrationsController < DeviseController
   def update
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
+    # resource_updated = false
+    # if params[:password] == params[:password_confirmation]
     resource_updated = update_resource(resource, account_update_params)
+    # end
+    
+      
     
     yield resource if block_given?
     if resource_updated
       set_flash_message_for_update(resource, prev_unconfirmed_email)
+      binding.pry
       bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
 
       respond_with resource, location: after_update_path_for(resource)
@@ -60,6 +79,8 @@ class Devise::RegistrationsController < DeviseController
       clean_up_passwords resource
       set_minimum_password_length
       respond_with resource
+      #binding.pry
+      #redirect_to edit_user_path(resource), notice: 'Password was not updated.', type: 'error'
     end
   end
 
