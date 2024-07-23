@@ -2,6 +2,7 @@
 class Users::PhotosController < ApplicationController
 
   def index
+    @pagy,@list_photos = pagy(Photo.all)
   end
 
 

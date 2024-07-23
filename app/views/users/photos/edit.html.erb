@@ -50,7 +50,11 @@
                                     <%= f.file_field :image, class: "form-control browse-btn", id: "photoInput" %>
                                     <i class="fa-solid fa-plus add-btn"></i>
                                     <div id="previewImage" >
-                                        <img  src="<%=f.object.image%>" alt="" />
+                                        <% if (%w( http https).include?URI.parse(f.object.image.identifier).scheme) %>
+                                            <img  src="<%=f.object.image.identifier%>" alt="" />
+                                        <% else %>
+                                            <img  src="<%=f.object.image%>" alt="" />
+                                        <% end %>
                                         <i class="fa-solid fa-xmark close-img-btn"></i>
                                     </div>
                                 </div>

@@ -1,7 +1,8 @@
-require 'debouncer/debounceable'
+
 class Users::AlbumsController < ApplicationController
-  extend Debouncer::Debounceable
   def index
+    @pagy,@list_albums = pagy(Album.all.includes(:photos))
+    
   end
 
   def show

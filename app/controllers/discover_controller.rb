@@ -27,7 +27,6 @@ class DiscoverController < ApplicationController
 
     def follow
         @list_following = current_user.following.pluck(:id)
-        binding.pry
         if @list_following.include?(params[:user_id].to_i)
             puts "unfollow"
             @follow = Follow.find_by(follower_id: current_user.id, followed_id: params[:user_id])

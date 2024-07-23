@@ -80,4 +80,12 @@ class Devise::SessionsController < DeviseController
       format.any(*navigational_formats) { redirect_to after_sign_out_path_for(resource_name), status: Devise.responder.redirect_status }
     end
   end
+  # My custom action to redirect to the root path after sign in
+  def after_sign_in_path_for(resource)
+    if (resource.isAdmin)
+      admin_dashboard_path
+    else
+      root_path
+    end
+  end
 end
