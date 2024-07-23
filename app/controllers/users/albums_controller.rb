@@ -1,5 +1,7 @@
 
 class Users::AlbumsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :just_allow_admin , only: [:index]
   def index
     @pagy,@list_albums = pagy(Album.all.includes(:photos))
     

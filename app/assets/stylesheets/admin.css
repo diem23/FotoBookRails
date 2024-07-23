@@ -62,3 +62,23 @@
     overflow: auto;
     
 }
+.header-user-table{
+    font-weight: var(--bold-text);
+    border-bottom: 2px solid var(--border-color);
+}
+.back-btn{
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    
+}
+.back-btn p{
+    font-weight: var(--light-text);
+    font-size: var(--medium-text);
+}
+.back-btn:hover{
+    color: #fff;
+    text-decoration: none;
+}

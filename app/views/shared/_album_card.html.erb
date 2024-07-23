@@ -27,11 +27,13 @@
                     <div class="specific-user-btn">
                         <%= button_to personal_info_photo_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon"> 
-                                <%if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
-                                    <img src="<%=ele.user.profileImg.identifier%>" alt="">
-                                <% else %>
-                                    <img src="<%=ele.user.profileImg%>" alt="">
-                                <% end %> 
+                                <%if ele.user.profileImg%>
+                                    <%if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
+                                        <img src="<%=ele.user.profileImg.identifier%>" alt="">
+                                    <% else %>
+                                        <img src="<%=ele.user.profileImg%>" alt="">
+                                    <% end %> 
+                                <%end%>
                             </div>
                             <p class="user-name"><%=ele.user.firstName%></p>
                         <% end %>
@@ -46,11 +48,13 @@
                     <div class="specific-user-btn">
                         <%= button_to personal_info_photo_path(ele.user_id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon">  
-                                <% if (%w( http https).include?URI.parse(ele.profileImg.identifier).scheme) %>
-                                    <img src="<%=ele.profileImg.identifier%>" alt="">
-                                <% else %>
-                                    <img src="<%=ele.profileImg%>" alt="">
-                                <% end %>
+                                <%if ele.user.profileImg%>
+                                    <% if (%w( http https).include?URI.parse(ele.profileImg.identifier).scheme) %>
+                                        <img src="<%=ele.profileImg.identifier%>" alt="">
+                                    <% else %>
+                                        <img src="<%=ele.profileImg%>" alt="">
+                                    <% end %>
+                                <%end%>
                             </div>
                             <p class="user-name"><%=ele.firstName%></p>
                         <% end %>

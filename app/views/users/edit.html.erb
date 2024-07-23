@@ -1,1 +1,135 @@
-<p>heheheeh</p>
+<div class="row h-100 edit-user">
+  <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
+      <ul class="d-inline-block nav-list" >
+          <a href="#">
+                <li class="d-block mb-2">Manage Photos</li>
+            </a>
+            <a href="/discover/photo">
+                <li class="d-block mb-2">Manage Albums</li>
+            </a>
+            <a href="/discover/photo">
+                <li class="d-block mb-2">Manage Users</li>
+            </a>
+      </ul>
+  </div>
+  <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center "> 
+      <div class="header w-100 d-flex flex-row justify-content-between">
+            <p>Edit User Profile</p>
+            <%=button_to  users_path, class: "back-btn"  do%>
+                <p class="m-0">Back</p>
+            <%end%>
+                
+      </div>
+      <%= form_with(model: @user, html: { method: :put, class:"w-100" }, url: update_user_path(@user)) do |f| %>
+        <%session[:success_redirect]=users_path%>
+        <%session[:failure_redirect]=edit_user_path(@user)%>
+        <div class="row ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+          </div>
+          <div class="col-5 d-flex flex-column align-items-start ">
+            <div class="avt-edit-box mt-3"> 
+                
+                <div class="change-avt-btn"> 
+                  <span>Change</span>
+                  <%= f.file_field :profileImg, class: "form-control browse-btn", id: "photoInput" %>
+                </div>
+                <%if f.object.profileImg%>
+                    <% if (%w( http https).include?URI.parse(f.object.profileImg.identifier).scheme) %>
+                        <img  src="<%= f.object.profileImg.identifier %>"/>
+                    <% else %>
+                        <img  src="<%= f.object.profileImg %>"/>
+                    <% end %>
+                <% end %>%
+      
+            </div>
+            
+            <p class="update-title update-title-box"> Basic information </p>
+          </div>
+        </div>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+            <%= f.label :firstName , "First Name" %><br />
+          </div>
+          <div class="col-5 d-flex flex-row justify-content-start ">
+            <%= f.text_field :firstName, autofocus: true, class: "form-control  " %>
+          </div>
+        </div>
+        <% if @user.errors.has_key?(:firstName) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+              <p><%= @user.errors[:firstName].first%></p>
+            </div>
+          </div>
+        <% end %>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+            <%= f.label :lastName, "Last Name" %><br />
+          </div>
+          <div class="col-5 d-flex flex-row justify-content-start ">
+            <%= f.text_field :lastName , class: "form-control  " %>
+          </div>
+        </div>
+        <% if @user.errors.has_key?(:lastName) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+              <p><%= @user.errors[:lastName].first%></p>
+            </div>
+          </div>
+        <% end %>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+            <%= f.label :email, "Email" %><br />
+          </div>
+          <div class="col-5 d-flex flex-row justify-content-start ">
+            <%= f.email_field :email,  autocomplete: "email", class: "form-control  " %>
+          </div>
+        </div>
+        <% if @user.errors.has_key?(:email) %>
+          <div class="row m-0 mt-2 ">
+            <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
+            </div>
+            <div class="col-5 d-flex flex-row justify-content-start error-message">
+              <p><%= @user.errors[:email].first%></p>
+            </div>
+          </div>
+        <% end %>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+            <%= f.label :isActive, "Active" %><br />
+          </div>
+          <div class="col-5 d-flex flex-row justify-content-start ">
+            <%= f.check_box :isActive,  class: "form-check-input " %>
+          </div>
+        </div>
+        <div class="row m-0 mt-2 ">
+          <div class="col-5 d-flex flex-row justify-content-end align-items-center">
+          </div>
+          <div class="col-5 d-flex flex-row justify-content-start">
+            <%= f.submit "Save", class: "btn save-btn mt-2", style: "color: white" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <div class="col-0 col-lg-2"></div>
+</div>
+<script>
+  let photoInput = document.getElementById('photoInput');
+  let avtImg = document.querySelectorAll('.avt-edit-box img');
+  photoInput.addEventListener('change', function(event) {
+    console.log("change")
+    var file = event.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+          avtImg[0].src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
+

@@ -17,7 +17,9 @@ class Devise::SessionsController < DeviseController
   # POST /resource/sign_in
   def create
     self.resource = warden.authenticate!(auth_options)
-    set_flash_message!(:notice, :signed_in)
+    #set_flash_message!(:notice, :signed_in)
+    set_my_flash_message(:notice, "you are signed in")
+    set_my_flash_message(:type, "success")
     sign_in(resource_name, resource)
     yield resource if block_given?
     respond_with resource, location: after_sign_in_path_for(resource)
@@ -83,7 +85,7 @@ class Devise::SessionsController < DeviseController
   # My custom action to redirect to the root path after sign in
   def after_sign_in_path_for(resource)
     if (resource.isAdmin)
-      admin_dashboard_path
+      users_path
     else
       root_path
     end

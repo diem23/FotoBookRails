@@ -20,10 +20,12 @@ Rails.application.routes.draw do
   get "/personal_info/following/:id", to: "personal_info#following", as: :personal_info_following
   get "/personal_info/follower/:id", to: "personal_info#follower", as: :personal_info_follower
   get "/users/edit/:id", to: "users#edit", as: :edit_user
-  patch "/users/update/:id", to: "users#update", as: :update_user
+  #patch "/users/update/:id", to: "users#update", as: :update_user
   devise_scope :user do
-    put "/users/update/:id", to: "devise/registrations#update_name"
+    put "/users/update/:id", to: "devise/registrations#update_name", as: :update_user
   end
+  get "/users", to: "users#index", as: :users
+  delete "/users/delete/:user_id", to: "users#destroy", as: :delete_user
   # post "/react_photo", to: "react_photos#create"
   # delete "/react_photo", to: "react_photos#destroy"
   # post "/react_album", to: "react_albums#create"

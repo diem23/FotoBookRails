@@ -5,11 +5,13 @@
 <div class="col-3 d-flex flex-column align-items-center  g-1 ">
    <div class="d-flex flex-column align-items-center user-box">
         <div class="avt-box">
-            <% if (%w( http https).include?URI.parse(ele.profileImg.identifier).scheme) %>
-                <img src="<%=ele.profileImg.identifier%>" alt="">
-            <% else %>
-                <img src="<%=ele.profileImg%>" alt="">
-            <% end %>
+            <%if ele.profileImg%>
+                <% if (%w( http https).include?URI.parse(ele.profileImg.identifier).scheme) %>
+                    <img src="<%=ele.profileImg.identifier%>" alt="">
+                <% else %>
+                    <img src="<%=ele.profileImg%>" alt="">
+                <% end %>
+            <%end%>
            
         </div>
         <%= button_to personal_info_photo_path(ele.id), method: :get do %>

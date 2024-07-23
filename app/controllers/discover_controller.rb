@@ -1,6 +1,7 @@
 
 class DiscoverController < ApplicationController
     before_action :authenticate_user!, only: :follow
+    before_action :just_allow_user
     def photo
         @list_photos =  Photo.public_photos.includes(:user)
         if user_signed_in?

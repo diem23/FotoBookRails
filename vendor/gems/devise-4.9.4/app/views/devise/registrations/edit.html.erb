@@ -14,7 +14,10 @@
           <p>Edit User Profile</p>
       </div>
       <%= form_with(model: @user, html: { method: :put, class:"w-100" }, url: update_user_path(@user)) do |f| %>
+        <% session[:sucess_redirect]=personal_info_photo_path%>
+        <% session[:failure_redirect]=edit_user_registration_path%>
         <div class="row ">
+
           <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
           </div>
           <div class="col-5 d-flex flex-column align-items-start ">

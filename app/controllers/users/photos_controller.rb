@@ -1,6 +1,7 @@
 
 class Users::PhotosController < ApplicationController
-
+  before_action :authenticate_user!
+  before_action :just_allow_admin , only: [:index]
   def index
     @pagy,@list_photos = pagy(Photo.all)
   end
