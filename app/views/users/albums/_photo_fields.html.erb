@@ -1,19 +1,28 @@
 
 <div class="nested-fields upload-photo-box mt-4 ">
+
     <% if f.object %>
-        <img
-            src="<%= f.object.image_url %>"
-            class=""
-            style="
-                width: 100%;
-                height: 100%;
-                border-radius: 0.5rem;
-                object-fit: cover;
-                cursor: pointer;
-                z-index: 1;
-                position: absolute;
-            "
-        >
+        <% if f.object.image.identifier!=nil %>
+            <% if (%w( http https).include?URI.parse(f.object.image.identifier).scheme) %>
+                <img src="<%= f.object.image.identifier %>" class="" 
+                style="width: 100%; height: 100%; border-radius: 0.5rem; 
+                object-fit: cover; cursor: pointer; z-index: 1; position: absolute;">
+            <% else %>
+                <img
+                    src="<%= f.object.image %>"
+                    class=""
+                    style="
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 0.5rem;
+                        object-fit: cover;
+                        cursor: pointer;
+                        z-index: 1;
+                        position: absolute;
+                    "
+                >
+            <% end %>
+        <% end %>
     <% end %>
     <span class="preview-text-box"> Click here to choose specific photo</span>
     <div class="previewImageBox" >

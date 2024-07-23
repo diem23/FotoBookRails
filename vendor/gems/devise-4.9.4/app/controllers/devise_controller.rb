@@ -165,6 +165,11 @@ MESSAGE
   #
   # Please refer to README or en.yml locale file to check what messages are
   # available.
+  #my custom method
+  def set_my_flash_message(notice, type)
+    flash[:notice] = notice
+    flash[:type] = type
+  end
   def set_flash_message(key, kind, options = {})
     message = find_message(kind, options)
     if options[:now]

@@ -1,3 +1,4 @@
+<%session[:failure_redirect]=personal_info_photo_path%>
 <div class="row personal-info photo">
         <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list album-nav" >
@@ -13,7 +14,7 @@
         <div class="row w-100 ">
             <div class="col-3 p-0">
                 <div class="user-avt-box">
-                    <img src="https://anhanime.com/wp-content/uploads/2024/02/Anh-Nagi-2.jpg" alt="">
+                    <img src="<%=@target_user.profileImg%>" alt="">
                 </div>
             </div>
             <div class="col-9 d-flex flex-column gap-10">

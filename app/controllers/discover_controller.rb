@@ -1,6 +1,7 @@
 
 class DiscoverController < ApplicationController
     before_action :authenticate_user!, only: :follow
+    before_action :just_allow_user
     def photo
         @list_photos =  Photo.public_photos.includes(:user)
         if user_signed_in?
@@ -27,7 +28,6 @@ class DiscoverController < ApplicationController
 
     def follow
         @list_following = current_user.following.pluck(:id)
-        binding.pry
         if @list_following.include?(params[:user_id].to_i)
             puts "unfollow"
             @follow = Follow.find_by(follower_id: current_user.id, followed_id: params[:user_id])

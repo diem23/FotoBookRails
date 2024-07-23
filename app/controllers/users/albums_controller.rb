@@ -1,7 +1,10 @@
-require 'debouncer/debounceable'
+
 class Users::AlbumsController < ApplicationController
-  extend Debouncer::Debounceable
+  before_action :authenticate_user!
+  before_action :just_allow_admin , only: [:index]
   def index
+    @pagy,@list_albums = pagy(Album.all.includes(:photos))
+    
   end
 
   def show

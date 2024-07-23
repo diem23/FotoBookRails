@@ -88,6 +88,7 @@ end
 
 gem "faker", "~> 3.4"
 gem "will_paginate", "~> 4.0"
+gem "pagy", "~> 9.0.2"
 
 
 gem "actionpack", "~> 7.1"

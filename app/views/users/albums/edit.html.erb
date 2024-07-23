@@ -45,8 +45,12 @@
                                     
                                 </div>
                                 <div class="photos">
+                                    
                                     <%= f.fields_for :photos do |photo| %>
-                                        <%= render 'photo_fields', f: photo %>
+                                        
+                                             <%= render 'photo_fields', f: photo %>
+                                        
+                                        
                                     <% end %>
                                     <% if @album.errors.has_key?(:photos) %>
                                         <p class="error-message mb-0"> <%= @album.errors[:photos].first %></p>

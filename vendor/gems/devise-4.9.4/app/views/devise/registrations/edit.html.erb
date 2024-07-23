@@ -13,8 +13,11 @@
       <div class="header w-100 d-flex flex-row justify-content-start">
           <p>Edit User Profile</p>
       </div>
-      <%= form_with(model: @user, html: { method: :patch, class:"w-100" }, url: update_user_path(@user)) do |f| %>
+      <%= form_with(model: @user, html: { method: :put, class:"w-100" }, url: update_user_path(@user)) do |f| %>
+        <% session[:sucess_redirect]=personal_info_photo_path%>
+        <% session[:failure_redirect]=edit_user_registration_path%>
         <div class="row ">
+
           <div class="col-5 d-flex flex-row justify-content-end align-items-center" >
           </div>
           <div class="col-5 d-flex flex-column align-items-start ">
@@ -24,7 +27,7 @@
                   <span>Change</span>
                   <%= f.file_field :profileImg, class: "form-control browse-btn", id: "photoInput" %>
                 </div>
-                <img  src="<%= f.object.profileImg %>"/>
+                <img  src="<%= f.object.profileImg.identifier %>"/>
       
             </div>
             

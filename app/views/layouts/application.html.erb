@@ -66,7 +66,11 @@
         <div class="header-bar d-none d-lg-flex row ml-0 mr-0">   
             <div class="left-side col-md-6 col-sm-6 row align-items-center ml-1">
                 <div class="col-md-3 col-6 title-box">
-                    <h1>Fotobook</h1>
+                    <% if user_signed_in? && current_user.isAdmin %>
+                        <h1>Fotobook Admin</h1>
+                    <% else %>
+                        <h1>Fotobook</h1>
+                    <% end %>
                 </div>
                 
                 <div class="search-box col-md-8 col-6">
@@ -79,7 +83,16 @@
                     <a href="#" class="col-md-8">
                     <div class="personal-box">
                         <%= button_to personal_info_photo_path(current_user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
-                                <div class="avt-box"></div>
+                                <div class="avt-box">
+                                    <%if current_user.profileImg.identifier%>
+                                        <% if (%w( http https).include?URI.parse(current_user.profileImg.identifier).scheme) %> 
+                                            <img class=" img-fluid" src="<%=current_user.profileImg.identifier%>" alt="">
+                                        <% else %>
+                                            img class=" img-fluid" src="<%=current_user.profileImg%>" alt="">
+                                        <% end %>
+                                    <%end%>
+                                
+                                </div>
                                 <p><%=current_user.firstName%></p>
                                 <% end %>
                             </div>

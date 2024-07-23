@@ -1,7 +1,12 @@
 <% ele = local_assigns[:ele] %>
 <% index = local_assigns[:index] %>
 <div class="col-2 d-flex flex-column img-box g-1">
-    <img src="<%=ele.image%>" alt="">
+    <% if (%w( http https).include?URI.parse(ele.image.identifier).scheme) %>
+        <img src="<%=ele.image.identifier%>" alt="">
+    <% else %>
+        <img src="<%=ele.image%>" alt="">
+    <% end %>
+    
     <% if ele.title %>
         <p class="mt-2"><%=ele.title%></p>
     <% else %>

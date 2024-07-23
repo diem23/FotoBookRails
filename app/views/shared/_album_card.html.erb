@@ -11,7 +11,11 @@
             <% else %>
                 <% @list_photos.each_with_index do |photo,index| %>
                         <%break if index == 3%>
-                        <img src="<%=photo.image%>" alt="">
+                        <% if (%w( http https).include?URI.parse(photo.image.identifier).scheme) %>
+                            <img src="<%=photo.image.identifier%>" alt="">
+                        <% else %>
+                            <img src="<%=photo.image%>" alt="">
+                        <% end %>
                 <% end %>
             <% end %>
         </div>
@@ -22,7 +26,15 @@
                 <div class="user-info-box d-flex flex-row justify-content-between align-items-center gap-10">
                     <div class="specific-user-btn">
                         <%= button_to personal_info_photo_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
-                            <div class="avt-icon">  </div>
+                            <div class="avt-icon"> 
+                                <%if ele.user.profileImg%>
+                                    <%if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
+                                        <img src="<%=ele.user.profileImg.identifier%>" alt="">
+                                    <% else %>
+                                        <img src="<%=ele.user.profileImg%>" alt="">
+                                    <% end %> 
+                                <%end%>
+                            </div>
                             <p class="user-name"><%=ele.user.firstName%></p>
                         <% end %>
                     </div>
@@ -35,7 +47,15 @@
                 <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
                     <div class="specific-user-btn">
                         <%= button_to personal_info_photo_path(ele.user_id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
-                            <div class="avt-icon">  </div>
+                            <div class="avt-icon">  
+                                <%if ele.user.profileImg%>
+                                    <% if (%w( http https).include?URI.parse(ele.profileImg.identifier).scheme) %>
+                                        <img src="<%=ele.profileImg.identifier%>" alt="">
+                                    <% else %>
+                                        <img src="<%=ele.profileImg%>" alt="">
+                                    <% end %>
+                                <%end%>
+                            </div>
                             <p class="user-name"><%=ele.firstName%></p>
                         <% end %>
                     </div>
@@ -75,13 +95,21 @@
                             </div>
                         <% else %>
                             <div class="carousel-item active">
-                                <img src="<%=@list_photos[0].image%>" class="d-block w-100" alt="...">
+                                <% if (%w( http https).include?URI.parse(@list_photos[0].image.identifier).scheme) %>
+                                    <img src="<%=@list_photos[0].image.identifier%>" class="d-block w-100" alt="...">
+                                <% else %>
+                                    <img src="<%=@list_photos[0].image%>" class="d-block w-100" alt="...">
+                                <% end %>
                             </div>
                             
                             <% @list_photos.each_with_index do |photo,index| %>
                                 <% next if index == 0%>
                                 <div class="carousel-item">
-                                    <img src="<%=photo.image%>" class="d-block w-100" alt="...">
+                                    <% if (%w( http https).include?URI.parse(photo.image.identifier).scheme) %>
+                                        <img src="<%=photo.image.identifier%>" class="d-block w-100" alt="...">
+                                    <% else %>
+                                        <img src="<%=photo.image%>" class="d-block w-100" alt="...">
+                                    <% end %>
                                 </div>
                             <% end %>
                         <% end %>
