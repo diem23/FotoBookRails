@@ -21,6 +21,7 @@ class Users::PhotosController < ApplicationController
       redirect_to "/"
     else 
       flash[:notice] = 'Photo was not updated.'
+      
       render :edit
     end
     

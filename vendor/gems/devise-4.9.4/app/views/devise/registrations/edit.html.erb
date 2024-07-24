@@ -14,7 +14,7 @@
           <p>Edit User Profile</p>
       </div>
       <%= form_with(model: @user, html: { method: :put, class:"w-100" }, url: update_user_path(@user)) do |f| %>
-        <% session[:sucess_redirect]=personal_info_photo_path%>
+        <% session[:sucess_redirect]=personal_info_photo_path(@user)%>
         <% session[:failure_redirect]=edit_user_registration_path%>
         <div class="row ">
 

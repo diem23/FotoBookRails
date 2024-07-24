@@ -2,7 +2,7 @@
 
 <% if flash[:notice] %>                           
     <div aria-live="polite" aria-atomic="true" class="col-12 bg-dark position-relative bd-example-toasts">
-        <div class="toast-container position-absolute top-0 end-0" id="toastPlacement" style="<%=(flash[:type]=='success')?'background-color:green':'background-color:red'%>">
+        <div class="toast-container position-absolute top-0 end-0" id="toastPlacement" style="<%=(flash[:type]=='success')? 'background-color:green': 'background-color:red'%>">
             <div class="show" >
                 <div class="my-toast">
                     <%= flash[:notice] %>
@@ -41,13 +41,14 @@
                                     <%= f.label :isPrivate, "Sharing mode" , class: "form-label"%>
                                     <br/>
                                     <div class="sharing-mode-box">
-                                        <%= f.select :isPrivate,  options_for_select([["Public", "0"], ["Private", "1"]], selected: (f.object.isPrivate)?"1":"0" ) , {},{class: 'sharing-mode'}%>
+                                        <%= f.select :isPrivate,  options_for_select([["Public", "0"], ["Private", "1"]], selected: (f.object.isPrivate)? "1" : "0" ) , {},{class: 'sharing-mode'}%>
                                         <i class="fa-solid fa-angle-down down-arrow"></i>
                                     </div>
                                     
                                 </div>
                                 <div class="upload-photo-box mt-3">
                                     <%= f.file_field :image, class: "form-control browse-btn", id: "photoInput" %>
+                                    
                                     <i class="fa-solid fa-plus add-btn"></i>
                                     <div id="previewImage" >
                                         <% if (%w( http https).include?URI.parse(f.object.image.identifier).scheme) %>

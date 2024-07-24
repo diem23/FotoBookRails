@@ -14,7 +14,16 @@
         <div class="row w-100 ">
             <div class="col-3 p-0">
                 <div class="user-avt-box">
-                    <img src="<%=@target_user.profileImg%>" alt="">
+                    <%if @target_user.profileImg.identifier%>
+                        <%if %w(http https).include?(URI.parse(@target_user.profileImg.identifier).scheme)%>
+                            <img src="<%=@target_user.profileImg.identifier%>" alt="">
+                        <%else%>
+                            <img src="<%=@target_user.profileImg%>" alt="">
+                        <%end%>
+                        
+                    <%else%>
+                        <img src="" alt="">
+                    <%end%>
                 </div>
             </div>
             <div class="col-9 d-flex flex-column gap-10">
