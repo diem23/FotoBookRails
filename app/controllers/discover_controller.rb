@@ -1,9 +1,10 @@
 
 class DiscoverController < ApplicationController
+    Pagy::DEFAULT[:limit] = 10
     before_action :authenticate_user!, only: :follow
     before_action :just_allow_user
     def photo
-        @list_photos =  Photo.public_photos.includes(:user)
+        @pagy,@list_photos =  pagy(Photo.public_photos.includes(:user), items: 10)
         if user_signed_in?
             @list_following = current_user.following.pluck(:id) 
             @list_reacted_photos = current_user.reacted_photos.pluck(:id) 
@@ -15,7 +16,7 @@ class DiscoverController < ApplicationController
     end
 
     def album
-        @list_albums = Album.public_albums.includes(:photos).where(isPrivate: false).includes(:user)
+        @pagy,@list_albums = pagy(Album.public_albums.includes(:photos).where(isPrivate: false).includes(:user), items: 10)
         if user_signed_in?
             @list_following = current_user.following.pluck(:id)
             puts @list_following, "list_followingggggggggggggggggggggg"

@@ -20,7 +20,7 @@
                 <div class="album-btn p-2">ALBUM</div>
             </a>
         </div>
-        <div class="w-100 feed_album d-flex flex-wrap gap-20 mt-4 h-100 mb-4 ">
+        <div class="w-100 feed_album row mt-4 h-100 mb-4 ">
             <% if @list_albums.empty? %>
                 <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
                     <p>There is no album</p>
@@ -29,6 +29,13 @@
                 <% @list_albums.each_with_index do |ele,index|%>
                     <%= render 'shared/album_card', ele: ele, index: index, have_follow: true %>
                 <%end%>
+            <% end %>
+            <%if @pagy%>
+                <div class=" w-100 d-flex justify-content-center mt-4">
+                        <%== pagy_bootstrap_nav(@pagy)%>
+                         
+                    </div>
+                </div>
             <% end %>
                 
         </div>
