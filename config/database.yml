@@ -34,3 +34,6 @@ default: &default
 development:
   <<: *default
   database: PhotoBook
+production:
+  <<: *default
+  database: PhotoBook
