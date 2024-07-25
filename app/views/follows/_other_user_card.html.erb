@@ -6,11 +6,7 @@
    <div class="d-flex flex-column align-items-center user-box">
         <div class="avt-box">
             <%if ele.profileImg.identifier%>
-                <% if (%w( http https).include?URI.parse(ele.profileImg.identifier).scheme) %>
-                    <img src="<%=ele.profileImg.identifier%>" alt="">
-                <% else %>
-                    <img src="<%=ele.profileImg%>" alt="">
-                <% end %>
+                <%=render '/shared/display_image', ele:ele.profileImg%>
             <%end%>
            
         </div>

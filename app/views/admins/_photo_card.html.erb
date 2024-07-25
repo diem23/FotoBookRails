@@ -1,11 +1,7 @@
 <% ele = local_assigns[:ele] %>
 <div class=" d-flex flex-row justify-content-center ">
     <div class="img-item">
-        <% if (%w( http https).include?URI.parse(ele.image.identifier).scheme) %> 
-            <img src="<%=ele.image.identifier%>" alt="">
-        <% else %>
-            <img src="<%=ele.image%>" alt="">
-        <% end %>
+        <%=render '/shared/display_image', ele: ele.image%>
         <div class="img-title d-flex justify-content-between">
             <div class="img-title-text" > 
                 <p><%=ele.title%> </p>

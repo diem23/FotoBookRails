@@ -14,11 +14,7 @@
             <% else %>
                 <% @list_photos.each_with_index do |photo,index| %>
                         <%break if index == 3%>
-                        <% if (%w( http https).include?URI.parse(photo.image.identifier).scheme) %>
-                            <img src="<%=photo.image.identifier%>" alt="">
-                        <% else %>
-                            <img src="<%=photo.image%>" alt="">
-                        <% end %>
+                        <%= render '/shared/display_image', ele: photo.image%>
                 <% end %>
             <% end %>
         </div>
@@ -30,13 +26,7 @@
                     <div class="specific-user-btn">
                         <%= button_to user_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon"> 
-                                <%if ele.user.profileImg%>
-                                    <%if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
-                                        <img src="<%=ele.user.profileImg.identifier%>" alt="">
-                                    <% else %>
-                                        <img src="<%=ele.user.profileImg%>" alt="">
-                                    <% end %> 
-                                <%end%>
+                                <%= render '/shared/display_image', ele: ele.user.profileImg%>
                             </div>
                             <p class="user-name"><%=ele.user.firstName%></p>
                         <% end %>
@@ -51,19 +41,12 @@
                         </div>
                     <% end %>
                 </div>
-            <% else %>
-                
+            <% else %>   
                 <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
                     <div class="specific-user-btn">
                         <%= button_to user_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon">  
-                                <%if ele.user.profileImg.identifier%>
-                                    <% if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
-                                        <img src="<%=ele.user.profileImg.identifier%>" alt="">
-                                    <% else %>
-                                        <img src="<%=ele.user.profileImg%>" alt="">
-                                    <% end %>
-                                <%end%>
+                                <%= render '/shared/display_image', ele: ele.user.profileImg%>
                             </div>
                             <p class="user-name"><%=ele.user.firstName%></p>
                         <% end %>
@@ -111,21 +94,14 @@
                             </div>
                         <% else %>
                             <div class="carousel-item active">
-                                <% if (%w( http https).include?URI.parse(@list_photos[0].image.identifier).scheme) %>
-                                    <img src="<%=@list_photos[0].image.identifier%>" class="d-block w-100" alt="...">
-                                <% else %>
-                                    <img src="<%=@list_photos[0].image%>" class="d-block w-100" alt="...">
-                                <% end %>
+                                <%=render '/shared/display_image', ele: @list_photos[0].image, class_name: "d-block w-100"%>
                             </div>
                             
                             <% @list_photos.each_with_index do |photo,index| %>
                                 <% next if index == 0%>
                                 <div class="carousel-item">
-                                    <% if (%w( http https).include?URI.parse(photo.image.identifier).scheme) %>
-                                        <img src="<%=photo.image.identifier%>" class="d-block w-100" alt="...">
-                                    <% else %>
-                                        <img src="<%=photo.image%>" class="d-block w-100" alt="...">
-                                    <% end %>
+                                    
+                                    <%=render '/shared/display_image', ele:photo.image, class_name:"d-block w-100"  %>
                                 </div>
                             <% end %>
                         <% end %>

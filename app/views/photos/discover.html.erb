@@ -106,12 +106,143 @@ function fetchFollowButtonHTML(id){
 
 }
 }
-    const debounceFollow= function (func, timeout = 3000){
-    return (...args) => {
-        console.log(this.timer)
-        clearTimeout(this.timer);
-        this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
-    };
+const debounceFollow= function (func, timeout = 3000){
+return (...args) => {
+    console.log(this.timer)
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+};
 } 
+
+function reactPhotoApi(id){
+    $.ajax({
+        url: "/react_photos",
+        type: "POST",
+        data: {photo_id: id},
+        success: function(data) {
+            fetchUnreactPhotoButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchUnreactPhotoButton(id){
+$.ajax({
+    url: `/unreact_photo_button/photo/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {photo_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.react-photo-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+function unreactPhotoApi(id){
+    $.ajax({
+        url: "/unreact_photos",
+        type: "DELETE",
+        data: {photo_id: id},
+        success: function(data) {
+            fetchReactPhotoButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchReactPhotoButton(id){
+$.ajax({
+    url: `/react_photo_button/photo/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {photo_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.unreact-photo-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+
+
+function reactAlbumApi(id){
+    $.ajax({
+        url: "/react_albums",
+        type: "POST",
+        data: {album_id: id},
+        success: function(data) {
+            fetchUnreactAlbumButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchUnreactAlbumButton(id){
+$.ajax({
+    url: `/unreact_album_button/album/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {album_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.react-album-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+function unreactAlbumApi(id){
+    $.ajax({
+        url: "/unreact_albums",
+        type: "DELETE",
+        data: {album_id: id},
+        success: function(data) {
+            fetchReactAlbumButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchReactAlbumButton(id){
+$.ajax({
+    url: `/react_album_button/album/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {album_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.unreact-album-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+
+
+const debounceReact = function (func, timeout = 3000){
+return (...args) => {
+    console.log(this.timer)
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+};
+}
+
+function showModal(modalId){
+var myModal = new bootstrap.Modal(document.getElementById(modalId), {
+    keyboard: false
+})
+myModal.show()
+}
 </script>
 <%= javascript_pack_tag 'add_event_follow_button'%>

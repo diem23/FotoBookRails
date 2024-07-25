@@ -1,0 +1,13 @@
+<%ele = local_assigns[:ele]%>
+<% class_name = local_assigns[:class_name]%>
+<%if ele%>
+    <%if ele.identifier%>
+        <% if (%w( http https).include?URI.parse(ele.identifier).scheme) %>
+            <img src="<%=ele.identifier%>" class="<%=class_name%>" alt="">
+        <% else %>
+            <img src="<%=ele%>" class="<%=class_name%>" alt="">
+        <% end %>
+    <%end%>
+<%else%>
+    <img src="" alt="">
+<%end%>

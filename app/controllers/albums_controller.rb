@@ -68,8 +68,10 @@ class AlbumsController < ApplicationController
     end
     private
     def before_action_handle1
-        @list_reacted_albums = current_user.reacted_albums.pluck(:id)
-        @list_followings = current_user.following.pluck(:id)
+        @list_followings=[]
+        @list_reacted_albums=[]
+        @list_reacted_albums = current_user.reacted_albums.pluck(:id) if user_signed_in?
+        @list_followings = current_user.following.pluck(:id) if user_signed_in?
     end
     def get_resource
         @resource = Album.find(params[:id])

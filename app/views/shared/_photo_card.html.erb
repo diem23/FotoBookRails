@@ -6,15 +6,7 @@
 <div class="col-xl-6  col-12">
     <div class="row item-box mt-4" onclick="showModal('<%='imageModal'+index.to_s%>')" data-bs-target="<%='#imageModal'+index.to_s%>">
         <div class="col-6  img-box p-0">
-       
-                <% if (%w( http https).include?URI.parse(ele.image.identifier).scheme) %>
-                    <img src="<%=ele.image.identifier%>" alt="">
-                <% else %>
-                    <img src="<%=ele.image%>" alt="">
-                <% end %>
-           
-
-
+            <%= render '/shared/display_image', ele: ele.image%>
         </div>
         <div class="col-6 h-100 p-2 d-flex flex-column justify-content-between">
             <div class="upper-box d-flex flex-column gap-10">
@@ -23,12 +15,9 @@
                         <div class="specific-user-btn">
                             <%= button_to user_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                                 <div class="avt-icon"> 
-                                    <%if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
-                                        <img src="<%=ele.user.profileImg.identifier%>" alt="">
-                                    <% else %>
-                                        <img src="<%=ele.user.profileImg%>" alt="">
-                                    <% end %>
+                                    <%= render '/shared/display_image', ele: ele.user.profileImg%>
                                  </div>
+                                 
                                 <p class="user-name"><%=ele.user.firstName%></p>
                             <% end %>
                         </div>
@@ -47,11 +36,7 @@
                         <div class="specific-user-btn">
                             <%= button_to user_path(ele.user_id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                                 <div class="avt-icon">
-                                    <% if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
-                                        <img src="<%=ele.user.profileImg.identifier%>" alt="">
-                                    <% else %>
-                                        <img src="<%=ele.user.profileImg%>" alt="">
-                                    <% end %>
+                                    <%= render '/shared/display_image', ele: ele.user.profileImg%>
                                 </div>
                                 <p class="user-name"><%= ele.user.firstName%></p>
                             <% end %>

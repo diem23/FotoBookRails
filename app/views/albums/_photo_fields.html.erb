@@ -2,33 +2,10 @@
 <div class="nested-fields upload-photo-box mt-4 ">
 
     <% if f.object %>
-        <% if f.object.image.identifier!=nil %>
-            <% if (%w( http https).include?URI.parse(f.object.image.identifier).scheme) %>
-                <img src="<%= f.object.image.identifier %>" class="" 
-                style="width: 100%; height: 100%; border-radius: 0.5rem; 
-                object-fit: cover; cursor: pointer; z-index: 1; position: absolute;">
-            <% else %>
-                <img
-                    src="<%= f.object.image %>"
-                    class=""
-                    style="
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 0.5rem;
-                        object-fit: cover;
-                        cursor: pointer;
-                        z-index: 1;
-                        position: absolute;
-                    "
-                >
-            <% end %>
-        <% else %>
-            <img src="" class="" 
-                style="width: 100%; height: 100%; border-radius: 0.5rem; 
-                object-fit: cover; cursor: pointer; z-index: 1; position: absolute;">
-        <%end%>
-
+        
+        <%=render '/shared/display_image', ele: f.object.image, class_name:"preview-image"%>
     <% end %>
+
     <span class="preview-text-box"> Click here to choose specific photo</span>
     <div class="previewImageBox" >
         <%= f.file_field :image, class: "form-control photoInput browse-btn" %>

@@ -11,11 +11,7 @@
                 <img src="" alt="">
             <% else %>
                 <% @list_photos.each do |photo| %>
-                    <% if (%w( http https).include?URI.parse(photo.image.identifier).scheme) %>
-                        <img src="<%=photo.image.identifier%>" alt="">
-                    <% else %>
-                        <img src="<%=photo.image%>" alt="">
-                    <% end %>
+                    <%= render '/shared/display_image', ele: photo.image%>
                 <% end %>
             <% end %>
             <div class="overlay">

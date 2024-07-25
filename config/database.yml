@@ -27,15 +27,20 @@
 default: &default
   adapter: mysql2
   encoding: utf8 
+  database: PhotoBook
+  pool: 5
+  username: root
+  password: MinhDiem@23
+development:
+  <<: *default
+  database: PhotoBook
+production:
+  adapter: mysql2
+  encoding: utf8 
   host: bysfvppd3xp8t1wbhow0-mysql.services.clever-cloud.com
   database: bysfvppd3xp8t1wbhow0
   port: 3306
   pool: 5
   username: uwzqtiie3fovlzk7
   password: BUrr6ZE7JFztV2j2SL7X
-development:
-  <<: *default
-  database: PhotoBook
-production:
-  <<: *default
   

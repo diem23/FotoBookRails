@@ -34,13 +34,7 @@
                   <span>Change</span>
                   <%= f.file_field :profileImg, class: "form-control browse-btn", id: "photoInput" %>
                 </div>
-                <%if f.object.profileImg%>
-                    <% if (%w( http https).include?URI.parse(f.object.profileImg.identifier).scheme) %>
-                        <img  src="<%= f.object.profileImg.identifier %>"/>
-                    <% else %>
-                        <img  src="<%= f.object.profileImg %>"/>
-                    <% end %>
-                <% end %>%
+                <%= render '/shared/display_image', ele: f.object.profileImg%>
       
             </div>
             

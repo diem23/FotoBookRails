@@ -52,11 +52,8 @@
                                     
                                     <i class="fa-solid fa-plus add-btn"></i>
                                     <div id="previewImage" >
-                                        <% if (%w( http https).include?URI.parse(f.object.image.identifier).scheme) %>
-                                            <img  src="<%=f.object.image.identifier%>" alt="" />
-                                        <% else %>
-                                            <img  src="<%=f.object.image%>" alt="" />
-                                        <% end %>
+                                        <%= render '/shared/display_image', ele: f.object.image%>
+                                        
                                         <i class="fa-solid fa-xmark close-img-btn"></i>
                                     </div>
                                 </div>
