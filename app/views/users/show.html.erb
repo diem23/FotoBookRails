@@ -1,5 +1,5 @@
 
-<%session[:failure_redirect]=user2_path(current_user)%>
+<%session[:failure_redirect]=user_path(current_user)%>
 <div class="row personal-info photo">
         <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list album-nav" >
@@ -46,10 +46,10 @@
                 <h2><%=@user.firstName + " " + @user.lastName%></h2>
                 <div >
                     <ul class="personal_nav p-0 m-0">
-                        <%= link_to user2_photo2s_path(@user), remote: true do%>
+                        <%= link_to user_photos_path(@user), remote: true do%>
                             <li id="photos-personal-nav"><span><%=@user.photos.size%></span> PHOTOS</li>
                         <% end %>
-                        <%= link_to user2_album2s_path(@user) , remote: true do %>
+                        <%= link_to user_albums_path(@user) , remote: true do %>
                             <li id="albums-personal-nav"><span><%=@user.albums.size%></span> ALBUMS</li>
                         <% end %>
                         <%= link_to followings_path(@user) , remote: true do %>
@@ -65,11 +65,11 @@
         </div>
         <% if @viewing_current_user %>
             <div class="add-button d-flex flex-row justify-content-end w-100 gap-40 m-0 mt-5">
-                    <%= render '/photo2s/add_photo_button' %>
+                    <%= render '/photos/add_photo_button' %>
             </div>
         <% end %>                    
         <div class="resource-container row gap-20 m-0 mt-5 w-100">
-            <%= render 'photo2s/list_photos', resources: @resources%>
+            <%= render 'photos/list_photos', resources: @resources%>
         </div>
     </div>
     <div class="col-0 col-lg-2"></div>
@@ -81,7 +81,7 @@ function followAPI(id){
     url: "/follow",
     type: "POST",
     dataType: "html",
-    data: {user2_id: id},
+    data: {user_id: id},
     success: function(data) {
         console.log('follow success')
         console.log(data)
@@ -103,10 +103,10 @@ function followAPI(id){
 }
 function fetchUnfollowButtonHTML(id){
     $.ajax({
-        url: `/unfollow_button/user2/${id}`,
+        url: `/unfollow_button/user/${id}`,
         type: "GET",
         dataType: "html",
-        data: {user2_id: id},
+        data: {user_id: id},
         success: function(html) {
             console.log('fetch unfollow button success')
            
@@ -125,7 +125,7 @@ function unfollowAPI(id){
     url: "/unfollow",
     type: "DELETE",
     dataType: "html",
-    data: {user2_id: id},
+    data: {user_id: id},
     success: function(data) {
         console.log('unfollow success')
         console.log(data)
@@ -145,10 +145,10 @@ function unfollowAPI(id){
 })
 function fetchFollowButtonHTML(id){
     $.ajax({
-        url: `/follow_button/user2/${id}`,
+        url: `/follow_button/user/${id}`,
         type: "GET",
         dataType: "html",
-        data: {user2_id: id},
+        data: {user_id: id},
         success: function(html) {
             console.log('fetch unfollow button success')
             

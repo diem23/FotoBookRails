@@ -1,4 +1,4 @@
-class Photo2sController < ApplicationController
+class PhotosController < ApplicationController
     Pagy::DEFAULT[:limit] = 10
     before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :index]
     before_action :just_allow_user, only: [:new, :create, :feed,:discover, :index]
@@ -66,7 +66,7 @@ class Photo2sController < ApplicationController
         @resource = Photo.find params[:id]
     end
     def get_user
-        @user = User.find params[:user2_id]
+        @user = User.find params[:user_id]
     end
     def photo_params
         params.require(:photo).permit(:title, :description, :isPrivate, :image)

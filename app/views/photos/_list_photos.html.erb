@@ -5,6 +5,6 @@
                 </div>
 <%else%>
     <% list_photos.find_each do |ele|%>
-        <%= render 'photo2s/photo_card', ele: ele %>
+        <%= render 'photos/photo_card', ele: ele %>
     <% end %>
 <%end%>

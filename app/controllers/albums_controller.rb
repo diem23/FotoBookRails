@@ -1,4 +1,4 @@
-class Album2sController < ApplicationController
+class AlbumsController < ApplicationController
     Pagy::DEFAULT[:limit] = 10
     before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :index]
     before_action :just_allow_user, only: [:new, :create,:new, :feed,:discover, :index]
@@ -75,7 +75,7 @@ class Album2sController < ApplicationController
         @resource = Album.find(params[:id])
     end
     def get_user
-        @user = User.find(params[:user2_id])
+        @user = User.find(params[:user_id])
     end
     def album_params
         params.require(:album).permit(:title,:user_id, :description, :isPrivate, :numOfPhotos, :numOfLikes, photos_attributes: [:id, :image,:user_id, :_destroy])

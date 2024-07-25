@@ -28,7 +28,7 @@
             <% if have_follow %>
                 <div class="user-info-box d-flex flex-row justify-content-between align-items-center gap-10">
                     <div class="specific-user-btn">
-                        <%= button_to user2_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                        <%= button_to user_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon"> 
                                 <%if ele.user.profileImg%>
                                     <%if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
@@ -55,7 +55,7 @@
                 
                 <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
                     <div class="specific-user-btn">
-                        <%= button_to user2_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                        <%= button_to user_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon">  
                                 <%if ele.user.profileImg.identifier%>
                                     <% if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>

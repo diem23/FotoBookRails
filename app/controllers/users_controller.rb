@@ -1,4 +1,4 @@
-class User2sController < ApplicationController
+class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :just_allow_user
     before_action :handle_before_action

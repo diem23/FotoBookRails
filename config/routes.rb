@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   #get "up" => "rails/health#show", as: :rails_health_check
-  root "photo2s#feed"
+  root "photos#feed"
   # get "/authenticate/login", to: "authentication#login"
   # get "/authenticate/signup", to: "authentication#signup"
   # get "/feed/album", to: "feed#album"
@@ -37,44 +37,44 @@ Rails.application.routes.draw do
   # end
 
   
-  # scope module: 'user2s' do
-  #   resources :photo2s, :album2s
+  # scope module: 'users' do
+  #   resources :photos, :albums
   # end
-  resources :user2s
-  get "/user2s/:user2_id/followings", to: "follows#followings", as: :followings
-  get "/user2s/:user2_id/followers", to: "follows#followers", as: :followers
+  resources :users
+  get "/users/:user_id/followings", to: "follows#followings", as: :followings
+  get "/users/:user_id/followers", to: "follows#followers", as: :followers
   post "/follow", to: "follows#create", as: :follow_user
   delete "/unfollow", to: "follows#destroy", as: :unfollow_user
-  get "/photo2s/discover", to: "photo2s#discover", as: :discover_photo2
-  get "/photo2s/feed", to: "photo2s#feed", as: :feed_photo2
-  get "/album2s/discover", to: "album2s#discover", as: :discover_album2
-  get "/album2s/feed", to: "album2s#feed", as: :feed_album2
-  get "/follow_button/user2/:user2_id", to: "follows#follow_button", as: :follow_button
-  get "/unfollow_button/user2/:user2_id", to: "follows#unfollow_button", as: :unfollow_button
+  get "/photos/discover", to: "photos#discover", as: :discover_photo
+  get "/photos/feed", to: "photos#feed", as: :feed_photo
+  get "/albums/discover", to: "albums#discover", as: :discover_album
+  get "/albums/feed", to: "albums#feed", as: :feed_album
+  get "/follow_button/user/:user_id", to: "follows#follow_button", as: :follow_button
+  get "/unfollow_button/user/:user_id", to: "follows#unfollow_button", as: :unfollow_button
 
-  post "/react_photo2s", to: "react_photos#create", as: :react_photo2
-  delete "/unreact_photo2s", to: "react_photos#destroy", as: :unreact_photo2
-  get "/react_photo_button/photo2/:photo2_id", to: "react_photos#react_button", as: :react_photo_button
-  get "/unreact_photo_button/photo2/:photo2_id", to: "react_photos#unreact_button", as: :unreact_photo_button
+  post "/react_photos", to: "react_photos#create", as: :react_photo
+  delete "/unreact_photos", to: "react_photos#destroy", as: :unreact_photo
+  get "/react_photo_button/photo/:photo_id", to: "react_photos#react_button", as: :react_photo_button
+  get "/unreact_photo_button/photo/:photo_id", to: "react_photos#unreact_button", as: :unreact_photo_button
 
-  post "/react_album2s", to: "react_albums#create", as: :react_album2
-  delete "/unreact_album2s", to: "react_albums#destroy", as: :unreact_album2
-  get "/react_album_button/album2/:album2_id", to: "react_albums#react_button", as: :react_album_button
-  get "/unreact_album_button/album2/:album2_id", to: "react_albums#unreact_button", as: :unreact_album_button
+  post "/react_albums", to: "react_albums#create", as: :react_album
+  delete "/unreact_albums", to: "react_albums#destroy", as: :unreact_album
+  get "/react_album_button/album/:album_id", to: "react_albums#react_button", as: :react_album_button
+  get "/unreact_album_button/album/:album_id", to: "react_albums#unreact_button", as: :unreact_album_button
 
  
   
 
   # refactoring code
-  resources :user2s, shallow: true do
-    resources :photo2s, :album2s
+  resources :users, shallow: true do
+    resources :photos, :albums
   end
 
   # routes for admin
   get "/admin/manage_users", to: "admins#manage_users", as: :manage_users
   get "/admin/manage_photos", to: "admins#manage_photos", as: :manage_photos
   get "/admin/manage_albums", to: "admins#manage_albums", as: :manage_albums
-  get "/admin/edit_user2/:id", to: "admins#edit_user", as: :admin_edit_user2
+  get "/admin/edit_user/:id", to: "admins#edit_user", as: :admin_edit_user
   # Defines the root path route ("/")
   # root "posts#index"
 end

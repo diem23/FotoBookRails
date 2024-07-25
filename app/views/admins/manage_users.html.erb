@@ -51,10 +51,10 @@
                         <% end %>
                     </td>
                     <td>
-                        <%= link_to admin_edit_user2_path(ele), method: :get, class: "btn save-btn" do %>
+                        <%= link_to admin_edit_user_path(ele), method: :get, class: "btn save-btn" do %>
                             Edit
                         <% end %>
-                        <%= link_to "/user2s/#{ele.id}", class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+                        <%= link_to "/users/#{ele.id}", class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
                             Delete
                         <% end %>
                         

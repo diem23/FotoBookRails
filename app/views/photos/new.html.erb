@@ -1,96 +1,64 @@
-<%session[:success_redirect]=user2_path(current_user)%>
 <div class="row new-photo">
-
-<% if flash[:notice] %>                           
-    <div aria-live="polite" aria-atomic="true" class="col-12 bg-dark position-relative bd-example-toasts">
-        <div class="toast-container position-absolute top-0 end-0" id="toastPlacement" style="<%=(flash[:type]=='success')? 'background-color:green': 'background-color:red'%>">
-            <div class="show" >
-                <div class="my-toast">
-                    <%= flash[:notice] %>
-                </div>
-            </div>
-        </div>
-    </div>
-<% end %>    
                 <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
                     <ul class="d-inline-block nav-list" >
-                        <a href="#">
+                        <a href="/">
                             <li class="d-block mb-2">Feeds</li>
                         </a>
-                        <a href="/discover/photo">
+                        <a href=<%=discover_photo_path%>>
                             <li class="d-block mb-2">Discover</li>
                         </a>
                     </ul>
                 </div>
                 <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
                     <div class="header w-100 d-flex flex-row justify-content-start">
-                        <p>Edit photo</p>
+                        <p>New photo</p>
                     </div>
                     
-                    <%= form_with(model: @resource,url: "/photo2s/#{@resource.id}" ,class: "w-100 mt-4" ) do |f| %>
-                        
+                    <%= form_with model:@resource,url: "/users/#{@user.id}/photos", html: {multipart: true}, method: :post, class: "w-100 mt-4" do |f| %>
                         <div class="row w-100">
                             <div class= "col-6 d-flex flex-column gap-20">
                                 <div>
                                     <%= f.label :title , class: "form-label"%>
                                     <%= f.text_field :title, class: "form-control", placeholder: "Photo title" %>
-                                    <% if @resource.errors.has_key?(:title) %>
-                                        <p class="error-message mb-0"> <%= @resource.errors[:title].first %></p>
-                                    <% end %>
                                 </div>
                                 <div>
                                     <%= f.label :isPrivate, "Sharing mode" , class: "form-label"%>
                                     <br/>
                                     <div class="sharing-mode-box">
-                                        <%= f.select :isPrivate,  options_for_select([["Public", "0"], ["Private", "1"]], selected: (f.object.isPrivate)? "1" : "0" ) , {},{class: 'sharing-mode'}%>
+                                        <%= f.select :isPrivate,  [["Public", "0"], ["Private", "1"]] , {},{class: 'sharing-mode'}%>
                                         <i class="fa-solid fa-angle-down down-arrow"></i>
                                     </div>
                                     
                                 </div>
                                 <div class="upload-photo-box mt-3">
                                     <%= f.file_field :image, class: "form-control browse-btn", id: "photoInput" %>
-                                    
                                     <i class="fa-solid fa-plus add-btn"></i>
-                                    <div id="previewImage" >
-                                        <% if (%w( http https).include?URI.parse(f.object.image.identifier).scheme) %>
-                                            <img  src="<%=f.object.image.identifier%>" alt="" />
-                                        <% else %>
-                                            <img  src="<%=f.object.image%>" alt="" />
-                                        <% end %>
-                                        <i class="fa-solid fa-xmark close-img-btn"></i>
+                                    <div id="previewImage" style= "display: none">
+                                        <img  src="#" alt="" />
+    
+                                            <i class="fa-solid fa-xmark close-img-btn"></i>
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <%= f.label :description, class: "form-label" %>
                                 <%= f.text_area :description, class: "form-control h-50" , placeholder: "Photo Description"%>
-                                <% if @resource.errors.has_key?(:description) %>
-                                    <p class="error-message mb-0"> <%= @resource.errors[:description].first %></p>
-                                <% end %>
                             </div>
                         </div>
                         
-                        <div>
-                            <%= f.submit "Save", class: "btn btn-primary save-btn mt-4" %>
-                            <%= link_to "Delete", @resource, class: "btn btn-danger delete-btn mt-4" , method: :delete%>
-                        </div>
+                        <%= f.submit "Save", class: "btn btn-primary save-btn mt-4" %>
+                        
                     <% end %>
+                        
+        
 
                     
                 </div>
                 <div class="col-0 col-lg-2"></div>
-</div> 
-
+            </div> 
 <script>
-    function disappearToast(){
-        setTimeout(function(){
-            $('#toastPlacement').fadeOut();
-        }, 3000);
-    }
-    <% if flash[:notice] %>
-        disappearToast();
-    <% end %>
-                   
+
 
     var photoInput = document.getElementById('photoInput');
     var previewImage = document.getElementById('previewImage');

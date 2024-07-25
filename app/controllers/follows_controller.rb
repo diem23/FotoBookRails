@@ -24,7 +24,7 @@ class FollowsController < ApplicationController
     end
     private
     def handle_before_action
-        @user = User.find(params[:user2_id])
+        @user = User.find(params[:user_id])
         @list_followings = current_user.following.pluck(:id)
     end
 end
