@@ -1,0 +1,10 @@
+<%list_photos = local_assigns[:resources]%>
+<% if list_photos.empty? %>
+                <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
+                    <p>You do not have any photo yet. Click "Add" button to create yours</p>
+                </div>
+<%else%>
+    <% list_photos.find_each do |ele|%>
+        <%= render 'photo2s/photo_card', ele: ele %>
+    <% end %>
+<%end%>

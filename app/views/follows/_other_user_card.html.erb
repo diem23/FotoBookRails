@@ -1,0 +1,41 @@
+<% ele = local_assigns[:ele] %>
+<% index = local_assigns[:index] %>
+<% num_of_photos = ele.photos.size %>
+<% num_of_albums = ele.albums.size %>
+<div class="col-3 d-flex flex-column align-items-center  g-1 ">
+   <div class="d-flex flex-column align-items-center user-box">
+        <div class="avt-box">
+            <%if ele.profileImg.identifier%>
+                <% if (%w( http https).include?URI.parse(ele.profileImg.identifier).scheme) %>
+                    <img src="<%=ele.profileImg.identifier%>" alt="">
+                <% else %>
+                    <img src="<%=ele.profileImg%>" alt="">
+                <% end %>
+            <%end%>
+           
+        </div>
+        <%= button_to user2_path(ele), method: :get do %>
+        <p class="m-0 mt-1 "><%=ele.firstName + " " + ele.lastName%></p>
+        <% end %>
+        <div class="user-info d-flex flex-row gap-40 mb-2">
+        <div class="num_of_photos d-flex flex-column align-items-center">
+            <p class="m-0 number"><%=num_of_photos%></p>
+            <p class="m-0 cate">PHOTOS</p>
+        </div>
+        <div class="num_of_albums d-flex flex-column align-items-center">
+            <p class="m-0 number"><%=num_of_albums%></p>
+            <p class="m-0 cate">ALBUMS</p>
+        </div>
+        </div>
+        <div class="follow-container">
+        
+            <%if @list_followings.include?ele.id%>
+                
+                <%=render 'shared/unfollow_button', id:ele.id%>
+            <%else%>
+                <%= render 'shared/follow_button', id: ele.id %>
+            <%end%>
+        </div>
+        
+    </div>
+</div>

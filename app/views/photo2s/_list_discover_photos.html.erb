@@ -1,0 +1,10 @@
+<%resources = local_assigns[:resources]%>
+<% if resources.empty? %>
+    <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
+        <p>There is no photo</p>
+    </div>
+<% else %>
+    <% resources.each_with_index do |ele,index|%>
+        <%=render 'shared/photo_card', ele: ele, index: index , have_follow: true, from_page: "discover"%>
+    <% end %>
+<% end %>

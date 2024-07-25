@@ -1,0 +1,10 @@
+<%list_users = local_assigns[:resources]%>
+<% if list_users.empty? %>
+                <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
+                    <p>You seem to be a lowkey person that no one has followed you !!!</p>
+                </div>
+<%else%>
+    <% list_users.find_each do |ele|%>
+        <%= render 'follows/other_user_card', ele: ele %>
+    <% end %>
+<%end%>

@@ -1,17 +1,17 @@
-<% @id = local_assigns[:id] %>
+<% id = local_assigns[:id] %>
+<button class= "follow-btn-<%=id%> d-flex justify-content-center follow-btn" , id= "followButton">
+    <span>Follow</span>
+    <p class="d-none"><%=id%></p>
+</button>
+<script>
+    let followBtns =  document.querySelectorAll('.follow-btn-<%=id.to_s%>')  
+    followBtns.forEach((btn)=>{
+        btn.addEventListener('click',function stopPropagation(event){
+            debounceFollow(followAPI)(btn.querySelector('p').innerHTML)
+    })
+})
+</script>
 
 
-<% if @list_following.include?(@id) %>
-    
-    <button class= "follow-btn d-flex justify-content-center unfollow-btn" , id= "followButton">
-        <span>Following</span>
-        <p class="d-none"><%=@id%></p>
-    </button>
-<% else %>
-    <button class= "follow-btn d-flex justify-content-center" , id= "followButton">
-        <span>Follow</span>
-        <p class="d-none"><%=@id%></p>
-    </button>
-<% end %>
 
 

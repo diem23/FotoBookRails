@@ -1,0 +1,54 @@
+<%session[:failure_redirect]=manage_photos_path%>
+<div class="row admin-photo-list">
+
+<% if flash[:notice] %>                           
+    <div aria-live="polite" aria-atomic="true" class="col-12 bg-dark position-relative bd-example-toasts">
+        <div class="toast-container position-absolute top-0 end-0" id="toastPlacement" style=<%=(flash[:type]=='success')? 'background-color:green': 'background-color:red'%>>
+            <div class="show" >
+                <div class="my-toast">
+                    <%= flash[:notice] %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>    
+                <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
+                    <ul class="d-inline-block nav-list" >
+                        <a href="">
+                            <li class="d-block mb-2">Manage Photos</li>
+                        </a>
+                        <a href=<%=manage_albums_path%>>
+                            <li class="d-block mb-2">Manage Albums</li>
+                        </a>
+                        <a href=<%=manage_users_path%>>
+                            <li class="d-block mb-2">Manage Users</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
+                    <div class="d-flex flex-row flex-wrap m-0 gap-4 img-container w-100" > 
+                        <% @resources.find_each do |ele| %>
+                            <%= render 'photo_card', ele: ele %>
+                        <% end %>
+                    </div>
+                    <div class=" w-100 d-flex justify-content-center mt-4">
+                        <%== pagy_bootstrap_nav(@pagy)  %>
+                    </div>
+
+
+
+                    
+                </div>
+                <div class="col-0 col-lg-2"></div>
+</div> 
+
+<script>
+function disappearToast(){
+        setTimeout(function(){
+            $('#toastPlacement').fadeOut();
+        }, 3000);
+    }
+    <% if flash[:notice] %>
+        disappearToast();
+    <% end %>
+</script>

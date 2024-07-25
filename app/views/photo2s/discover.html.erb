@@ -1,0 +1,117 @@
+<%session[:failure_redirect]=discover_photo2_path%>
+<div class="row discover photo">
+    <div class="col-0 col-lg-2 d-flex flex-row justify-content-center mt-4">
+        <ul class="d-none d-lg-inline-block nav-list" >
+            <a href="/photo2s/feed">
+                <li class="d-block mb-2">Feeds</li>
+            </a>
+            <a href="#">
+                <li class="d-block mb-2">Discover</li>
+            </a>
+        </ul>
+    </div>
+    <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
+        
+        <div class="switch-mode d-flex mt-4">
+            <%= link_to discover_photo2_path, remote: true do%>
+                <div class="photo-btn p-2">PHOTO</div>
+            <%end%>
+            <%=link_to discover_album2_path, remote: true do%>
+                <div class="album-btn p-2">ALBUM</div>
+            <%end%>
+        </div>
+        <div class="row w-100 mt-4 mb-4 resources-container " >
+            <%= render 'list_discover_photos', resources: @resources%>
+        </div>
+        <div class=" w-100 d-flex justify-content-center mt-4">
+            <%== pagy_bootstrap_nav(@pagy)%>
+        </div>
+    </div>                   
+</div>
+<script>
+    function followAPI(id){
+    $.ajax({
+    url: "/follow",
+    type: "POST",
+    dataType: "html",
+    data: {user2_id: id},
+    success: function(data) {
+        console.log('follow success')
+        console.log(data)
+        fetchUnfollowButtonHTML(id)
+        
+
+    }
+    ,
+    error: function(data) {
+        console.log('follow error')
+        console.log(data.status)
+        
+    }
+    })
+}
+function fetchUnfollowButtonHTML(id){
+    $.ajax({
+        url: `/unfollow_button/user2/${id}`,
+        type: "GET",
+        dataType: "html",
+        data: {user2_id: id},
+        success: function(html) {
+            console.log('fetch unfollow button success')
+           
+            $(`.follow-btn-${id}`).parent().html(html);
+        },
+        error: function(data) {
+            console.log('fetch unfollow button error')
+            console.log(data.status)
+            
+        }
+    })
+
+}
+function unfollowAPI(id){
+    $.ajax({
+    url: "/unfollow",
+    type: "DELETE",
+    dataType: "html",
+    data: {user2_id: id},
+    success: function(data) {
+        console.log('unfollow success')
+        console.log(data)
+        fetchFollowButtonHTML(id)
+    },
+    error: function(data) {
+        console.log('unfollow error')
+        console.log(data.status)
+        
+    }
+})
+function fetchFollowButtonHTML(id){
+    $.ajax({
+        url: `/follow_button/user2/${id}`,
+        type: "GET",
+        dataType: "html",
+        data: {user2_id: id},
+        success: function(html) {
+            console.log('fetch unfollow button success')
+            
+            $(`.unfollow-btn-${id}`).parent().html(html);
+        },
+        error: function(data) {
+            console.log('fetch unfollow button error')
+            console.log(data.status)
+            
+        }
+    })
+
+}
+}
+    const debounceFollow= function (func, timeout = 3000){
+    return (...args) => {
+        console.log(this.timer)
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+} 
+</script>
+<%= javascript_pack_tag 'add_event_follow_button'%>

@@ -6,7 +6,7 @@ class Devise::RegistrationsController < DeviseController
   prepend_before_action :set_minimum_password_length, only: [:new, :edit]
   def update_name
     @user = User.find(params[:id])
-  
+    binding.pry
     if @user.update(user_params)
         set_my_flash_message 'User was successfully updated.', 'success'
         redirect_to session[:success_redirect]

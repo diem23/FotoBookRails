@@ -1,0 +1,15 @@
+<%resources = local_assigns[:resources]%>
+<% if !user_signed_in? %>
+    <div class="col-12 d-flex justify-content-center align-items-center ">
+        <p> Please sign in to view this content</p>
+    </div>
+<% elsif @list_followings.empty? %>
+    <div class="col-12 d-flex justify-content-center align-items-center">
+        <p>Please follow some friends to have content in this page</p>
+    </div>
+<% else %> 
+    
+    <% resources.each_with_index do |ele,index|%>
+            <%= render  'shared/photo_card', ele: ele, index: index, have_follow: false , from_page: "feed"%>
+    <% end %>
+<% end %>

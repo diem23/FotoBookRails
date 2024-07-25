@@ -56,6 +56,7 @@ class Users::PhotosController < ApplicationController
   end
   private
   def photo_params
+    
     params.require(:photo).permit(:title, :description, :isPrivate, :image)
   end
 

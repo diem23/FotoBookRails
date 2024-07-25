@@ -1,0 +1,9 @@
+$(".resource-container").html("<%=escape_javascript render "list_followings", resources: @resources %>")
+$('.add-button').html("")
+$('.add-button').removeClass("mt-5")
+$("#photos-personal-nav").css("color","black")
+$("#albums-personal-nav").css("color","black")
+$("#followings-personal-nav").css("color","var(--main-color)")
+$("#followers-personal-nav").css("color","black")
+
+

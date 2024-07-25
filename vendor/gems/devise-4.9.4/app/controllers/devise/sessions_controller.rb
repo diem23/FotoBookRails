@@ -85,7 +85,7 @@ class Devise::SessionsController < DeviseController
   # My custom action to redirect to the root path after sign in
   def after_sign_in_path_for(resource)
     if (resource.isAdmin)
-      users_path
+      manage_photos_path
     else
       root_path
     end

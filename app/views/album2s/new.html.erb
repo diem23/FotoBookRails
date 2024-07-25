@@ -1,0 +1,96 @@
+<%session[:success_redirect]=user2_path(current_user)%>
+<div class="row new-photo">
+                <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
+                    <ul class="d-inline-block nav-list" >
+                        <a href="/">
+                            <li class="d-block mb-2">Feeds</li>
+                        </a>
+                        <a href=<%=discover_photo2_path%>>
+                            <li class="d-block mb-2">Discover</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
+                    <div class="header w-100 d-flex flex-row justify-content-start">
+                        <p>New Album</p>
+                    </div>
+                    
+                    <%= form_with(model: @resource,url: "/user2s/#{@user.id}/album2s", class: "w-100 mt-4", local: true ,  multipart: true) do |f| %>
+                        <div class="row w-100">
+                            <div class= "col-6 d-flex flex-column gap-20">
+                                <div>
+                                    <%= f.label :title , class: "form-label"%>
+                                    <%= f.text_field :title, class: "form-control", placeholder: "Album title" %>
+                                </div>
+                                <div>
+                                    <%= f.label :isPrivate, "Sharing mode" , class: "form-label"%>
+                                    <br/>
+                                    <div class="sharing-mode-box">
+                                        <%= f.select :isPrivate,  [["Public", "0"], ["Private", "1"]] , {},{class: 'sharing-mode'}%>
+                                        <i class="fa-solid fa-angle-down down-arrow"></i>
+                                    </div>
+                                    
+                                </div>
+                                <div class="photos">
+                                    <%= f.fields_for :photos do |photo| %>
+                                        <%= render 'photo_fields', f: photo %>
+                                    <% end %>
+                                </div>
+        
+                                <%=link_to_add_association raw('<i class="fa-solid fa-plus add-btn"></i>'), f, :photos, data: {association_insertion_node: '.photos', association_insertion_method: :append}, id: "upload-photo",class: "create-new-slot" %>
+                                
+        
+
+                            </div>
+                            <div class="col-6">
+                                <%= f.label :description, class: "form-label" %>
+                                <%= f.text_area :description, class: "form-control h-50" , placeholder: "Album Description"%>
+                            </div>
+                        </div>
+                        
+                        <%= f.submit "Save", class: "btn btn-primary save-btn mt-4" %>
+                        
+                    <% end %>
+                        
+        
+
+                    
+                </div>
+                <div class="col-0 col-lg-2"></div>
+            </div> 
+<script>
+    function addEventForPreviewImg(){
+        let listPhotoBox= document.querySelectorAll('.upload-photo-box');    
+        listPhotoBox.forEach((photoBox)=>{
+            console.log(photoBox)
+            let photoInput = photoBox.querySelector('.photoInput');
+            let previewImage = photoBox.querySelector('.previewImageBox');
+            let closeBtn = previewImage.querySelector('.close-img-btn');
+            function clearFileInput() {
+                photoInput.value = ''; // This clears the selected file
+                previewImage.style.display = 'none';
+            }
+            
+            
+            photoInput.addEventListener('change', function(event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        photoBox.querySelector('img').src = e.target.result;
+                        photoBox.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }) 
+    } 
+    addEventForPreviewImg();                                   
+    var addBtn = document.getElementById('upload-photo');
+    addBtn.addEventListener('click', function(){
+        console.log("hehe")
+        setTimeout(function(){
+            addEventForPreviewImg();                            
+        },0);
+    });
+</script>

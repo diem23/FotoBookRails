@@ -4,7 +4,7 @@
 <% have_follow = local_assigns[:have_follow] %>
 <div class="mx-0 col-xl-6  col-12  " onclick="showModal('<%='albumModal'+index.to_s%>')" data-bs-target="<%='#albumModal'+index.to_s%>">
     
-    <div class="item-box row">
+    <div class="item-box row mt-4">
         <div class="col-7  img-box">
         <div class="contain-rotate-img">
             
@@ -28,7 +28,7 @@
             <% if have_follow %>
                 <div class="user-info-box d-flex flex-row justify-content-between align-items-center gap-10">
                     <div class="specific-user-btn">
-                        <%= button_to personal_info_photo_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                        <%= button_to user2_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon"> 
                                 <%if ele.user.profileImg%>
                                     <%if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
@@ -42,14 +42,20 @@
                         <% end %>
                     </div>
                     <% if user_signed_in? %>
-                        <%=render 'shared/follow_button', id: ele.user.id%>
+                        <div class="follow-container">
+                            <%if @list_followings.include?ele.user.id%>
+                                <%=render 'shared/unfollow_button', id:ele.user.id%>
+                            <%else%>
+                                <%= render 'shared/follow_button', id: ele.user.id %>
+                            <%end%>
+                        </div>
                     <% end %>
                 </div>
             <% else %>
                 
                 <div class="user-info-box d-flex justify-content-start align-items-center gap-10">
                     <div class="specific-user-btn">
-                        <%= button_to personal_info_photo_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                        <%= button_to user2_path(ele.user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                             <div class="avt-icon">  
                                 <%if ele.user.profileImg.identifier%>
                                     <% if (%w( http https).include?URI.parse(ele.user.profileImg.identifier).scheme) %>
@@ -70,7 +76,13 @@
         </div>
         <div class="bottom-box d-flex flex-row justify-content-between">
             <% if user_signed_in? %>
-                <%= render 'shared/like_button', ele: ele, list_to_check: @list_reacted_albums%>
+                <div class="react-box d-flex flex-row align-items-center gap-2">
+                        <% if @list_reacted_albums.include?(ele.id) %>
+                            <%= render 'shared/unreact_button', ele: ele , list_to_check: @list_reacted_photos, inside_photo: false%>
+                        <%else%>
+                            <%= render 'shared/react_button', ele: ele , list_to_check: @list_reacted_photos, inside_photo: false%>
+                        <%end%>
+                    </div>
             <% else %>
                 <div></div>
             <% end %>
@@ -133,3 +145,12 @@
         </div>
     </div>
 </div>
+<script>
+
+document.querySelectorAll('.specific-user-btn').forEach((btn)=>{
+    console.log("hello")
+    btn.addEventListener('click',function stopPropagation(event){
+        event.stopPropagation();
+    })
+}) 
+</script>
