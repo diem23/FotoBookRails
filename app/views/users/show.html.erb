@@ -1,0 +1,174 @@
+
+<%session[:failure_redirect]=user_path(current_user)%>
+<div class="row personal-info photo">
+        <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
+                    <ul class="d-inline-block nav-list album-nav" >
+                        <a href="/">
+                            <li class="d-block mb-2">Feeds</li>
+                        </a>
+                        <a href="/discover/photo">
+                            <li class="d-block mb-2">Discover</li>
+                        </a>
+                    </ul>
+        </div>
+    <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
+        <div class="row w-100 ">
+            <div class="col-3 p-0">
+                <div class="user-avt-box">
+                    <%if @user.profileImg.identifier%>
+                        <%if %w(http https).include?(URI.parse(@user.profileImg.identifier).scheme)%>
+                            <img src="<%=@user.profileImg.identifier%>" alt="">
+                        <%else%>
+                            <img src="<%=@user.profileImg%>" alt="">
+                        <%end%>
+                        
+                    <%else%>
+                        <img src="" alt="">
+                    <%end%>
+                </div>
+            </div>
+            <div class="col-9 d-flex flex-column gap-10">
+                <% if @viewing_current_user %>
+                    <div>
+                        <%= link_to edit_user_registration_path, class:"edit-profile-btn" do %>
+                            <button>Edit Profile</button>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <div class="follow-container">
+                        <%if @list_followings.include?@user.id%>
+                            <%=render 'shared/unfollow_button', id:@user.id%>
+                        <%else%>
+                            <%= render 'shared/follow_button', id: @user.id %>
+                        <%end%>
+                    </div>
+                <% end %>
+                <h2><%=@user.firstName + " " + @user.lastName%></h2>
+                <div >
+                    <ul class="personal_nav p-0 m-0">
+                        <%= link_to user_photos_path(@user), remote: true do%>
+                            <li id="photos-personal-nav"><span><%=@user.photos.size%></span> PHOTOS</li>
+                        <% end %>
+                        <%= link_to user_albums_path(@user) , remote: true do %>
+                            <li id="albums-personal-nav"><span><%=@user.albums.size%></span> ALBUMS</li>
+                        <% end %>
+                        <%= link_to followings_path(@user) , remote: true do %>
+                            <li id="followings-personal-nav"><span><%=@user.following.size%></span> FOLLOWINGS</li>
+                        <% end %>
+                        <%= link_to followers_path(@user) , remote: true do %>
+                            <li id="followers-personal-nav"><span><%=@user.follower.size%></span> FOLLOWERS</li>
+                        <% end %>
+            
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <% if @viewing_current_user %>
+            <div class="add-button d-flex flex-row justify-content-end w-100 gap-40 m-0 mt-5">
+                    <%= render '/photos/add_photo_button' %>
+            </div>
+        <% end %>                    
+        <div class="resource-container row gap-20 m-0 mt-5 w-100">
+            <%= render 'photos/list_photos', resources: @resources%>
+        </div>
+    </div>
+    <div class="col-0 col-lg-2"></div>
+    
+</div>
+<script>
+function followAPI(id){
+    $.ajax({
+    url: "/follow",
+    type: "POST",
+    dataType: "html",
+    data: {user_id: id},
+    success: function(data) {
+        console.log('follow success')
+        console.log(data)
+        fetchUnfollowButtonHTML(id)
+        
+        let unfollowBtns =  document.querySelectorAll('.unfollow-btn-'+id)  
+        unfollowBtns.forEach((btn)=>{
+            btn.addEventListener('click',function stopPropagation(event){
+                debounceFollow(unfollowAPI)(btn.querySelector('p').innerHTML)
+            })
+    })
+    },
+    error: function(data) {
+        console.log('follow error')
+        console.log(data.status)
+        
+    }
+    })
+}
+function fetchUnfollowButtonHTML(id){
+    $.ajax({
+        url: `/unfollow_button/user/${id}`,
+        type: "GET",
+        dataType: "html",
+        data: {user_id: id},
+        success: function(html) {
+            console.log('fetch unfollow button success')
+           
+            $(`.follow-btn-${id}`).parent().html(html);
+        },
+        error: function(data) {
+            console.log('fetch unfollow button error')
+            console.log(data.status)
+            
+        }
+    })
+
+}
+function unfollowAPI(id){
+    $.ajax({
+    url: "/unfollow",
+    type: "DELETE",
+    dataType: "html",
+    data: {user_id: id},
+    success: function(data) {
+        console.log('unfollow success')
+        console.log(data)
+        fetchFollowButtonHTML(id)
+        let followBtns =   document.querySelectorAll('.follow-btn-<%=@user.id.to_s%>')  
+        followBtns.forEach((btn)=>{
+            btn.addEventListener('click',function stopPropagation(event){
+                debounceFollow(followAPI)(btn.querySelector('p').innerHTML)
+            })
+        }) 
+    },
+    error: function(data) {
+        console.log('unfollow error')
+        console.log(data.status)
+        
+    }
+})
+function fetchFollowButtonHTML(id){
+    $.ajax({
+        url: `/follow_button/user/${id}`,
+        type: "GET",
+        dataType: "html",
+        data: {user_id: id},
+        success: function(html) {
+            console.log('fetch unfollow button success')
+            
+            $(`.unfollow-btn-${id}`).parent().html(html);
+        },
+        error: function(data) {
+            console.log('fetch unfollow button error')
+            console.log(data.status)
+            
+        }
+    })
+
+}
+}
+    const debounceFollow= function (func, timeout = 3000){
+    return (...args) => {
+        console.log(this.timer)
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+}  
+</script>
+<%= javascript_pack_tag 'add_event_follow_button'%>

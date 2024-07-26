@@ -82,16 +82,9 @@
                 <div class="right-side col-md-6 col-sm-6 row">
                     <a href="#" class="col-md-8">
                     <div class="personal-box">
-                        <%= button_to personal_info_photo_path(current_user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                        <%= button_to user_path(current_user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
                                 <div class="avt-box">
-                                    <%if current_user.profileImg.identifier%>
-                                        <% if (%w( http https).include?URI.parse(current_user.profileImg.identifier).scheme) %> 
-                                            <img class=" img-fluid" src="<%=current_user.profileImg.identifier%>" alt="">
-                                        <% else %>
-                                            img class=" img-fluid" src="<%=current_user.profileImg%>" alt="">
-                                        <% end %>
-                                    <%end%>
-                                
+                                    <%= render '/shared/display_image', ele: current_user.profileImg, className: "img-fluid"%>
                                 </div>
                                 <p><%=current_user.firstName%></p>
                                 <% end %>
@@ -118,3 +111,7 @@
     </div>
   </body>
 </html>
+<script>
+    console.log("application.html.erb loaded")
+    
+</script>

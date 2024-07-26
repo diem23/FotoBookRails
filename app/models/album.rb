@@ -11,8 +11,8 @@ class Album < ApplicationRecord
     validates :numOfPhotos, numericality: { only_integer: true , less_than_or_equal_to: 25, message: "Must be an integer less than 25"}
     validates :numOfLikes, numericality: { only_integer: true , message: "Must be an integer"}
     #SCOPES
-    scope :public_albums, -> { where(isPrivate: false) }
-    scope :private_albums, -> { where(isPrivate: true) }
+    scope :is_public, -> { where(isPrivate: false) }
+    scope :is_private, -> { where(isPrivate: true) }
     #CALLBACK
     before_validation :handle_before_validate
     

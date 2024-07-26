@@ -1,0 +1,6 @@
+$(".resource-container").html("<%=escape_javascript render "list_photos", resources: @resources %>")
+$('.add-button').html("<%=escape_javascript render 'add_photo_button' %>")
+$("#photos-personal-nav").css("color","var(--main-color)")
+$("#albums-personal-nav").css("color","black")
+$("#followers-personal-nav").css("color","black")
+$("#followings-personal-nav").css("color","black")

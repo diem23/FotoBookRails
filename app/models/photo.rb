@@ -13,8 +13,8 @@ class Photo < ApplicationRecord
     #validates :image, presence: true
     validates :numOfLikes, numericality: { only_integer: true , message: "Must be an integer"}
     #SCOPES
-    scope :public_photos, -> { where(isPrivate: false) }
-    scope :private_photos, -> { where(isPrivate: true) }
+    scope :is_public, -> { where(isPrivate: false) }
+    scope :is_private, -> { where(isPrivate: true) }
     #CALLBACK EVENTS
     before_validation :handle_before_validation
     before_destroy :handle_before_destroy

@@ -46,7 +46,7 @@ class Devise::PasswordsController < DeviseController
       end
       respond_with resource, location: after_resetting_password_path_for(resource)
     else
-      binding.pry
+      
       # set_minimum_password_length
       # respond_with resource
       redirect_to edit_user_path(resource), notice: 'Password was not updated.', type: 'error'

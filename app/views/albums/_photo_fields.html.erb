@@ -1,0 +1,18 @@
+
+<div class="nested-fields upload-photo-box mt-4 ">
+
+    <% if f.object %>
+        
+        <%=render '/shared/display_image', ele: f.object.image, class_name:"preview-image"%>
+    <% end %>
+
+    <span class="preview-text-box"> Click here to choose specific photo</span>
+    <div class="previewImageBox" >
+        <%= f.file_field :image, class: "form-control photoInput browse-btn" %>
+        
+        <%= link_to_remove_association f, class: "close-img-btn" do %>
+            <i class="fa-solid fa-xmark "></i>
+        <% end %>
+
+    </div>
+</div>

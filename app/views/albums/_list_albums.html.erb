@@ -1,0 +1,10 @@
+<%list_albums = local_assigns[:resources]%>
+<% if list_albums.empty? %>
+    <div class="col-12 d-flex justify-content-center align-items-center mb-4 mt-4">
+        <p>You do not have any album yet. Click "Add" button to create yours</p>
+    </div>
+<%else%>
+    <% list_albums.find_each do |ele|%>
+        <%= render 'album_card', ele: ele %>
+    <% end %>
+<%end%>

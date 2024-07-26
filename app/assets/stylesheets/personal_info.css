@@ -23,18 +23,7 @@
 .personal_nav li span{
     font-size: var(--large-text);
 }
-.album .personal_nav a:nth-child(2) li{
-    color: var(--main-color);
-}
-.photo .personal_nav a:nth-child(1) li{
-    color: var(--main-color);
-}
-.following .personal_nav a:nth-child(3) li{
-    color: var(--main-color);
-}
-.follower .personal_nav a:nth-child(4) li{
-    color: var(--main-color);
-}
+
 .personal-info .center-container{
     padding: 30px 60px;
 }
@@ -77,6 +66,7 @@
     height: 24px;
     text-align: center;
     border-radius: 50%;
+    z-index:3;
 }
 .personal-info .add-btn{
     background-color: var(--btn-color);
@@ -84,7 +74,7 @@
     font-size: var(--medium-text);
     font-weight: var(--bold-text);
 }
-.personal-info.album .edit-btn{
+.personal-info .edit-btn{
     z-index: 4
 }
 .personal-info .edit-btn{
@@ -98,7 +88,7 @@
     font-size: var(--small-text)
 
 }
-.personal-info.album .contain-rotate-img .overlay{
+.personal-info .contain-rotate-img .overlay{
     height: 100%;
     width: 100%;
     z-index: 3;

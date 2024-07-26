@@ -1,10 +1,10 @@
 <div class="row h-100 edit-user">
   <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
       <ul class="d-inline-block nav-list" >
-          <a href="#">
+          <a href="/">
               <li class="d-block mb-2">Feeds</li>
           </a>
-          <a href="/discover/photo">
+          <a href=<%=discover_photo_path%>>
               <li class="d-block mb-2">Discover</li>
           </a>
       </ul>
@@ -14,7 +14,7 @@
           <p>Edit User Profile</p>
       </div>
       <%= form_with(model: @user, html: { method: :put, class:"w-100" }, url: update_user_path(@user)) do |f| %>
-        <% session[:sucess_redirect]=personal_info_photo_path(@user)%>
+        <% session[:sucess_redirect]=user_path(@user)%>
         <% session[:failure_redirect]=edit_user_registration_path%>
         <div class="row ">
 

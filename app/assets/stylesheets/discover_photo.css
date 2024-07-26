@@ -129,13 +129,44 @@
     mask-composite: exclude;
   }
 .unfollow-btn {
-    color: #fff;
-    -webkit-text-fill-color: #fff;
-    -webkit-background-clip: border-box;
-    background-clip: border-box;
+    --r: 1.5rem; 
+    --b: 3px;   
+    background: linear-gradient(
+          to bottom,
+          rgb(254, 12, 12),
+          rgb(252, 157, 23)
+        );
+        
+        -webkit-text-fill-color: white;
+        color: white;
+
+        border-radius: var(--r);
+        height: 30px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--small-text);
+        font-weight: 700;
+        z-index: 0;
+        width: 70px;
+        border: var(--b);
+   
 }
 .unfollow-btn::before {
-    -webkit-mask: none;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border: var(--b) solid transparent;
+    border-radius: var(--r);
+    background: inherit;
+    background-origin: border-box;
+    background-clip: border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
 }
   /* .follow-btn:hover {
     color: #fff;

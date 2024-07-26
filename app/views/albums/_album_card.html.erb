@@ -1,0 +1,40 @@
+<% ele = local_assigns[:ele] %>
+<% if @viewing_current_user %>
+    <% @list_photos = ele.photos.limit(3) %>
+<% else %>
+    <% @list_photos = ele.photos.is_public.limit(3) %>
+<% end %>
+
+<div class="col-2 d-flex flex-column img-box g-1">
+    <div class="contain-rotate-img d-flex justify-content-center align-item-center">
+            <%if @list_photos.empty?%>
+                <img src="" alt="">
+            <% else %>
+                <% @list_photos.each do |photo| %>
+                    <%= render '/shared/display_image', ele: photo.image%>
+                <% end %>
+            <% end %>
+            <div class="overlay">
+                <div class="overlay-content">
+                    <span><%=ele.numOfPhotos%></span>
+                    <p>PHOTOS</p>
+                </div>
+            </div>
+        
+    </div>
+    <%if ele.title%>
+        <p class="mt-2"><%=ele.title%></p>
+    <%else%>
+        <p class="mt-2">Album title goes here</p>
+    <%end%>
+    <% if ele.isPrivate==true %>
+        <div class="private-box">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+    <% end %>
+    <% if @viewing_current_user %>
+        <%= button_to edit_album_path(ele), method: :get, class: 'edit-btn' do %>
+            EDIT
+        <% end %>
+    <% end %>
+</div>

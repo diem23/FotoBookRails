@@ -1,0 +1,187 @@
+<%session[:failure_redirect]=root_path%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RubyPj</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+ 
+    
+  </head>
+    <body>
+    <div class="row feed photo">
+        <div class="col-0 col-lg-2 d-none d-lg-flex flex-row justify-content-center mt-4">
+            <ul class="d-inline-block nav-list album-nav" >
+                <a href="#">
+                    <li class="d-block mb-2">Feeds</li>
+                </a>
+                <a href="/photos/discover">
+                    <li class="d-block mb-2">Discover</li>
+                </a>
+
+                
+            </ul>
+        </div>
+        <div class="col-12 col-lg-8 center-container d-flex flex-column align-items-center"> 
+            
+            <div class="switch-mode d-flex mt-4">
+                <%= link_to feed_photo_path, remote: true do%>
+                    <div class="photo-btn p-2">PHOTO</div>
+                <%end%>
+                <%= link_to feed_album_path, remote: true do%>
+                
+                    <div class="album-btn p-2">ALBUM</div>
+                <%end%>
+                
+            </div>
+            <div class="row w-100 feed_photo mt-4 mb-4 resources-container" >
+                <%=render 'list_feed_photos', resources: @resources%>
+            </div>
+            <%if @pagy%>
+                <div class=" w-100 d-flex justify-content-center mt-4">
+                            <%== pagy_bootstrap_nav(@pagy)%>
+                            
+                        </div>
+                </div>
+            <% end %>
+        </div>
+        <div class="col-0 col-lg-2"></div>
+    </div> 
+    
+    </body>
+</html>
+<script> 
+console.log('Hello from photos feed')                                    
+function reactPhotoApi(id){
+    $.ajax({
+        url: "/react_photos",
+        type: "POST",
+        data: {photo_id: id},
+        success: function(data) {
+            fetchUnreactPhotoButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchUnreactPhotoButton(id){
+$.ajax({
+    url: `/unreact_photo_button/photo/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {photo_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.react-photo-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+function unreactPhotoApi(id){
+    $.ajax({
+        url: "/unreact_photos",
+        type: "DELETE",
+        data: {photo_id: id},
+        success: function(data) {
+            fetchReactPhotoButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchReactPhotoButton(id){
+$.ajax({
+    url: `/react_photo_button/photo/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {photo_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.unreact-photo-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+
+
+function reactAlbumApi(id){
+    $.ajax({
+        url: "/react_albums",
+        type: "POST",
+        data: {album_id: id},
+        success: function(data) {
+            fetchUnreactAlbumButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchUnreactAlbumButton(id){
+$.ajax({
+    url: `/unreact_album_button/album/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {album_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.react-album-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+function unreactAlbumApi(id){
+    $.ajax({
+        url: "/unreact_albums",
+        type: "DELETE",
+        data: {album_id: id},
+        success: function(data) {
+            fetchReactAlbumButton(id)
+        },
+        error: function(data) {}
+    })
+}
+function fetchReactAlbumButton(id){
+$.ajax({
+    url: `/react_album_button/album/${id}`,
+    type: "GET",
+    dataType: "html",
+    data: {album_id: id},
+    success: function(html) {
+        console.log('fetch unreact button success')
+        $(`.unreact-album-btn-${id}`).parent().html(html);
+    },
+    error: function(data) {
+        console.log('fetch unfollow button error')
+        console.log(data.status)
+        
+    }
+})
+}
+
+
+const debounceReact = function (func, timeout = 3000){
+return (...args) => {
+    console.log(this.timer)
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => { func.apply(this, args); }, timeout);
+};
+}
+function showModal(modalId){
+var myModal = new bootstrap.Modal(document.getElementById(modalId), {
+    keyboard: false
+})
+myModal.show()
+}
+</script>
+
+<%= javascript_pack_tag 'photos_feed_add_event'%>

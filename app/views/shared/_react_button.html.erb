@@ -1,0 +1,30 @@
+<% ele = local_assigns[:ele] %>
+<% list_to_check = local_assigns[:list_to_check] %>
+<% inside_photo = local_assigns[:inside_photo]%>
+
+<button class="button-class  <%=(inside_photo)? "react-photo-btn react-photo-btn-#{ele.id}": "react-album-btn react-album-btn-#{ele.id}"%>" form="form-class" >
+    <i class=" fa-solid fa-heart fa-xs heart"></i>
+    <p class="d-none"><%=ele.id%></p>
+</button>
+<p class="counting-likes"><%=ele.numOfLikes%></p>
+<script>
+
+document.querySelectorAll('.react-photo-btn').forEach((btn)=>{
+    btn.addEventListener('click',function stopPropagation(event){
+        console.log("onclick like")
+        event.stopPropagation();
+        debounceReact(reactPhotoApi)(btn.querySelector('p').innerHTML)
+    })
+}) 
+
+
+document.querySelectorAll('.react-album-btn').forEach((btn)=>{
+    btn.addEventListener('click',function stopPropagation(event){
+        console.log("onclick like")
+        event.stopPropagation();
+        debounceReact(reactAlbumApi)(btn.querySelector('p').innerHTML)
+    })
+}) 
+
+
+</script>

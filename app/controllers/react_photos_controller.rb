@@ -1,18 +1,18 @@
 class ReactPhotosController < ApplicationController
     before_action :authenticate_user!
     def create
-        ReactPhoto.create(user_id: current_user.id, photo_id: params[:photo_id])
+        react = ReactPhoto.new(user_id: current_user.id, photo_id: params[:photo_id])
+        react.save
     end
     def destroy
-        ReactPhoto.find_by(user_id: current_user.id, photo_id: params[:photo_id]).destroy
+        react = ReactPhoto.find_by(user_id: current_user.id, photo_id: params[:photo_id]).destroy
     end
-    def handle_like
-        @list_reacted_photos = current_user.reacted_photos.pluck(:id)
-        if @list_reacted_photos.include?(params[:photo_id].to_i)
-            ReactPhoto.find_by(user_id: current_user.id, photo_id: params[:photo_id]).destroy
-        else
-            ReactPhoto.create(user_id: current_user.id, photo_id: params[:photo_id])
-        end
+    def react_button
+        render partial: "shared/react_button", locals: {ele: Photo.find(params[:photo_id]), inside_photo: true}
     end
+    def unreact_button
+        render partial: "shared/unreact_button", locals: {ele: Photo.find(params[:photo_id]), inside_photo: true}
+    end
+    
 
 end
