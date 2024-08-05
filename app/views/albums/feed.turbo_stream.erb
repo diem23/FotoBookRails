@@ -1,0 +1,13 @@
+<%= turbo_stream.append "albums" do%>
+    <% @resources.each_with_index do |ele,index|%>
+            <%= render  'shared/album_card', ele: ele, index: index, have_follow: false , from_page: "feed"%>
+    <% end %>
+<%end%>
+<% if user_signed_in?%>
+    <% if @resources.next_page%>
+        <%= turbo_stream.replace "load_more" do%>
+            <%= turbo_frame_tag "load_more", src:feed_album_path(page:@resources.next_page ,format: :turbo_stream), loading: :lazy %>
+        <%end%>
+    <%end%>
+    <%= turbo_stream.update "current_page", @resources.current_page %>
+<% end %>

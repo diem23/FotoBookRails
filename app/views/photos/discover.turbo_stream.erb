@@ -1,5 +1,8 @@
 <%= turbo_stream.append "photos" do%>
-    <%= render partial: "/shared/photo_card", collection: @resources%>
+    
+    <% @resources.each_with_index do |ele,index|%>
+        <%=render 'shared/photo_card', ele: ele, index: index , have_follow: true, from_page: "discover"%>
+    <% end %>
 <%end%>
 
 <% if @resources.next_page%>

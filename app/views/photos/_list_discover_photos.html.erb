@@ -4,7 +4,13 @@
         <p>There is no photo</p>
     </div>
 <% else %>
-    <% resources.each_with_index do |ele,index|%>
-        <%=render 'shared/photo_card', ele: ele, index: index , have_follow: true, from_page: "discover"%>
+    <div id="photos" class="w-100 row">
+        <%= turbo_frame_tag "photos", src: discover_photo_path(format: :turbo_stream), loading: :lazy %>
+    </div>
+    <% if user_signed_in? %>
+        <% if @resources.next_page %>
+            <%= turbo_frame_tag "load_more", src: discover_photo_path(page:  @resources.next_page, format: :turbo_stream), loading: :lazy %>
+        <% end %>
     <% end %>
+    
 <% end %>

@@ -8,8 +8,14 @@
         <p>Please follow some friends to have content in this page</p>
     </div>
 <% else %> 
-    
-    <% resources.each_with_index do |ele,index|%>
-            <%= render  'shared/album_card', ele: ele, index: index, have_follow: false , from_page: "feed"%>
+    <div id="albums" class="w-100 row">
+        <%= turbo_frame_tag "albums", src: feed_album_path(format: :turbo_stream), loading: :lazy %>
+    </div>
+    <% if user_signed_in? %>
+        <% if @resources.next_page %>
+            <%= turbo_frame_tag "load_more", src: feed_album_path(page:  @resources.next_page, format: :turbo_stream), loading: :lazy %>
+        <% end %>
     <% end %>
+
+    
 <% end %>

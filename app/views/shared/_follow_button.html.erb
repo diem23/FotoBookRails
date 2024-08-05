@@ -3,10 +3,10 @@
     <span>Follow</span>
     <p class="d-none"><%=id%></p>
 </button>
-<script>
-    let followBtns =  document.querySelectorAll('.follow-btn-<%=id.to_s%>')  
-    followBtns.forEach((btn)=>{
+<script>  
+    document.querySelectorAll('.follow-btn-<%=id.to_s%>').forEach((btn)=>{
         btn.addEventListener('click',function stopPropagation(event){
+            event.stopPropagation();
             debounceFollow(followAPI)(btn.querySelector('p').innerHTML)
     })
 })

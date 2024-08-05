@@ -81,20 +81,18 @@
             <% if user_signed_in? %>
                 <% puts current_user.firstName %>
                 <div class="right-side col-md-6 col-sm-6 row">
-                    <a href="#" class="col-md-8">
-                    <div class="personal-box">
-                        <%= button_to user_path(current_user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
-                                <div class="avt-box">
-                                    <%= render '/shared/display_image', ele: current_user.profileImg, className: "img-fluid"%>
-                                </div>
-                                <p><%=current_user.firstName%></p>
-                                <% end %>
-                            </div>
-                    </a>
-                    <a href="/authenticate/login" class="col-md-3 d-flex justify-content:center" >
-                        <%= button_to "logout", destroy_user_session_path, method: :delete, class: "logout-box h-100" %>
+                    <div class="col-md-8">
+                        <div class="personal-box">
+                            <%= button_to user_path(current_user.id), method: :get, class: "d-flex flex-row align-items-center justify-content-start gap-10" do %>
+                                    <div class="avt-box">
+                                        <%= render '/shared/display_image', ele: current_user.profileImg, className: "img-fluid"%>
+                                    </div>
+                                    <p><%=current_user.firstName%></p>
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content:center"><%= button_to "logout", destroy_user_session_path, method: :delete, class: "logout-box h-100" %></div>
                     
-                    </a>
                 </div>
             <% else %>
                 <div class="right-side  col-3 col-sm-2 ">
@@ -112,7 +110,3 @@
     </div>
   </body>
 </html>
-<script>
-    console.log("application.html.erb loaded")
-    
-</script>

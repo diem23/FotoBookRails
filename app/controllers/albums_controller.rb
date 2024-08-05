@@ -8,12 +8,14 @@ class AlbumsController < ApplicationController
     def feed
         @resources = []
         if user_signed_in?
-            @pagy,@resources = pagy(Album.where(user_id: @list_followings).where(isPrivate: false).includes(:user).order('created_at DESC'))
+            #@pagy,@resources = pagy(Album.where(user_id: @list_followings).where(isPrivate: false).includes(:user).order('created_at DESC'))
+            @resources = Album.where(user_id: @list_followings).where(isPrivate: false).includes(:user).order('created_at DESC').paginate(page: params[:page], per_page: 4)
         end
         
     end
     def discover
-        @pagy,@resources = pagy(Album.is_public.includes(:user))
+        #@pagy,@resources = pagy(Album.is_public.includes(:user))
+        @resources = Album.is_public.includes(:user).paginate(page: params[:page], per_page: 10)
     end
     def index
         @viewing_current_user = @user.id == current_user.id

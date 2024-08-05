@@ -6,12 +6,14 @@ class PhotosController < ApplicationController
     before_action :get_resource, only: [:edit, :update, :destroy]
     before_action :get_user, only: [:index, :new]
     def discover
-        @pagy,@resources = pagy(Photo.is_public.includes(:user))
+        #@pagy,@resources = pagy(Photo.is_public.includes(:user))
+        @resources = Photo.is_public.includes(:user).paginate(page: params[:page], per_page: 10)
     end
     def feed
         @resources = []
         if user_signed_in?
-            @pagy,@resources = pagy(Photo.where(user_id: @list_followings).where(isPrivate: false).includes(:user).order('created_at DESC'))
+            #@pagy,@resources = pagy(Photo.where(user_id: @list_followings).where(isPrivate: false).includes(:user).order('created_at DESC'))
+            @resources = Photo.where(user_id: @list_followings).where(isPrivate: false).includes(:user).order('created_at DESC').paginate(page: params[:page], per_page: 4)
         end
     end
     def index

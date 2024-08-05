@@ -4,9 +4,10 @@
     <p class="d-none"><%=id%></p>
 </button>
 <script>
-    let unfollowBtns =  document.querySelectorAll('.unfollow-btn-<%=id.to_s%>')  
-    unfollowBtns.forEach((btn)=>{
+      
+    document.querySelectorAll('.unfollow-btn-<%=id.to_s%>').forEach((btn)=>{
         btn.addEventListener('click',function stopPropagation(event){
+            event.stopPropagation();
             debounceFollow(unfollowAPI)(btn.querySelector('p').innerHTML)
     })
 })

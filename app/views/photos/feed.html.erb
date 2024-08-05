@@ -37,14 +37,8 @@
             </div>
             <div class="row w-100 feed_photo mt-4 mb-4 resources-container" >
                 <%=render 'list_feed_photos', resources: @resources%>
-            </div>
-            <%if @pagy%>
-                <div class=" w-100 d-flex justify-content-center mt-4">
-                            <%== pagy_bootstrap_nav(@pagy)%>
-                            
-                        </div>
-                </div>
-            <% end %>
+            </div> 
+            
         </div>
         <div class="col-0 col-lg-2"></div>
     </div> 
