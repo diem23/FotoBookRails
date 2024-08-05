@@ -8,6 +8,7 @@ Rails.application.config.assets.version = "1.0"
 
 # Precompile additional assets.
 Rails.application.config.assets.precompile += %w( jquery.js )
+Rails.application.config.assets.precompile += %w( rails-ujs.js )
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )

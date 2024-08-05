@@ -10,6 +10,7 @@ class AlbumsController < ApplicationController
         if user_signed_in?
             @pagy,@resources = pagy(Album.where(user_id: @list_followings).where(isPrivate: false).includes(:user).order('created_at DESC'))
         end
+        
     end
     def discover
         @pagy,@resources = pagy(Album.is_public.includes(:user))

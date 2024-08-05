@@ -95,4 +95,4 @@ gem "actionpack", "~> 7.1"
 gem "activejob", "~> 7.1"
 gem "railties", "~> 7.1"
 
-gem "webpacker", "~> 5.4"
+#gem "webpacker", "~> 5.4"
